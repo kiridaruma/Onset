@@ -8,7 +8,7 @@ session_start();
 		<title>Onset!</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
 		<script type="text/javascript" src="read.js"></script>
 		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Cache-Control" content="no-cache">
