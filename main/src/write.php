@@ -17,8 +17,8 @@ if($text === NULL || $name === NULL){	//テキストが空白ならエラーを�
 //var_dump($text);
 
 	//改行を<br>に
-$name = linebreak_br($name);
-$text = linebreak_br($text);
+$name = nl2br($name);
+$text = nl2br($text);
 
 $dice = dice($text);
 if($dice === FALSE){

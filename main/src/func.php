@@ -2,13 +2,6 @@
 
 require_once 'config.php';
 
-function linebreak_br($text){
-    $text = str_replace("\r\n", "<br>", $text);
-    $text = str_replace("\r", "<br>", $text);
-    $text = str_replace("\n", "<br>", $text);
-    return $text;
-}
-
 function num_check($num){
     return ctype_digit($num) && $num <= ROOM_LIMIT ? $num : FALSE;
 }

@@ -1,14 +1,23 @@
 function get_log(){
-	$.ajax({
-		url: "src/chatcheck.php",
-		type: "POST",
-		datatype: "html",
-		cache: false,
-		success: function(data){
-			if(data != "none"){
-				$("chat").html(data);
+
+	var old_data = $("chat").html();
+
+	function ajax(){
+		$.ajax({
+			url: "log/xxlogxx.txt",
+			type: "POST",
+			datatype: "html",
+			cache: false,
+			success: function(data){
+				if(data != old_data){
+					$("chat").html(data);
+					old_data = data;
+				}
+				setTimeout(ajax , 3000);
 			}
-			setTimeout(get_log , 1000);
-		}
-	});
+		});
+	}
+
+	ajax();
+
 }
