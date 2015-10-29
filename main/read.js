@@ -13,7 +13,7 @@ function get_log(){
 					$("chat").html(data);
 					old_data = data;
 				}
-				setTimeout(ajax , 3000);
+				setTimeout(function(){ajax()} , 3000);
 			}
 		});
 	}
