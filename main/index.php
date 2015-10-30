@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(isset($_SESSION['time'])){
+	$_SESSION['time'] = time();
+}
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +19,7 @@ session_start();
 	<body>
 
 		<form action="src/write.php" method="post">
-			<input type="text" id="name" value="<?php echo $_SESSION['name']; ?>"><br>
+			<input type="text" id="name" value="<?= $_SESSION['name'] ?>"><br>
 			<textarea id="text" rows="5" cols="50"></textarea><br>
 			<input type="button" value="送信" onclick="send_chat()">
 		</form>

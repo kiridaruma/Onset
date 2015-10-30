@@ -7,7 +7,6 @@ $name = $_POST['name'] != NULL ? trim(htmlspecialchars($_POST['name'] , ENT_QUOT
 $text = $_POST['text'] != NULL ? trim(htmlspecialchars($_POST['text'] , ENT_QUOTES)) : NULL;
 
 if($text === NULL || $name === NULL){	//テキストが空白ならエラーを返す
-	$_SESSION['name'] = "名前を入れて！";
 	header("Location: ../index.php");
 	die();
 }

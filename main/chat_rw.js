@@ -1,19 +1,22 @@
 function get_log(){
-
-	var old_data = $("chat").html();
+	
+	var time = Math.floor($.now());
 
 	function ajax(){
 		$.ajax({
-			url: "log/xxlogxx.txt",
+			url: "src/read.php",
 			type: "POST",
 			datatype: "html",
 			cache: false,
+			data: {
+				"time": time
+			},
 			success: function(data){
-				if(data != old_data){
+				if(data != "none"){
 					$("chat").html(data);
-					old_data = data;
+					time = Math.floor($.now());
 				}
-				setTimeout(function(){ajax()} , 3000);
+				setTimeout(function(){ajax();} , 1000);
 			}
 		});
 	}
