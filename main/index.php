@@ -9,16 +9,16 @@ session_start();
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
-		<script type="text/javascript" src="read.js"></script>
+		<script type="text/javascript" src="chat_rw.js"></script>
 		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Cache-Control" content="no-cache">
 	</head>
 	<body>
 
 		<form action="src/write.php" method="post">
-			<input type="text" name="name" value="<?php echo $_SESSION['name']; ?>"><br>
-			<textarea name="text" rows="5" cols="50"></textarea><br>
-			<input type="submit" name="send" value="送信">
+			<input type="text" id="name" value="<?php echo $_SESSION['name']; ?>"><br>
+			<textarea id="text" rows="5" cols="50"></textarea><br>
+			<input type="button" value="送信" onclick="send_chat()">
 		</form>
 
 

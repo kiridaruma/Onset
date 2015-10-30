@@ -21,3 +21,17 @@ function get_log(){
 	ajax();
 
 }
+
+function send_chat(){
+	var name = $("#name").val();
+	var text = $("#text").val();
+
+	$.ajax({
+		url: "src/write.php",
+		type: "POST",
+		data: {
+			"name": name,
+			"text": text
+		}
+	});
+}
