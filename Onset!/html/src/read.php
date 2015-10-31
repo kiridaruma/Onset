@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 $dir = "../log/xxlogxx.txt";
 $time = $_POST['time'];
 
