@@ -1,5 +1,5 @@
 function get_log(){
-	
+
 	var time = Math.floor($.now());
 
 	function ajax(){
@@ -14,7 +14,7 @@ function get_log(){
 			success: function(data){
 				if(data != "none"){
 					$("chat").html(data);
-					time = Math.floor($.now());
+					time = $.now();
 				}
 				setTimeout(function(){ajax();} , 1000);
 			}
