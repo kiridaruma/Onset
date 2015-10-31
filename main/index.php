@@ -1,8 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION['time'])){
-	$_SESSION['time'] = time();
-}
+
 ?>
 
 <!DOCTYPE html>
