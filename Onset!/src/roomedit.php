@@ -15,7 +15,7 @@ if(!$name || !$pass){
       die();
 }
 
-$dir = "../../room/";
+$dir = "../room/";
 
 switch ($mode) {
       case 'create':

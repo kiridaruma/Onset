@@ -3,7 +3,7 @@
       $rand = mt_rand();
       $_SESSION['onset_rand'] = $rand;
 
-      $roomlist = scandir('../room');
+      $roomlist = scandir('room');
             //カレントディレクトリと一つ上のディレクトリを消去
       foreach($roomlist as $key => $value){
       	if($value == "." || $value == ".."){
@@ -64,6 +64,6 @@
                  <input type="submit" value="削除" class="pure-button">
 
            </form></p>
-           
+
 </div><div class="pure-u-1-5"></div></div>
 </body></html>

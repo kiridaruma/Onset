@@ -1,6 +1,6 @@
 <?php
 
-$roomlist = scandir('../room');
+$roomlist = scandir('room');
       //カレントディレクトリと一つ上のディレクトリを消去
 foreach($roomlist as $key => $value){
 	if($value == "." || $value == ".."){

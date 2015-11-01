@@ -29,18 +29,18 @@ if(!isset($_SESSION['onset_room']) || !isset($_SESSION['onset_key'])){
 		<div class="pure-u-1-5"></div>
 		<div class="pure-u-3-5">
 
-		<form action="src/write.php" method="post">
+		<p><form action="src/write.php" method="post">
 			<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>><br>
 			<textarea id="text" rows="5" cols="30"></textarea><br>
 			<input type="button" value="送信" onclick='send_chat(<?= $arg ?>)' class="pure-button">
-		</form>
+		</form></p>
 
 
 
 		<br><hr>
 		<script>$(document).ready(function(){get_log(<?= $arg ?>);});</script>
 		<font size="2">
-		<chat><?php echo file_get_contents("../room/{$_SESSION['onset_room']}/xxlogxx.txt"); ?></chat>
+		<chat><?php echo file_get_contents("room/{$_SESSION['onset_room']}/xxlogxx.txt"); ?></chat>
 
 	</div><div class="pure-u-1-5"><div>
 	</div>

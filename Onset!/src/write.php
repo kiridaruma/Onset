@@ -12,7 +12,7 @@ if($text === NULL || $name === NULL){
 	die();
 }
 
-$dir = "../../room/{$room}/";
+$dir = "../room/{$room}/";
 if($key != file_get_contents("{$dir}/key.txt")){
 	die();
 }

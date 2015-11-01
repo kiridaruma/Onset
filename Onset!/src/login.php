@@ -11,12 +11,12 @@ if(!$name || !$pass || !$room){
 
 $room = str_replace("/", "／", $room);
 
-if(!file_exists("../../room/{$room}")){
+if(!file_exists("../room/{$room}")){
       echo "存在しない部屋です(ブラウザバックをお願いします)";
       die();
 }
 
-$hash = file_get_contents("../../room/{$room}/pass.hash");
+$hash = file_get_contents("../room/{$room}/pass.hash");
 
 if(!password_verify($pass, $hash)){
       echo "パスワードが間違っています(ブラウザバックをお願いします)";
@@ -25,6 +25,6 @@ if(!password_verify($pass, $hash)){
 
 session_start();
 $_SESSION['onset_name'] = $name;
-$_SESSION['onset_key'] = file_get_contents("../../room/{$room}/key.txt");
+$_SESSION['onset_key'] = file_get_contents("../room/{$room}/key.txt");
 $_SESSION['onset_room'] = $room;
 header("Location: ../Onset.php");
