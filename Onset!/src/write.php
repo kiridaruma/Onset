@@ -24,6 +24,10 @@ if($key != file_get_contents("{$dir}/key.txt")){
 $name = nl2br($name);
 $text = nl2br($text);
 
+if(preg_match('/((?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/u', $text) != 0){
+	url_replace($text);
+}
+
 $dice = dice($text);
 if($dice === FALSE){
 	$dice_roll = "";

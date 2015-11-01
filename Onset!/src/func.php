@@ -6,6 +6,12 @@ function num_check($num){
     return ctype_digit($num) && $num <= ROOM_LIMIT ? $num : FALSE;
 }
 
+function url_replace(&$text){
+      $pattern = '/((?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/u';
+      $rep = '<a href="\1">\1</a>'
+      $text = preg_replace($pattern, $rep, $text);
+}
+
     //ダイスコマンドはかなりスパゲッティになってます
 function dice($text){
 if(preg_match("/[1-9]\d?[dD][1-9]\d{0,2}([-+][1-9]\d?[dD][1-9]\d{0,2}|[-+][1-9]\d{0,2})*/", $text, $match) === 0){
