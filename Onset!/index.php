@@ -24,6 +24,10 @@ foreach($roomlist as $key => $value){
 
 	<body>
 
+		<div class="pure-g">
+		<div class="pure-u-1-24"></div>
+		<div class="pure-u-23-24">
+
 		<p><h1>Onset!</h1><br></p>
 
 		<form action="src/login.php" method="post" class="pure-form-stacked">
@@ -48,5 +52,7 @@ foreach($roomlist as $key => $value){
 		<p><a href="edit.php">部屋の作成/削除</a></p>
 		<br><br>
 		<p><a href= "https://github.com/kiridaruma/Onset">ソース</a></p>
+
+	</div></div>
 
   </body></html>
