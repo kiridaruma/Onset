@@ -8,7 +8,7 @@ function num_check($num){
 
 function url_replace($text){
       $pattern = '/((?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/u';
-      $rep = '<a href="\1">\1</a>'
+      $rep = '<a href="\1">\1</a>';
       $text = preg_replace($pattern, $rep, $text);
       return $text;
 }
