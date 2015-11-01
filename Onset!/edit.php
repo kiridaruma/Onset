@@ -25,8 +25,8 @@
 	</head>
 
       <body>
-            <div class="pure-g"><div class="pure-u-1-5"></div>
-            <div class="pure-u-2-5">
+            <div class="pure-g"><div class="pure-u-3-24"></div>
+            <div class="pure-u-18-24">
 
             <p><h3>作成</h3><br>
 
@@ -61,5 +61,5 @@
 
            </form></p>
 
-</div><div class="pure-u-1-5"></div></div>
+</div><div class="pure-u-3-24"></div></div>
 </body></html>

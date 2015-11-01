@@ -26,8 +26,8 @@ if(!isset($_SESSION['onset_room']) || !isset($_SESSION['onset_key'])){
 	<body><font size="2">
 
 		<div class="pure-g">
-		<div class="pure-u-1-5"></div>
-		<div class="pure-u-3-5">
+		<div class="pure-u-3-24"></div>
+		<div class="pure-u-18-24">
 
 		<p><form action="src/write.php" method="post">
 			<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>><br>
@@ -42,7 +42,7 @@ if(!isset($_SESSION['onset_room']) || !isset($_SESSION['onset_key'])){
 		<font size="2">
 		<chat><?php echo file_get_contents("room/{$_SESSION['onset_room']}/xxlogxx.txt"); ?></chat>
 
-	</div><div class="pure-u-1-5"><div>
+	</div><div class="pure-u-3-24"><div>
 	</div>
 		</font>
 

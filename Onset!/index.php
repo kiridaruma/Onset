@@ -24,9 +24,9 @@ foreach($roomlist as $key => $value){
 
 	<body>
 		<div class="pure-g">
-		<div class="pure-u-1-5"></div>
+		<div class="pure-u-3-24"></div>
 
-		<div class="pure-u-3-5">
+		<div class="pure-u-18-24">
 
 		<p><h1>Onset!</h1><br></p>
 
@@ -54,6 +54,6 @@ foreach($roomlist as $key => $value){
 		<p><a href= "https://github.com/kiridaruma/Onset">ソース</a></p>
 
 	</div>
-	<div class="pure-u-1-5"></div>
+	<div class="pure-u-3-24"></div>
 	</div>
   </body></html>
