@@ -1,9 +1,9 @@
 <?php
 
 $roomlist = scandir('room');
-      //カレントディレクトリと一つ上のディレクトリを消去
+      //カレントディレクトリと一つ上のディレクトリとhtaccessを消去
 foreach($roomlist as $key => $value){
-	if($value == "." || $value == ".."){
+	if($value == "." || $value == ".." || $value == ".htaccess"){
 		unset($roomlist[$key]);
 	}
 }
@@ -40,15 +40,11 @@ foreach($roomlist as $key => $value){
 		<li class="pure-menu-heading">部屋一覧</li><br>
 
                    <?php
-                   if($roomlist[2] == NULL){
-                        echo "部屋がありません";
-                  }else{
-	 		      foreach($roomlist as $value){
-					echo "<li class=\"pure-menu-item\">";
-	       		      echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
-                              echo "</li>";
-	 		      }
-                  }
+	 		foreach($roomlist as $value){
+				echo "<li class=\"pure-menu-item\">";
+	       	      echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
+                        echo "</li>";
+	 		}
 	 		?></ul>
 			</p>
 		</form>

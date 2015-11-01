@@ -4,9 +4,9 @@
       $_SESSION['onset_rand'] = $rand;
 
       $roomlist = scandir('room');
-            //カレントディレクトリと一つ上のディレクトリを消去
+            //カレントディレクトリと一つ上のディレクトリと.htaccessを消去
       foreach($roomlist as $key => $value){
-      	if($value == "." || $value == ".."){
+      	if($value == "." || $value == ".." || $value == ".htaccess"){
       		unset($roomlist[$key]);
       	}
       }
@@ -46,13 +46,9 @@
                   <form action="src/roomedit.php" method="post" class="pure-form-stacked">
 
                   <?php
-                  if($roomlist[2] == NULL){
-                       echo "部屋がありません<br>";
-                 }else{
-                       foreach($roomlist as $value){
-                              echo "<input type=\"radio\" name=\"name\" value=\"{$value}\">{$value}";
-                              echo "<br>";
-                       }
+                 foreach($roomlist as $value){
+                        echo "<input type=\"radio\" name=\"name\" value=\"{$value}\">{$value}";
+                        echo "<br>";
                  }
                  ?>
 
