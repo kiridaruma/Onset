@@ -47,7 +47,7 @@
                         <li class="pure-menu-heading">削除する部屋</li>
                   <?php
                  foreach($roomlist as $value){
-                       echo "<li class=\"pure-menu-item\">"
+                       echo "<li class=\"pure-menu-item\">";
                        echo "<input type=\"radio\" name=\"name\" value=\"{$value}\">{$value}";
                        echo "</li>";
                  }
