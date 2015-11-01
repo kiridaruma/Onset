@@ -1,11 +1,11 @@
 <?php
 
 $roomlist = scandir('../room');
-
-for($i = 0; $i < count($roomlist); $i++){
-      if($roomlist[$i] == "." || $roomlist[$i] == ".."){
-            unset($roomlist[$i]);
-      }
+      //カレントディレクトリと一つ上のディレクトリを消去
+foreach($roomlist as $key => $value){
+	if($value == "." || $value == ".."){
+		unset($roomlist[$key]);
+	}
 }
 
 ?>
@@ -20,28 +20,19 @@ for($i = 0; $i < count($roomlist); $i++){
 	</head>
 	<body><font size="2">
 		<form action="src/login.php" method="post">
-	       <p>名前:<input type="text" name="name"><br>
-	       パス:<input type="password" name="pass"></p>
-
-	       <p><?php
-
-	 		echo "部屋一覧<br>";
-			$count = 1;
-	 		foreach($roomlist as $value){
-	       		echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
-				if($count % 3 == 0){
-					echo "<br>";
-				}
-	 		}
-
-	 		?>
-	  <br><input type="submit" value="入室"></form></p>
-	  <br><br><br>
-	  <p>部屋の作成/削除<br>
-	  <form action="src/roomedit.php" method="post">
-		  <input type="radio" name="mode" value="create">作成<br>
-		  <input type="radio" name="mode" value="del">削除<br>
-		  
-		  <input>
-	  </form></p></font>
+	       <p>名前:<input type="text" name="name" value="名無し"><br>
+	       パス:<input type="password" name="pass"><br>
+             <input type="submit" value="入室"></p>
+	       <p>部屋一覧<br>
+                   <?php
+                   if($roomlist[2] == NULL){
+                        echo "部屋がありません";
+                  }else{
+	 		      foreach($roomlist as $value){
+	       		       echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
+                               echo "<br>";
+	 		      }
+                  }
+	 		?></p></form>
+                  <a href="edit.php">部屋の作成/削除</a>
   </body></html>

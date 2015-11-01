@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-if(isset($_SESSION['onset_room']) || isset($_SESSION['onset_key'])){
+if(!isset($_SESSION['onset_room']) || !isset($_SESSION['onset_key'])){
 	header("Location: index.php");
 	die();
 }else{
-	$arg = "\"{$_SESSION['onset_room']}, {$_SESSION['onset_key']}\"";
+	$arg = "\"{$_SESSION['onset_room']}\", \"{$_SESSION['onset_key']}\"";
 }
 
 ?>
@@ -26,7 +26,7 @@ if(isset($_SESSION['onset_room']) || isset($_SESSION['onset_key'])){
 		<form action="src/write.php" method="post">
 			<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>><br>
 			<textarea id="text" rows="5" cols="50"></textarea><br>
-			<input type="button" value="送信" onclick="send_chat(<?= $arg ?>)">
+			<input type="button" value="送信" onclick='send_chat(<?= $arg ?>)'>
 		</form>
 
 

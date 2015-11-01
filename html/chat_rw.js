@@ -28,8 +28,8 @@ function get_log(room, key){
 }
 
 function send_chat(room, key){
-	var name = $.("#name").val();
-	var text = $.("#text").val();
+	var name = $("#name").val();
+	var text = $("#text").val();
 
 	$.ajax({
 		url: "src/write.php",
@@ -41,10 +41,9 @@ function send_chat(room, key){
 			"key": key
 		},
 		success: function(){
-			$.("#name").val("");
-			$.("#text").val("");
-			var chat = $.("chat").html();
-			$.("chat").html("送信中...<br>" + chat);
+			$("#text").val("");
+			var chat = $("chat").html();
+			$("chat").html("送信中...<br><hr>" + chat);
 		}
 	});
 }

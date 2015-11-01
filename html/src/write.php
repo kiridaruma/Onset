@@ -6,8 +6,14 @@ require 'func.php';
 $name = $_POST['name'] != NULL ? trim(htmlspecialchars($_POST['name'] , ENT_QUOTES)) : NULL;
 $text = $_POST['text'] != NULL ? trim(htmlspecialchars($_POST['text'] , ENT_QUOTES)) : NULL;
 $room = $_POST['room'];
+$key = $_POST['key'];
 
-if($text === NULL || $name === NULL){	//テキストが空白ならエラーを返す
+if($text === NULL || $name === NULL){
+	die();
+}
+
+$dir = "../../room/{$room}/";
+if($key != file_get_contents("{$dir}/key.txt")){
 	die();
 }
 
@@ -34,7 +40,7 @@ $line = date("Y/m/d G:i:s")."&#009;".$name."<br>".$text."<br>".$dice_roll."<hr><
 //var_dump($line);
 
 
-$line = $line.file_get_contents("../log/xxlogxx.txt");
-file_put_contents("../log/xxlogxx.txt", $line);
+$line = $line.file_get_contents("{$dir}xxlogxx.txt");
+file_put_contents("{$dir}xxlogxx.txt", $line);
 
 ?>
