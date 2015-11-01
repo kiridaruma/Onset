@@ -6,10 +6,11 @@ function num_check($num){
     return ctype_digit($num) && $num <= ROOM_LIMIT ? $num : FALSE;
 }
 
-function url_replace(&$text){
+function url_replace($text){
       $pattern = '/((?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/u';
       $rep = '<a href="\1">\1</a>'
       $text = preg_replace($pattern, $rep, $text);
+      return $text;
 }
 
     //ダイスコマンドはかなりスパゲッティになってます
