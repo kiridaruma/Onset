@@ -27,7 +27,7 @@ if(!isset($_SESSION['onset_room']) || !isset($_SESSION['onset_key'])){
 
 		<div class="pure-g">
 		<div class="pure-u-1-24"></div>
-		<div class="pure-u-23-24">
+		<div class="pure-u-22-24">
 
 		<p><form action="src/write.php" method="post">
 			<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>><br>
@@ -44,7 +44,7 @@ if(!isset($_SESSION['onset_room']) || !isset($_SESSION['onset_key'])){
 
 		</font>
 
-	</div></div>
+	</div><div class="pure-u-1-24"></div></div>
 
 	</body>
 </html>

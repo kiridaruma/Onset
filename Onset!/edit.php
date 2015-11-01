@@ -27,7 +27,7 @@
       <body>
             <div class="pure-g">
             <div class="pure-u-1-24"></div>
-            <div class="pure-u-23-24">
+            <div class="pure-u-22-24">
 
             <p><h3>作成</h3><br>
 
@@ -66,6 +66,6 @@
 
            </form></p>
 
-     </div></div>
+     </div><div class="pure-u-1-24"></div></div>
 
 </body></html>
