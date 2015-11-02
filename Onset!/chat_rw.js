@@ -29,8 +29,8 @@ function get_log(room, key){
 
 function send_chat(room, key){
 
-	var name = $("#name").val();
-	var text = $("#text").val();
+	var name = $("#name").val().trim();
+	var text = $("#text").val().trim();
 
 	if(name == "" || text == ""){
 		return 0;
