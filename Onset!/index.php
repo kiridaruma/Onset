@@ -36,16 +36,16 @@ foreach($roomlist as $key => $value){
 	       パスワード<input type="password" name="pass"><br>
              <input type="submit" value="入室" class="pure-button"></p>
 
-	      <p><ul class="pure-menu-list">
-		<li class="pure-menu-heading">部屋一覧</li><br>
+	      <p><table class="pure-tabels">
+		<th>部屋一覧</th>
 
                    <?php
 	 		foreach($roomlist as $value){
-				echo "<li class=\"pure-menu-item\">";
+				echo "<tr><td>";
 	       	      echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
-                        echo "</li>";
+                        echo "</td></tr>";
 	 		}
-	 		?></ul>
+	 		?></table>
 			</p>
 		</form>
 

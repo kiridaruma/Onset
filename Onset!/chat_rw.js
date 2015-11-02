@@ -28,8 +28,13 @@ function get_log(room, key){
 }
 
 function send_chat(room, key){
+
 	var name = $("#name").val();
 	var text = $("#text").val();
+
+	if(name == "" || text == ""){
+		return 0;
+	}
 
 	$.ajax({
 		url: "src/write.php",
