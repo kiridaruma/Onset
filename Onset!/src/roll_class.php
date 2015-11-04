@@ -2,6 +2,7 @@
 
 class Roll{
 
+
             //ダイスロールの結果
             //これがチャットの本文の下に付く
             //ダイスロール系はこの変数に.=してください
@@ -43,37 +44,43 @@ class Roll{
 
             //nDxダイスロール
       private function dice(){
-            if(preg_match("/[1-9]\d?[dD][1-9]\d{0,2}([-+][1-9]\d?[dD][1-9]\d{0,2}|[-+][1-9]\d{0,2})*/", $this->text, $match) === 0){
+            if(preg_match("/[1-9]\d?[dD][1-9]\d{0,2}([-+][1-9]\d?[dD][1-9]\d{0,2}|[-+][1-9]\d{0,2}){0,4}/", $this->text, $match) === 0){
                   return FALSE;   //ダイスコマンドにマッチしない場合
             }else{      //ダイスコマンドにマッチする場合
                   //まずコマンドを[-+]で分ける
                   preg_match_all("/([-+]?[1-9]\d?[dD][1-9]\d{0,2}|[-+][1-9]\d?)/", $match[0], $matched, PREG_PATTERN_ORDER);
 
-                  foreach ($matched[0] as $key => $value) {  //わけられたコマンドを一つづつ処理していく
-                         if(stripos($value, "d") !== FALSE){ //nDxコマンドの処理
-                               $split = preg_split("/[dD]/", $value);
-                               if(strpos($split[0], "-") !== FALSE){   //コマンドがマイナスの処
-                                     $roll[$key]["check"] = "minus";
+                  for($i = 0; $i < count($matched[0]); $i++) {  //わけられたコマンドを一つづつ処理していく
+
+                         if(stripos($matched[0][$i], "d") !== FALSE){ //nDxコマンドの処理
+                               $split = preg_split("/[dD]/", $matched[0][$i]);
+                               if(strpos($split[0], "-") !== FALSE){   //コマンドがマイナスの処理
+                                     $roll[$i]["check"] = "minus";
                                      $dice_count = substr($split[0], 1);
                                }elseif(strpos($split[0], "+") !== FALSE){  //コマンドがプラスの処理
-                                     $roll[$key]["check"] = "plus";
+                                     $roll[$i]["check"] = "plus";
                                      $dice_count = substr($split[0], 1);
                                }else{  //コマンドが符号なし(ひとつ目のコマンド)の処理
-                                     $roll[$key]["check"] = "plus";
+                                     $roll[$i]["check"] = "plus";
                                      $dice_count = $split[0];
                                }
 
-                               for ($i=0; $i < $dice_count; $i++) {  //実際にダイスを振る処理
-                                     $roll[$key]["dice"][$i] = mt_rand(1, $split[1]);
+                               if($dice_count > 20){      //ダイスの個数を20個に制限
+                                     $this->result .= "nDx:err/ダイスの個数が多すぎます<br>\n";
+                                      return FALSE;
+                               }
+
+                               for ($j=0; $j < $dice_count; $j++) {  //実際にダイスを振る処理
+                                    $roll[$i]["dice"][$j] = mt_rand(1, $split[1]);
                                }
 
                          }else{  //定数の処理
-                               if(strpos($value, "-") !== FALSE){  //マイナスの定数の処理
-                                     $roll[$key]["check"] = "constant/minus";
-                                     $roll[$key]["dice"] = str_replace("-", "", $value);
-                               }elseif(strpos($value, "+") !== FALSE){ //プラスの定数の処理
-                                     $roll[$key]["check"] = "constant/plus";
-                                     $roll[$key]["dice"] = str_replace("+", "", $value);
+                               if(strpos($matched[0][$i], "-") !== FALSE){  //マイナスの定数の処理
+                                     $roll[$i]["check"] = "constant/minus";
+                                     $roll[$i]["dice"] = str_replace("-", "", $matched[0][$i]);
+                               }elseif(strpos($matched[0][$i], "+") !== FALSE){ //プラスの定数の処理
+                                     $roll[$i]["check"] = "constant/plus";
+                                     $roll[$i]["dice"] = str_replace("+", "", $matched[0][$i]);
                                }
                          }
                    }
@@ -102,7 +109,7 @@ class Roll{
                   //先頭の[-+]を消す
             $return["text"] = ltrim($return["text"], "+");
             $return["text"] = ltrim($return["text"], "-");
-            $this->result .= "{$return['text']}→{$return['num']}\n";
+            $this->result .= "{$return['text']}→{$return['num']}<br>\n";
 
             }
       }

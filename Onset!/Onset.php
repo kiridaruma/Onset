@@ -35,7 +35,7 @@ if(!isset($_SESSION['onset_room']) || !isset($_SESSION['onset_key'])){
 			<input type="button" value="送信" onclick='send_chat(<?= $arg ?>)' class="pure-button">
 		</form></p>
 
-
+		<err></err>
 
 		<br><hr>
 		<script>$(document).ready(function(){get_log(<?= $arg ?>);});</script>

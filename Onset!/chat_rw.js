@@ -33,6 +33,12 @@ function send_chat(room, key){
 	var text = $("#text").val().trim();
 
 	if(name == "" || text == ""){
+		$("err").html("名前と本文を入力してください");
+		return 0;
+	}
+
+	if(name.length > 20 || text.length > 300){
+		$("err").html("文字数が多すぎます");
 		return 0;
 	}
 
