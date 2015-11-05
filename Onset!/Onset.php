@@ -1,11 +1,9 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['onset_room']) || !isset($_SESSION['onset_key'])){
+if(!isset($_SESSION['onset_room'])){
 	header("Location: index.php");
 	die();
-}else{
-	$arg = "\"{$_SESSION['onset_room']}\", \"{$_SESSION['onset_key']}\"";
 }
 
 ?>
@@ -32,13 +30,13 @@ if(!isset($_SESSION['onset_room']) || !isset($_SESSION['onset_key'])){
 		<p><form action="src/write.php" method="post">
 			<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>><br>
 			<textarea id="text" rows="5" cols="30"></textarea><br>
-			<input type="button" value="送信" onclick='send_chat(<?= $arg ?>)' class="pure-button">
+			<input type="button" value="送信" onclick="send_chat()" class="pure-button">
 		</form></p>
 
 		<err></err>
 
 		<br><hr>
-		<script>$(document).ready(function(){get_log(<?= $arg ?>);});</script>
+		<script>$(document).ready(function(){get_log();});</script>
 		<font size="2">
 		<chat><?php echo file_get_contents("room/{$_SESSION['onset_room']}/xxlogxx.txt"); ?></chat>
 

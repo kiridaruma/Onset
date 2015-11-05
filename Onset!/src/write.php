@@ -3,21 +3,19 @@ session_start();
 require 'roll_class.php';
 
 
-$name = isset($_POST['name']) && $_POST['name'] != NULL ? trim(htmlspecialchars($_POST['name'] , ENT_QUOTES)) : NULL;
-$text = isset($_POST['text']) && $_POST['text'] != NULL ? trim(htmlspecialchars($_POST['text'] , ENT_QUOTES)) : NULL;
-$room = $_POST['room'];
-$key = $_POST['key'];
+$name = isset($_POST['name']) && $_POST['name'] != NULL ? trim(htmlspecialchars($_POST['name'] , ENT_QUOTES)) : FALSE;
+$text = isset($_POST['text']) && $_POST['text'] != NULL ? trim(htmlspecialchars($_POST['text'] , ENT_QUOTES)) : FALSE;
+$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
 
-if($text === NULL || $name === NULL){
+if(!$text || !$name || !$room){
+	echo "不正なアクセス:invalid_access";
 	die();
 }
 
 $dir = "../room/{$room}/";
-if($key != file_get_contents("{$dir}/key.txt")){
-	die();
-}
 
 if(mb_strlen($text) > 300 || mb_strlen($name) > 20){	//チャット本文は300字､名前は20字で制限
+	echo "文字数が多すぎます";
 	die();
 }
 

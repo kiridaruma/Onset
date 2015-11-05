@@ -1,15 +1,16 @@
 <?php
 
-$time = $_POST['time'];
-$room = $_POST['room'];
-$key = $_POST['key'];
+session_start();
 
-$dir = "../room/{$room}/";
+$time = isset($_POST['time']) && $_POST['time'] != NULL ? $_POST['time'] : FALSE;
+$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
 
-if($key != file_get_contents("{$dir}key.txt")){
+if(!$time || !$room){
       echo "不正なアクセス：invalid_access";
       die();
 }
+
+$dir = "../room/{$room}/";
 
 if($time < filemtime("{$dir}xxlogxx.txt") * 1000){
       echo file_get_contents("{$dir}xxlogxx.txt");

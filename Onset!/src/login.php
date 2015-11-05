@@ -25,6 +25,5 @@ if(!password_verify($pass, $hash)){
 
 session_start();
 $_SESSION['onset_name'] = $name;
-$_SESSION['onset_key'] = file_get_contents("../room/{$room}/key.txt");
 $_SESSION['onset_room'] = $room;
 header("Location: ../Onset.php");

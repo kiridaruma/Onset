@@ -15,6 +15,11 @@ if(!$name || !$pass){
       die();
 }
 
+if(mb_strlen($name) > 30){
+      echo "部屋名が長過ぎます";
+      die();
+}
+
 $dir = "../room/";
 
 switch ($mode) {
