@@ -38,14 +38,11 @@ switch ($mode) {
             mkdir($dir.$name);
             touch("{$dir}{$name}/pass.hash");
             touch("{$dir}{$name}/xxlogxx.txt");
-            touch("{$dir}{$name}/key.txt");
 
             chmod($dir.$name, 0777);
             chmod("{$dir}{$name}/pass.hash", 0666);
             chmod("{$dir}{$name}/xxlogxx.txt", 0666);
-            chmod("{$dir}{$name}/key.txt", 0666);
             file_put_contents("{$dir}{$name}/pass.hash", $hash);
-            file_put_contents("{$dir}{$name}/key.txt", mt_rand());
 
             header("Location: ../index.php");
 

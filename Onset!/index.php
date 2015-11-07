@@ -29,11 +29,13 @@ foreach($roomlist as $key => $value){
 		<div class="pure-u-22-24">
 
 		<p><h1>Onset!</h1><br></p>
+		<br>
+		<p>PC/携帯問わず､気軽にできる軽量trpg向けチャット</p>
 
 		<form action="src/login.php" method="post" class="pure-form-stacked">
 
-	       <p>名前<input type="text" name="name" value="名無し"><br>
-	       パスワード<input type="password" name="pass"><br>
+	       <p>名前<input type="text" name="name" placeholder="名前"><br>
+	       パスワード<input type="password" name="pass" placeholder="パスワード"><br>
              <input type="submit" value="入室" class="pure-button"></p>
 
 	      <p><table class="pure-tabels">
