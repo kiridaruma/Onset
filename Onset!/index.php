@@ -28,9 +28,8 @@ foreach($roomlist as $key => $value){
 		<div class="pure-u-1-24"></div>
 		<div class="pure-u-22-24">
 
-		<p><h1>Onset!</h1><br></p>
-		<br>
-		<p>PC/携帯問わず､気軽にできる軽量trpg向けチャット</p>
+		<p><h1>Onset!</h1></p>
+		<p>PC/携帯問わず､気軽にできる軽量TRPG向けチャット</p><br>
 
 		<form action="src/login.php" method="post" class="pure-form-stacked">
 
@@ -50,6 +49,8 @@ foreach($roomlist as $key => $value){
 	 		?></table>
 			</p>
 		</form>
+
+		<br>
 
 		<p><a href="edit.php">部屋の作成/削除</a></p>
 		<br><br>
