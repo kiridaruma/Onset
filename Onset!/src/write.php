@@ -38,5 +38,6 @@ $line = date("Y/m/d G:i:s")."&#009;<b>{$name}</b><br>\n{$roll->text()}<br><b>{$r
 
 $line = $line.file_get_contents("{$dir}xxlogxx.txt");
 file_put_contents("{$dir}xxlogxx.txt", $line);
+$_SESSION['onset_name'] = $name;
 
 ?>
