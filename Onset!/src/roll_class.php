@@ -44,7 +44,7 @@ class Roll{
 
             //nDxダイスロール
       private function dice(){
-            if(preg_match("/[1-9]\d?[dD][1-9]\d{0,2}([-+][1-9]\d?[dD][1-9]\d{0,2}|[-+][1-9]\d{0,2})*/", $this->text, $match) === 0){
+            if(preg_match("/[1-9]\d?[dD][1-9]\d{0,2}([-+][1-9]\d?[dD][1-9]\d{0,2}|[-+][1-9]\d{0,2}){0,4}/", $this->text, $match) === 0){
                   return FALSE;   //ダイスコマンドにマッチしない場合
             }else{      //ダイスコマンドにマッチする場合
                   //まずコマンドを[-+]で分ける
