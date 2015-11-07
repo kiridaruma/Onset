@@ -19,6 +19,7 @@ class Roll{
 
             $this->url_replace();
             $this->dice();
+            $this->CoC_res();
       }
 
             //置換した文字列を返す
@@ -113,6 +114,30 @@ class Roll{
             $return["text"] = ltrim($return["text"], "-");
             $this->result .= "{$return['text']}→{$return['num']}<br>\n";
 
+            }
+      }
+
+      private function CoC_res(){
+            if(preg_match("/res\([1-9]\d?-[1-9]\d?\)/", $this->text, $match) === 0){
+                  return 0;
+            }
+
+            $hyphen = preg_replace("/(res\(|\))/", "", $match[0]);
+            $arr = explode("-", $hyphen);
+            $success = 50 + 5*($arr[0] - $arr[1]);
+
+            if($success <= 0){
+                  $this->result .= "自動失敗<br>\n";
+            }elseif ($success >= 100) {
+                  $this->result .= "自動成功<br>\n";
+            }else{
+                  $rand = mt_rand(1,100);
+                  if($rand <= $success){
+                        $res = "成功";
+                  }else{
+                        $res = "失敗";
+                  }
+                  $this->result .= "目標値{$success}→ダイス結果{$rand}({$res})<br>\n";
             }
       }
 
