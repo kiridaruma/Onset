@@ -45,40 +45,31 @@ class Roll{
 
             //nDxダイスロール
       private function dice(){
-            if(preg_match("/[1-9]\d?[dD][1-9]\d{0,2}([-+][1-9]\d?[dD][1-9]\d{0,2}|[-+][1-9]\d{0,2}){0,4}((<|>|<=|>=)[1-9]\d{0,2})?/", $this->text, $match) === 0){
+            if(preg_match("/[1-9]\d?[dD][1-9]\d{0,2}([-+][1-9]\d?[dD][1-9]\d{0,2}|[-+][1-9]\d{0,2}){0,4}((&lt;=|&gt;=)[1-9]\d{0,2})?/", $this->text, $match) === 0){
                   return FALSE;   //ダイスコマンドにマッチしない場合
             }
 
-                  /*
-                  kiridaruma_memo
-                  comparison[0]は(<=|>=|<|>)[1-9]\d{0,2}
-                  comp_state[0]は(<=|>=|<|>)
-                  decision_value[0]は目標値([1-9]\d{0,2})が入っている
-                  */
                         //大なり､小なりが含まれていた場合
-                        //注意! 現在､以下のif文はスルーされます(原因不明)
-            if(preg_match("/((<|>|<=|>=)[1-9]\d{0,2})/", $matche[0], $comparison) == 1){
+            if(preg_match("/(&lt;=|&gt;=)[1-9]\d{0,2}/", $match[0], $comparison) === 1){
                   $match[0] = str_replace($comparison[0], "", $match[0]);
 
-                  preg_match("/(<|>|<=|>=)/", $comparison[0], $comp_state);
+                  preg_match("/(&lt;=|&gt;=)/", $comparison[0], $comp_state);
                   $decision_value = str_replace($comp_state[0], "", $comparison[0]);
-
             }
-
                   //まずコマンドを[-+]で分ける
             preg_match_all("/([-+]?[1-9]\d?[dD][1-9]\d{0,2}|[-+][1-9]\d?)/", $match[0], $matched, PREG_PATTERN_ORDER);
 
             for($i = 0; $i < count($matched[0]); $i++) {  //わけられたコマンドを一つづつ処理していく
 
-                  if(stripos($matched[0][$i], "d") !== FALSE){ //nDxコマンドの処理
+                  if(stripos($matched[0][$i], "d") !== FALSE){    //nDxコマンドの処理
                         $split = preg_split("/[dD]/", $matched[0][$i]);
-                        if(strpos($split[0], "-") !== FALSE){   //コマンドがマイナスの処理
+                        if(strpos($split[0], "-") !== FALSE){     //コマンドがマイナスの処理
                               $roll[$i]["check"] = "minus";
                               $dice_count = substr($split[0], 1);
-                        }elseif(strpos($split[0], "+") !== FALSE){  //コマンドがプラスの処理
+                        }elseif(strpos($split[0], "+") !== FALSE){      //コマンドがプラスの処理
                               $roll[$i]["check"] = "plus";
                               $dice_count = substr($split[0], 1);
-                        }else{  //コマンドが符号なし(ひとつ目のコマンド)の処理
+                        }else{      //コマンドが符号なし(ひとつ目のコマンド)の処理
                               $roll[$i]["check"] = "plus";
                               $dice_count = $split[0];
                         }
@@ -94,7 +85,7 @@ class Roll{
                               $roll[$i]["dice"][$j] = mt_rand(1, $split[1]);
                         }
 
-                  }else{  //定数の処理
+                  }else{      //定数の処理
                         if(strpos($matched[0][$i], "-") !== FALSE){  //マイナスの定数の処理
                               $roll[$i]["check"] = "constant/minus";
                               $roll[$i]["dice"] = str_replace("-", "", $matched[0][$i]);
@@ -134,29 +125,15 @@ class Roll{
 
                   //大なり､小なりがあった時の処理
             switch ($comp_state[0]) {
-                  case '<':
-                        if($return['num'] < $decision_value){
+                  case '&lt;=':
+                        if($return['num'] <= (int)$decision_value){
                               $res = "成功";
                         }else{
                               $res = "失敗";
                         }
                   break;
-                  case '>':
-                        if($return['num'] > $decision_value){
-                              $res = "成功";
-                        }else{
-                              $res = "失敗";
-                        }
-                  break;
-                  case '<=':
-                        if($return['num'] <= $decision_value){
-                              $res = "成功";
-                        }else{
-                              $res = "失敗";
-                        }
-                  break;
-                  case '>=':
-                        if($return['num'] >= $decision_value){
+                  case '&gt;=':
+                        if($return['num'] >= (int)$decision_value){
                               $res = "成功";
                         }else{
                               $res = "失敗";
