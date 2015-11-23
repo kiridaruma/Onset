@@ -31,7 +31,7 @@ $roll = new Roll($text);
 //var_dump($name);
 //var_dump($text);
 
-$line = date("Y/m/d G:i:s")."&#009;<b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$roll->text()}<br>\n<i>{$roll->result()}</i><hr>\n";
+$line = date("Y/m/d G:i:s")." <b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$roll->text()}<br>\n<i>{$roll->result()}</i><hr>\n";
 
 //var_dump($line);
 

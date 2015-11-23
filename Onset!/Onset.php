@@ -24,6 +24,14 @@ if(!isset($_SESSION['onset_room'])){
 	<body><font size="2">
 
 		<div class="pure-g">
+			<div class="pure-u-2-24"></div>
+			<div class="pure-u-20-24"><p>
+				<a href="src/logput.php">log出力</a>
+			</p></div>
+			<div class="pure-u-2-24"></div>
+		</div>
+
+		<div class="pure-g">
 		<div class="pure-u-1-24"></div>
 		<div class="pure-u-22-24">
 
