@@ -12,6 +12,6 @@ version-α0.8_すえかぜ(suekaze)
 
 現在実装されているダイスボット
 + 基本ダイス
-nDx<=XXロール 2d6<=6
+  + nDx<=XXロール 2d6<=6
 + CoC
-resロール res(18-15)
+  + resロール res(18-15)
