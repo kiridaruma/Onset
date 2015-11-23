@@ -26,4 +26,6 @@ if(!password_verify($pass, $hash)){
 session_start();
 $_SESSION['onset_name'] = $name;
 $_SESSION['onset_room'] = $room;
+$_SESSION['onset_id'] = dechex(mt_rand());
+
 header("Location: ../Onset.php");

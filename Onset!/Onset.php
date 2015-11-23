@@ -28,8 +28,8 @@ if(!isset($_SESSION['onset_room'])){
 		<div class="pure-u-22-24">
 
 		<p><form action="src/write.php" method="post">
-			<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>><br>
-			<textarea id="text" rows="5" cols="30"></textarea><br>
+			<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>>(<?= $_SESSION['onset_id'] ?>)<br>
+			<textarea id="text" rows="5" cols="40"></textarea><br>
 			<input type="button" value="送信" onclick="send_chat()" class="pure-button">
 		</form></p>
 
