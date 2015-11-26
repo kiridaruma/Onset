@@ -23,7 +23,7 @@ if(!isset($_SESSION['onset_room'])){
 	</head>
 	<body><font size="2">
 
-		<div class="pure-g">
+		<div class="pure-g top">
 			<div class="pure-u-2-24"></div>
 			<div class="pure-u-20-24">
 				<a href="src/logput.php">log出力</a>
