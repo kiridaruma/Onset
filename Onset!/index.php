@@ -54,7 +54,7 @@ foreach($roomlist as $key => $value){
 
 		<p><a href="edit.php">部屋の作成/削除</a></p>
 		<br><br>
-		<p><a href= "https://github.com/kiridaruma/Onset">ソース</a></p>
+		<p><a href="help.php">Onset!ってなに?(ヘルプ)</a></p>
 
 	</div><div class="pure-u-1-24"></div></div>
 
