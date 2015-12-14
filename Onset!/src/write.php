@@ -37,7 +37,7 @@ $line = date("Y/m/d G:i:s")." <b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$rol
 
 
 $line = $line.file_get_contents("{$dir}xxlogxx.txt");
-file_put_contents("{$dir}xxlogxx.txt", $line);
+file_put_contents("{$dir}xxlogxx.txt", $line, LOCK_EX);
 $_SESSION['onset_name'] = $name;
 
 ?>
