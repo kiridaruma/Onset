@@ -13,7 +13,17 @@ if(!$time || !$room){
 $dir = "../room/{$room}/";
 
 if($time < filemtime("{$dir}xxlogxx.txt") * 1000){
-      echo file_get_contents("{$dir}xxlogxx.txt");
+      $fp = fopen("{$dir}xxlogxx.txt", 'r');
+      $eof = FALSE;
+      while(!$eof){
+            $line = fgets($fp);
+            if($line !== FALSE){
+                  echo $line;
+            }else{
+                  $eof = TRUE;
+            }
+      }
+      fclose($fp);
 }else{
       echo "none";
 }
