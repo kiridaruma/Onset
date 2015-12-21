@@ -8,7 +8,7 @@ if($_SESSION['onset_room'] === NULL){
 $logdir = "../room/{$_SESSION['onset_room']}/xxlogxx.txt";
 $text = file_get_contents($logdir);
 
-$replace = ['<br>', '<i>', '</i>', '<b>', '</b>'];
+$replace = ['<br>', '<i>', '</i>', '<b>', '</b>', '<br />'];
 foreach ($replace as $value) {
       $text = str_replace($value, "", $text);
 }
