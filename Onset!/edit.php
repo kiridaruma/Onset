@@ -42,10 +42,9 @@
             </form></p>
             <br>
 
-            <p><h3>削除</h3><br>
+            <p><h3>削除</h3>
 
                   <form action="src/roomedit.php" method="post" class="pure-form-stacked">
-
                         <p><table class="pure-tabels">
             		<th>部屋一覧</th>
 
