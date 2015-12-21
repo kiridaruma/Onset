@@ -1,4 +1,5 @@
 <?php
+require_once('config.php');
 session_start();
 
 if($_POST['rand'] != $_SESSION['onset_rand']){
@@ -56,7 +57,7 @@ switch ($mode) {
             }
 
             $hash = file_get_contents("{$dir}{$name}/pass.hash");
-            if(!password_verify($pass, $hash)){
+            if(!password_verify($pass, $hash) && $config['pass'] != $pass){
                   echo "パスワードを間違えています(ブラウザバックをおねがいします)";
                   die();
             }
