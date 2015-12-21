@@ -26,7 +26,8 @@ if(!isset($_SESSION['onset_room'])){
 		<div class="pure-g top">
 			<div class="pure-u-2-24"></div>
 			<div class="pure-u-20-24">
-				<a href="src/logput.php">log出力</a>
+				<a href="src/logput.php">ログ出力</a>
+				<a href="src/logout.php">ログアウト</a>
 			</div>
 			<div class="pure-u-2-24"></div>
 		</div>
