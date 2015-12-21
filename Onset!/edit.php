@@ -46,16 +46,17 @@
 
                   <form action="src/roomedit.php" method="post" class="pure-form-stacked">
 
-                        <ul class="pure-menu-list">
-                        <li class="pure-menu-heading">削除する部屋</li>
-                  <?php
-                 foreach($roomlist as $value){
-                       echo "<li class=\"pure-menu-item\">";
-                       echo "<input type=\"radio\" name=\"name\" value=\"{$value}\">{$value}";
-                       echo "</li>";
-                 }
-                 ?>
-           </ul>
+                        <p><table class="pure-tabels">
+            		<th>部屋一覧</th>
+
+                               <?php
+            	 		foreach($roomlist as $value){
+            				echo "<tr><td>";
+            	       	      echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
+                                    echo "</td></tr>";
+            	 		}
+            	 		?></table>
+            			</p>
 
                 部屋のパスワード<input type="password" name="pass"><br>
 
