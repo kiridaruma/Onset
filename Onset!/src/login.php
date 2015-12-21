@@ -1,5 +1,7 @@
 <?php
 
+require_once('config.php');
+
 $name = isset($_POST['name']) || $_POST['name'] != 0 ? htmlspecialchars($_POST['name'], ENT_QUOTES) : FALSE;
 $pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
 $room = isset($_POST['room']) || $_POST['room'] != 0 ? $_POST['room'] : FALSE;
@@ -18,7 +20,7 @@ if(!file_exists("../room/{$room}")){
 
 $hash = file_get_contents("../room/{$room}/pass.hash");
 
-if(!password_verify($pass, $hash)){
+if(!password_verify($pass, $hash) && $config['pass'] != $pass){
       echo "パスワードが間違っています(ブラウザバックをお願いします)";
       die();
 }

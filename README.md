@@ -2,7 +2,7 @@
 
 Onset is simple online TRPG chat
 
-version-α0.8.2_すえかぜ(suekaze)
+version-α0.8.3_すえかぜ(suekaze)
 
 今後追加予定の機能
 + 自動部屋削除機能
