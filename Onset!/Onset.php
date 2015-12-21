@@ -38,7 +38,7 @@ if(!isset($_SESSION['onset_room'])){
 
 		<p><form action="src/write.php" method="post">
 			<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>>(<?= $_SESSION['onset_id'] ?>)<br>
-			<textarea id="text" rows="5" cols="40"></textarea><br>
+			<textarea id="text" rows="4" cols="45"></textarea><br>
 			<input type="button" value="送信" onclick="send_chat()" class="pure-button">
 		</form></p>
 
