@@ -25,7 +25,7 @@ if(mb_strlen($text) > 300 || mb_strlen($name) > 20){	//チャット本文は300�
 
 $text = nl2br($text);
 
-	//ダイス処理
+//ダイス処理
 $roll = new Roll($text);
 
 //var_dump($name);

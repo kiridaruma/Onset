@@ -15,3 +15,7 @@ a{
 .top{
 background-color: #503080;
 }
+
+#edit{
+      display: none;
+}
