@@ -63,3 +63,12 @@ function send_chat(){
 		}
 	});
 }
+
+$(function($){
+	$("#text").keydown(function(e){
+		if(e.ctrlKey && e.keyCode === 13){
+			send_chat();
+			return false;
+		}
+	});
+});
