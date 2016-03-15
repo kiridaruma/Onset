@@ -28,4 +28,7 @@ if($time < filemtime("{$dir}xxlogxx.txt") * 1000){
       echo "none";
 }
 
+$tmp = $dir."connect/".$_SESSION['onset_id'];
+file_put_contents($tmp, time()."\n".$_SESSION['onset_name']);
+
 clearstatcache();

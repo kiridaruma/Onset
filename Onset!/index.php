@@ -74,7 +74,7 @@ $_SESSION['onset_rand'] = $rand = mt_rand();
                 <?php
                 foreach($roomlist as $value){
                     echo "<span class=\"room\">";
-                    echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
+                    echo "<input type=\"radio\" name=\"name\" value=\"{$value}\">{$value}";
                     echo "</span>";
                 }
                 ?>
@@ -84,7 +84,7 @@ $_SESSION['onset_rand'] = $rand = mt_rand();
             <input type="hidden" name="rand" value="<?= $rand ?>">
             <input type="hidden" name="mode" value="del">
 
-            <input type="submit" class="button" value="削除" class="pure-button">
+            <input type="submit" class="button" value="削除">
 
         </form>
     </div>

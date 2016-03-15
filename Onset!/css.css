@@ -47,8 +47,7 @@ a{
     padding: 0.3em 1em;
 }
 
-.err{
-    color: red;
+.notice{
     margin: 0 1em;
 }
 

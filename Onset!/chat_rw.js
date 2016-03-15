@@ -1,12 +1,11 @@
 function get_log(){
 
-    var time = $.now();
+    var time = 1;
 
     function ajax(){
         $.ajax({
             url: "src/read.php",
             type: "POST",
-            datatype: "html",
             cache: false,
             data: {
                 "time": time
@@ -37,12 +36,12 @@ function send_chat(){
     var text = $("#text").val().trim();
 
     if(name == "" || text == ""){
-        $(".err").html("<b>名前と本文を入力してください</b>");
+        $(".notice").html("<b>名前と本文を入力してください</b>");
         return 0;
     }
 
     if(name.length > 20 || text.length > 300){
-        $(".err").html("<b>文字数が多すぎます</b>");
+        $(".notice").html("<b>文字数が多すぎます</b>");
         return 0;
     }
 
@@ -58,9 +57,9 @@ function send_chat(){
         },
         success: function(){
             $("#text").val("");
-            var chat = $("chat").html();
-            $("chat").html("<b>送信中...</b><br><hr>" + chat);
-            $(".err").html("");
+            var chat = $(".chats").html();
+            $(".chats").html("<b>送信中...</b><br>" + chat);
+            $(".notice").html("");
         }
     });
 }
@@ -73,3 +72,24 @@ $(function($){
         }
     });
 });
+
+function checkLoginUser(){
+    $.ajax({
+        url: 'src/checkLoginUser.php',
+        type: 'POST',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function(data){
+            alert(data);
+            $.ajax({
+                url: '../src/checkLoginUser.php',
+                type: 'POST',
+                data: {'lock': 'unlock'},
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                }
+            });
+        }
+    });
+}

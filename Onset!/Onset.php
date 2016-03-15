@@ -25,6 +25,7 @@ if(!isset($_SESSION['onset_room'])){
     <div class="top">
         <a href="src/logput.php" class="top-item">ログ出力</a>
         <a href="src/logout.php" class="top-item">ログアウト</a>
+        <a class="top-item" onclick="checkLoginUser()">ログイン一覧</a>
     </div>
 
     <div class="form">
@@ -33,7 +34,7 @@ if(!isset($_SESSION['onset_room'])){
         <input type="button" id="button" value="送信" onclick="send_chat()">
     </div>
 
-    <div class="err"></div>
+    <div class="notice"></div>
 
     <script>$(document).ready(function(){get_log();});</script>
     <div class="chats"></div>
