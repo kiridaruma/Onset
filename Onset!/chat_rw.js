@@ -1,31 +1,31 @@
 function get_log(){
 
-	var time = $.now();
+    var time = $.now();
 
-	function ajax(){
-		$.ajax({
-			url: "src/read.php",
-			type: "POST",
-			datatype: "html",
-			cache: false,
-			data: {
-				"time": time
-			},
+    function ajax(){
+        $.ajax({
+            url: "src/read.php",
+            type: "POST",
+            datatype: "html",
+            cache: false,
+            data: {
+                "time": time
+            },
 
-			beforeSend: function(xhr) {
-				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-			},
-			success: function(data){
-				if(data != "none"){
-					$("chat").html(data);
-					time = $.now();
-				}
-				setTimeout(function(){ajax();} , 1000);
-			}
-		});
-	}
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            success: function(data){
+                if(data != "none"){
+                    $(".chats").html(data);
+                    time = $.now();
+                }
+                setTimeout(function(){ajax();} , 1000);
+            }
+        });
+    }
 
-	ajax();
+    ajax();
 
 }
 
@@ -33,42 +33,43 @@ function get_log(){
 
 function send_chat(){
 
-	var name = $("#name").val().trim();
-	var text = $("#text").val().trim();
+    var name = $("#name").val().trim();
+    var text = $("#text").val().trim();
 
-	if(name == "" || text == ""){
-		$("err").html("<b>名前と本文を入力してください</b>");
-		return 0;
-	}
+    if(name == "" || text == ""){
+        $(".err").html("<b>名前と本文を入力してください</b>");
+        return 0;
+    }
 
-	if(name.length > 20 || text.length > 300){
-		$("err").html("<b>文字数が多すぎます</b>");
-		return 0;
-	}
+    if(name.length > 20 || text.length > 300){
+        $(".err").html("<b>文字数が多すぎます</b>");
+        return 0;
+    }
 
-	$.ajax({
-		url: "src/write.php",
-		type: "POST",
-		data: {
-			"name": name,
-			"text": text
-		},
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-		},
-		success: function(){
-			$("#text").val("");
-			var chat = $("chat").html();
-			$("chat").html("<b>送信中...</b><br><hr>" + chat);
-		}
-	});
+    $.ajax({
+        url: "src/write.php",
+        type: "POST",
+        data: {
+            "name": name,
+            "text": text
+        },
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function(){
+            $("#text").val("");
+            var chat = $("chat").html();
+            $("chat").html("<b>送信中...</b><br><hr>" + chat);
+            $(".err").html("");
+        }
+    });
 }
 
 $(function($){
-	$("#text").keydown(function(e){
-		if(e.ctrlKey && e.keyCode === 13){
-			send_chat();
-			return false;
-		}
-	});
+    $("#text").keydown(function(e){
+        if(e.ctrlKey && e.keyCode === 13){
+            send_chat();
+            return false;
+        }
+    });
 });

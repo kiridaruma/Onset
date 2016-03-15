@@ -3,9 +3,9 @@
 $roomlist = scandir('room');
 //カレントディレクトリと一つ上のディレクトリとhtaccessを消去
 foreach($roomlist as $key => $value){
-	if($value == "." || $value == ".." || $value == ".htaccess"){
-		unset($roomlist[$key]);
-	}
+    if($value == "." || $value == ".." || $value == ".htaccess"){
+        unset($roomlist[$key]);
+    }
 }
 
 session_start();
@@ -17,85 +17,78 @@ $_SESSION['onset_rand'] = $rand = mt_rand();
 <html>
 
 <head>
-	<title>Onset!</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
-	<script type="text/javascript" src="script.js"></script>
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-	<link rel="stylesheet" href="css.css">
+    <title>Onset!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" href="top.css">
 </head>
 
 <body>
 
-	<div class="pure-g">
-		<div class="pure-u-1-24"></div>
-		<div class="pure-u-22-24">
+    <div id="header">
+        <h1>Onset!</h1>
+        PC/携帯問わず､気軽にできる軽量TRPG向けチャット
+    </div>
 
-			<div id="header"><h1>Onset!</h1>
-			PC/携帯問わず､気軽にできる軽量TRPG向けチャット</div><br>
+    <form action="src/login.php" method="post" class="form">
+        <div id="form">
+            <input type="text" class="text" name="name" placeholder="名前"><br>
+            <input type="password" class="text" name="pass" placeholder="パスワード"><br>
+            <input type="submit" class="button" value="入室" class="pure-button">
+        </div>
 
-			<div id="main">
-			<form action="src/login.php" method="post" class="pure-form-stacked">
+        <div class="list">
+            部屋一覧<br>
+            <?php
+            foreach($roomlist as $value){
+                echo "<span class=\"room\">";
+                echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
+                echo "</span>";
+            }
+            ?>
+        </div>
+    </form>
 
-				<p>名前<input type="text" name="name" placeholder="名前"><br>
-					パスワード<input type="password" name="pass" placeholder="パスワード"><br>
-					<input type="submit" value="入室" class="pure-button"></p>
+    <a onclick="toggle()" id="toggle">部屋の作成/削除</a>
 
-					<p><table class="pure-tabels">
-						<th>部屋一覧</th>
-						<?php
-						foreach($roomlist as $value){
-							echo "<tr><td>";
-							echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
-							echo "</td></tr>";
-						}
-						?>
-					</table></p>
-			</form>
-			</div>
+    <div id="edit">
+        <h3>作成</h3>
 
-			<a onclick="toggle()">部屋の作成/削除</a>
+        <form action="src/roomedit.php" method="post" class="pure-form-stacked">
+            <input type="text" class="text" name="name" placeholder="部屋名"><br>
+            <input type="password" class="text" name="pass" placeholder="パスワード"><br>
 
-				<div id="edit"><h3>作成</h3><br>
+            <input type="hidden" name="rand" value="<?= $rand ?>">
+            <input type="hidden" name="mode" value="create">
 
-					<form action="src/roomedit.php" method="post" class="pure-form-stacked">
-						ルーム名<input type="text" name="name"><br>
-						パスワード<input type="password" name="pass"><br>
+            <input type="submit" class="button" value="作成" class="pure-button">
+        </form>
 
-						<input type="hidden" name="rand" value="<?= $rand ?>">
-						<input type="hidden" name="mode" value="create">
+        <h3>削除</h3>
 
-						<input type="submit" value="作成" class="pure-button">
-					</form>
-					<br>
+        <form action="src/roomedit.php" method="post" class="pure-form-stacked">
+            <div class="list">
+                部屋一覧<br>
+                <?php
+                foreach($roomlist as $value){
+                    echo "<span class=\"room\">";
+                    echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
+                    echo "</span>";
+                }
+                ?>
+            </div>
+            <input type="password" class="text" name="pass" placeholder="パスワード"><br>
 
-					<h3>削除</h3>
+            <input type="hidden" name="rand" value="<?= $rand ?>">
+            <input type="hidden" name="mode" value="del">
 
-						<form action="src/roomedit.php" method="post" class="pure-form-stacked">
-							<p><table class="pure-tabels">
-								<th>部屋一覧</th>
+            <input type="submit" class="button" value="削除" class="pure-button">
 
-								<?php
-								foreach($roomlist as $value){
-									echo "<tr><td>";
-									echo "<input type=\"radio\" name=\"name\" value=\"{$value}\">{$value}";
-									echo "</td></tr>";
-								}
-								?></table>
-							</p>
+        </form>
+    </div>
 
-							部屋のパスワード<input type="password" name="pass"><br>
+    <p><a href="help.php">Onset!ってなに?(ヘルプ)</a></p>
 
-							<input type="hidden" name="rand" value="<?= $rand ?>">
-							<input type="hidden" name="mode" value="del">
-
-							<input type="submit" value="削除" class="pure-button">
-
-						</form></div>
-
-						<p><a href="help.php">Onset!ってなに?(ヘルプ)</a></p>
-
-					</div><div class="pure-u-1-24"></div></div>
-
-				</body></html>
+</body></html>

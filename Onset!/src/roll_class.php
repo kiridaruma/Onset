@@ -6,7 +6,7 @@ class Roll{
             //ダイスロールの結果
             //これがチャットの本文の下に付く
             //ダイスロール系はこの変数に.=してください
-      private $result;
+      public $result;
 
             //チャット本文
             //コンストラクトの際に引数で与えられる
@@ -17,31 +17,9 @@ class Roll{
       public function __construct($arg_text){
             $this->text = $arg_text;
 
-            $this->url_replace();
             $this->dice();
             $this->CoC_res();
       }
-
-            //置換した文字列を返す
-      public function text(){
-            return $this->text;
-      }
-
-            //ダイスの結果等を返す
-      public function result(){
-            return $this->result;
-      }
-
-            //URL自動変換
-      private function url_replace(){
-            if(preg_match('/((?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/u', $text) != 0){
-                  return FALSE;
-            }
-            $pattern = '/((?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/u';
-            $rep = '<a href="\1">\1</a>';
-            $this->text = preg_replace($pattern, $rep, $this->text);
-      }
-
 
             //nDxダイスロール
       private function dice(){
