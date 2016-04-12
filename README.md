@@ -2,7 +2,7 @@
 
 Onset is simple online TRPG chat
 
-version-β1.00_はつかぜ(hatsukaze)  
+version-β1.01_はつかぜ(hatsukaze)  
 ベータ版に入りました  
 ここからは基本的にダイス追加をメインにやっていきます  
 
