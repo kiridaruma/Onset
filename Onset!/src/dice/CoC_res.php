@@ -2,7 +2,7 @@
 
 function CoC_res($text){
     if(preg_match("/res\([1-9]\d?-[1-9]\d?\)/", $text, $match) === 0){
-        return 0;
+        return false;
     }
 
     $hyphen = preg_replace("/(res\(|\))/", "", $match[0]);

@@ -24,7 +24,7 @@ if(mb_strlen($text) > 300 || mb_strlen($name) > 20){	//チャット本文は300�
 $text = nl2br($text);
 
 //ダイス処理
-$diceRes;
+$diceRes = "";
 foreach(scandir("dice") as $value){
     if($value == '.' || $value == '..'){continue;}
     require_once("dice/".$value);
