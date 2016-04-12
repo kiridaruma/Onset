@@ -38,7 +38,7 @@ foreach(scandir("dice") as $value){
 //var_dump($name);
 //var_dump($text);
 
-$line = "<div class=\"chat\"><b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$text}<br>\n<i>{$dice}</i></div>\n";
+$line = "<div class=\"chat\"><b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$text}<br>\n<i>{$diceRes}</i></div>\n";
 
 //var_dump($line);
 
