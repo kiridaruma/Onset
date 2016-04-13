@@ -4,7 +4,7 @@ function get_log(){
 
     function ajax(){
         $.ajax({
-            url: "src/read.php",
+            url: "src/read.php?hoge=" + Date.now(),
             type: "POST",
             cache: false,
             data: {
