@@ -1,10 +1,10 @@
-function get_log(){
+var time = 1;
 
-    var time = 1;
+function get_log(){
 
     function ajax(){
         $.ajax({
-            url: "src/read.php?hoge=" + Date.now(),
+            url: "src/read.php",
             type: "POST",
             cache: false,
             data: {
@@ -60,6 +60,7 @@ function send_chat(){
             var chat = $(".chats").html();
             $(".chats").html("<b>送信中...</b><br>" + chat);
             $(".notice").html("");
+            time = 1;
         }
     });
 }
