@@ -14,21 +14,26 @@ if(!$name || !$pass || !$room){
 $dir = $config['roomSavepath'];
 $roomlist = unserialize(file_get_contents($dir."roomlist"));
 
-if(!file_exists("../room/{$room}")){
+if(!isset($roomlist[$room])){
       echo "存在しない部屋です(ブラウザバックをお願いします)";
       die();
 }
 
-$hash = file_get_contents("../room/{$room}/pass.hash");
+$roompath = $roomlist[$room]['path'];
+
+$hash = file_get_contents("{$dir}{$roompath}/pass.hash");
 
 if(!password_verify($pass, $hash) && $config['pass'] != $pass){
       echo "パスワードが間違っています(ブラウザバックをお願いします)";
       die();
 }
 
+$ip = ip2long($_SERVER['REMOTE_ADDR']);
+$id = $ip + mt_rand();
+
 session_start();
 $_SESSION['onset_name'] = $name;
-$_SESSION['onset_room'] = $room;
-$_SESSION['onset_id'] = dechex(mt_rand());
+$_SESSION['onset_room'] = $roompath;
+$_SESSION['onset_id'] = dechex($id);
 
 header("Location: ../Onset.php");

@@ -10,10 +10,12 @@ if(!$time || !$room){
       die();
 }
 
-$dir = "../room/{$room}/";
+require_once('config.php');
 
-if($time < filemtime("{$dir}xxlogxx.txt") * 1000){
-      $fp = fopen("{$dir}xxlogxx.txt", 'r');
+$dir = "{$config['roomSavepath']}{$room}";
+
+if($time < filemtime("{$dir}/xxlogxx.txt") * 1000){
+      $fp = fopen("{$dir}/xxlogxx.txt", 'r');
       $eof = FALSE;
       while(!$eof){
             $line = fgets($fp);
@@ -28,7 +30,7 @@ if($time < filemtime("{$dir}xxlogxx.txt") * 1000){
       echo "none";
 }
 
-$tmp = $dir."connect/".$_SESSION['onset_id'];
+$tmp = $dir."/connect/".$_SESSION['onset_id'];
 file_put_contents($tmp, time()."\n".$_SESSION['onset_name']);
 
 clearstatcache();

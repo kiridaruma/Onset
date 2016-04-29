@@ -8,7 +8,9 @@ if(!$room || !$id){
     echo "不正なアクセス:invalid_access";
 }
 
-$dir = "../room/{$room}/connect/";
+require_once('config.php');
+
+$dir = "{$config['roomSavepath']}{$room}/connect/";
 $arr = scandir($dir);
 
 if($_POST['lock'] === 'unlock'){

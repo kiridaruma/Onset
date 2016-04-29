@@ -10,10 +10,12 @@ if(!$text || !$name || !$room){
     die();
 }
 
-$dir = "../room/{$room}/";
+require_once('config.php');
+
+$dir = "{$config['roomSavepath']}{$room}";
 
 if(mb_strlen($text) > 300 || mb_strlen($name) > 20){	//チャット本文は300字､名前は20字で制限
-    echo "文字数が多すぎます";
+    echo "文字数が多すぎます(ブラウザバックをお願いします)";
     die();
 }
 
@@ -43,8 +45,8 @@ $line = "<div class=\"chat\"><b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$text
 //var_dump($line);
 
 
-$line = $line.file_get_contents("{$dir}xxlogxx.txt");
-file_put_contents("{$dir}xxlogxx.txt", $line, LOCK_EX);
+$line = $line.file_get_contents("{$dir}/xxlogxx.txt");
+file_put_contents("{$dir}/xxlogxx.txt", $line, LOCK_EX);
 $_SESSION['onset_name'] = $name;
 
 ?>
