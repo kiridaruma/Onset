@@ -56,7 +56,7 @@ $_SESSION['onset_rand'] = $rand = mt_rand();
     <div id="edit">
         <h3>作成</h3>
 
-        <form action="src/roomedit.php" method="post" class="pure-form-stacked">
+        <form action="src/createRoom.php" method="post">
             <input type="text" class="text" name="name" placeholder="部屋名"><br>
             <input type="password" class="text" name="pass" placeholder="パスワード"><br>
 
@@ -68,7 +68,7 @@ $_SESSION['onset_rand'] = $rand = mt_rand();
 
         <h3>削除</h3>
 
-        <form action="src/roomedit.php" method="post" class="pure-form-stacked">
+        <form action="src/deleteRoom.php" method="post">
             <div class="list">
                 部屋一覧<br>
                 <?php
