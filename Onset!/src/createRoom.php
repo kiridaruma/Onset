@@ -8,8 +8,8 @@ if($_POST['rand'] != $_SESSION['onset_rand']){
     die();
 }
 
-$name = isset($_POST['name']) || $_POST['name'] != 0 ? $_POST['name'] : FALSE;
-$pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
+$name = isset($_POST['name']) && $_POST['name'] != "" ? $_POST['name'] : FALSE;
+$pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 $mode = $_POST['mode'];
 
 if(!$name || !$pass){
@@ -22,27 +22,33 @@ if(mb_strlen($name) > 30){
     die();
 }
 
-$dir = "../room/";
+$dir = $config['roomSavepath'];
 
-$name = str_replace("/", "／", $name);
 $name = htmlspecialchars($name, ENT_QUOTES);
 
-if(file_exists($dir.$name)){
+$roomlist = unserialize(file_get_contents($dir."roomlist"));
+
+if(isset($roomlist[$name])){
     echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";
     die();
 }
 
+$uuid = uniqid("", true);
+$roomlist[$name]["path"] = $uuid;
+file_put_contents($dir."roomlist", serialize($roomlist));
+
 $hash = password_hash($pass, PASSWORD_DEFAULT);
 unset($pass);     //念の為、平文のパスワードを削除
-mkdir($dir.$name);
-touch("{$dir}{$name}/pass.hash");
-touch("{$dir}{$name}/xxlogxx.txt");
-mkdir("{$dir}{$name}/connect");
 
-chmod($dir.$name, 0777);
-chmod("{$dir}{$name}/pass.hash", 0666);
-chmod("{$dir}{$name}/xxlogxx.txt", 0666);
-chmod("{$dir}{$name}/connect/", 0777);
-file_put_contents("{$dir}{$name}/pass.hash", $hash);
+mkdir($dir.$uuid);
+touch("{$dir}{$uuid}/pass.hash");
+touch("{$dir}{$uuid}/xxlogxx.txt");
+mkdir("{$dir}{$uuid}/connect");
+
+chmod($dir.$uuid, 0777);
+chmod("{$dir}{$uuid}/pass.hash", 0666);
+chmod("{$dir}{$uuid}/xxlogxx.txt", 0666);
+chmod("{$dir}{$uuid}/connect/", 0777);
+file_put_contents("{$dir}{$uuid}/pass.hash", $hash);
 
 header("Location: ../index.php");

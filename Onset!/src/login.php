@@ -11,7 +11,8 @@ if(!$name || !$pass || !$room){
       die();
 }
 
-$room = str_replace("/", "／", $room);
+$dir = $config['roomSavepath'];
+$roomlist = unserialize(file_get_contents($dir."roomlist"));
 
 if(!file_exists("../room/{$room}")){
       echo "存在しない部屋です(ブラウザバックをお願いします)";

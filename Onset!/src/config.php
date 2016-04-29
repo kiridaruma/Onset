@@ -12,5 +12,9 @@ $config['pass'] = "";
 
 /*
 部屋データを置くディレクトリへのパスです
+'roomSavepathFromI'はトップのindex.phpから見た部屋データへのパスです
+基本は'roomSavepath'だけをいじってください
+カスタマイズする場合は良しなに...
 */
 $config['roomSavepath'] = "../../room/";
+$config['roomSavepathFromI'] = "src/".$config['roomSavepath'];

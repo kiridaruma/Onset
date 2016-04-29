@@ -1,12 +1,10 @@
 <?php
 
-$roomlist = scandir('room');
+require_once('src/config.php');
+
+$dir = $config['roomSavepathFromI'];
+$roomlist = unserialize(file_get_contents($dir."roomlist"));
 //カレントディレクトリと一つ上のディレクトリとhtaccessを消去
-foreach($roomlist as $key => $value){
-    if($value == "." || $value == ".." || $value == ".htaccess"){
-        unset($roomlist[$key]);
-    }
-}
 
 session_start();
 $_SESSION['onset_rand'] = $rand = mt_rand();
@@ -42,9 +40,9 @@ $_SESSION['onset_rand'] = $rand = mt_rand();
         <div class="list">
             部屋一覧<br>
             <?php
-            foreach($roomlist as $value){
+            foreach($roomlist as $key => $value){
                 echo "<span class=\"room\">";
-                echo "<input type=\"radio\" name=\"room\" value=\"{$value}\">{$value}";
+                echo "<input type=\"radio\" name=\"room\" value=\"{$key}\">{$key}";
                 echo "</span>";
             }
             ?>
@@ -72,9 +70,9 @@ $_SESSION['onset_rand'] = $rand = mt_rand();
             <div class="list">
                 部屋一覧<br>
                 <?php
-                foreach($roomlist as $value){
+                foreach($roomlist as $key => $value){
                     echo "<span class=\"room\">";
-                    echo "<input type=\"radio\" name=\"name\" value=\"{$value}\">{$value}";
+                    echo "<input type=\"radio\" name=\"name\" value=\"{$key}\">{$key}";
                     echo "</span>";
                 }
                 ?>

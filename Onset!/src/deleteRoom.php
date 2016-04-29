@@ -8,8 +8,8 @@ if($_POST['rand'] != $_SESSION['onset_rand']){
     die();
 }
 
-$name = isset($_POST['name']) || $_POST['name'] != 0 ? $_POST['name'] : FALSE;
-$pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
+$name = isset($_POST['name']) && $_POST['name'] != "" ? $_POST['name'] : FALSE;
+$pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 $mode = $_POST['mode'];
 
 if(!$name || !$pass){
@@ -22,27 +22,35 @@ if(mb_strlen($name) > 30){
     die();
 }
 
-$dir = "../room/";
+$dir = $config['roomSavepath'];
 
-if(!file_exists($dir.$name)){
+$roomlist = unserialize(file_get_contents($dir."roomlist"));
+
+$isExist = isset($roomlist[$name]);
+$roompath = $roomlist[$name]['path'];
+
+unset($roomlist[$name]);
+file_put_contents($dir."roomlist", serialize($roomlist));
+
+if(!$isExist){
     echo "部屋が存在しません(ブラウザバックをおねがいします)";
     die();
 }
 
-$hash = file_get_contents("{$dir}{$name}/pass.hash");
+$hash = file_get_contents("{$dir}{$roompath}/pass.hash");
 if(!password_verify($pass, $hash) && $config['pass'] != $pass){
     echo "パスワードを間違えています(ブラウザバックをおねがいします)";
     die();
 }
 
-foreach(scandir("{$dir}{$name}/connect/") as $value){
-    if($value != "." || $value != ".."){unlink("{$dir}{$name}/connect/{$value}");}
+foreach(scandir("{$dir}{$roompath}/connect/") as $value){
+    if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/connect/{$value}");}
 }
-rmdir("{$dir}{$name}/connect/");
+rmdir("{$dir}{$roompath}/connect/");
 
-foreach(scandir($dir.$name) as $value){
-    if($value != "." || $value != ".."){unlink("{$dir}{$name}/{$value}");}
+foreach(scandir($dir.$roompath) as $value){
+    if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/{$value}");}
 }
-rmdir($dir.$name);
+rmdir($dir.$roompath);
 
 header("Location: ../index.php");
