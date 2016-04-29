@@ -2,10 +2,13 @@
 
 Onset is simple online TRPG chat
 
-version-β1.01_はつかぜ(hatsukaze)  
+version-β1.1.0_はつかぜ(hatsukaze)  
 ベータ版に入りました  
 ここからは基本的にダイス追加をメインにやっていきます  
-
+  
+β1.1.0の改善点  
+部屋管理の仕組みの変更しました  
+  
 今後追加予定の機能
 + 自動部屋削除機能
 + 共有メモ機能
