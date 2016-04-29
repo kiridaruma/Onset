@@ -9,6 +9,8 @@ $roomlist = unserialize(file_get_contents($dir."roomlist"));
 session_start();
 $_SESSION['onset_rand'] = $rand = mt_rand();
 
+$welcomeMesseage = file_get_contents('welcomeMesseage.txt');
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +29,7 @@ $_SESSION['onset_rand'] = $rand = mt_rand();
 
     <div id="header">
         <h1>Onset!</h1>
-        PC/携帯問わず､気軽にできる軽量TRPG向けチャット
+        <?= $welcomeMesseage ?>
     </div>
 
     <form action="src/login.php" method="post" class="form">
