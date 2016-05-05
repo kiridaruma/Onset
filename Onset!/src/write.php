@@ -1,11 +1,12 @@
 <?php
 session_start();
 
-$name = isset($_POST['name']) && $_POST['name'] != NULL ? trim(htmlspecialchars($_POST['name'] , ENT_QUOTES)) : FALSE;
-$text = isset($_POST['text']) && $_POST['text'] != NULL ? trim(htmlspecialchars($_POST['text'] , ENT_QUOTES)) : FALSE;
+$name = isset($_POST['name']) && $_POST['name'] != NULL ? trim($_POST['name']) : FALSE;
+$text = isset($_POST['text']) && $_POST['text'] != NULL ? trim($_POST['text']) : FALSE;
 $room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
+$sys = isset($_POST['sys']) && $_POST['sys'] != NULL ? trim($_POST['sys']) : FALSE;
 
-if(!$text || !$name || !$room){
+if(!$text || !$name || !$room || !$sys){
     echo "不正なアクセス:invalid_access";
     die();
 }
@@ -26,19 +27,23 @@ if(mb_strlen($text) > 300 || mb_strlen($name) > 20){	//チャット本文は300�
 $text = nl2br($text);
 
 //ダイス処理
-$diceRes = "";
-foreach(scandir("dice") as $value){
-    if($value == '.' || $value == '..'){continue;}
-    require_once("dice/".$value);
-    $funcname = str_replace(".php", "", $value);
-    $res = $funcname($text);
-    if($res === false){continue;}
-    $diceRes = $res;
-}
+$url = $config['bcdiceURL'];
 
+$encordedText = urlencode($text);
+$encordedSys = urlencode($sys);
+$ret = file_get_contents("http://{$url}?text={$encordedText}&sys={$encordedSys}");
+if(trim($ret) == '1' || trim($ret) == 'error'){
+    $ret = "";
+}
+$diceRes = str_replace('onset: ', '', $ret);
 
 //var_dump($name);
 //var_dump($text);
+//var_dump($diceRes);
+
+$name = htmlspecialchars($name, ENT_QUOTES);
+$text = htmlspecialchars($text, ENT_QUOTES);
+$diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
 
 $line = "<div class=\"chat\"><b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$text}<br>\n<i>{$diceRes}</i></div>\n";
 

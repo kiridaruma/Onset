@@ -2,7 +2,7 @@
 
 require_once('src/config.php');
 
-$dir = $config['roomSavepathFromI'];
+$dir = $config['roomSavepath'];
 $roomlist = unserialize(file_get_contents($dir."roomlist"));
 //カレントディレクトリと一つ上のディレクトリとhtaccessを消去
 

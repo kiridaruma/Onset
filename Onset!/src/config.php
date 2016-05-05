@@ -12,9 +12,13 @@ $config['pass'] = "";
 
 /*
 部屋データを置くディレクトリへのパスです
-'roomSavepathFromI'はトップのindex.phpから見た部屋データへのパスです
-基本は'roomSavepath'だけをいじってください
 カスタマイズする場合は良しなに...
 */
-$config['roomSavepath'] = "../../room/";
-$config['roomSavepathFromI'] = "src/".$config['roomSavepath'];
+$config['roomSavepath'] = __DIR__."/../../room/";
+
+/*
+bcdiceへのURL
+ダイスボットへのパスを書いてください
+デフォルトではindex.phpと同じ階層にあります
+*/
+$config['bcdiceURL'] = "localhost/Onset!/bcdice/roll.rb";

@@ -34,6 +34,7 @@ function send_chat(){
 
     var name = $("#name").val().trim();
     var text = $("#text").val().trim();
+    var sys = $("#sys").val().trim();
 
     if(name == "" || text == ""){
         $(".notice").html("<b>名前と本文を入力してください</b>");
@@ -50,7 +51,8 @@ function send_chat(){
         type: "POST",
         data: {
             "name": name,
-            "text": text
+            "text": text,
+            "sys": sys
         },
         beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
