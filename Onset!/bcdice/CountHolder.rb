@@ -1,7 +1,7 @@
 #!/bin/ruby -Ku 
 #--*-coding:utf-8-*--
 
-require 'log'
+require './log.rb'
 require './configBcDice.rb'
 
 

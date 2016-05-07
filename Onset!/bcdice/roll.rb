@@ -1,4 +1,4 @@
-#!C:\Program Files\Ruby-2.3-x64\bin\ruby.exe
+#!/usr/bin/ruby
 #--*-coding:utf-8-*--
 
 require 'cgi'
