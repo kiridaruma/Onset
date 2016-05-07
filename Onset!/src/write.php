@@ -24,8 +24,6 @@ if(mb_strlen($text) >= $config["maxChatText"] || mb_strlen($name) >= $config["ma
 //var_dump($name);
 //var_dump($text);
 
-$text = nl2br($text);
-
 //ダイス処理
 $url = $config['bcdiceURL'];
 
@@ -44,6 +42,8 @@ $diceRes = str_replace('onset: ', '', $ret);
 $name = htmlspecialchars($name, ENT_QUOTES);
 $text = htmlspecialchars($text, ENT_QUOTES);
 $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
+
+$text = nl2br($text);
 
 $line = "<div class=\"chat\"><b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$text}<br>\n<i>{$diceRes}</i></div>\n";
 
