@@ -8,7 +8,9 @@ if(!isset($_SESSION['onset_room'])){
 
 require_once('src/config.php');
 $url = $config['bcdiceURL'];
-$sysList = split("\n", file_get_contents("http://{$url}?list=1"));
+$s = '';
+if($config['enableSSL']){$s = 's';}
+$sysList = split("\n", file_get_contents("http{$s}://{$url}?list=1"));
 ?>
 
 <!DOCTYPE html>

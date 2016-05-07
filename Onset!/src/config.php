@@ -24,6 +24,13 @@ bcdiceへのURL
 $config['bcdiceURL'] = "localhost/Onset!/bcdice/roll.rb";
 
 /*
+sslを有効にするか
+URLの先頭についてる、httpsってやつです
+わからない人はいじらないほうがいいと思います
+*/
+$config['enableSSL'] = false;
+
+/*
 最大部屋数
 1部屋当たりはそこまで容量食いません
 サーバーのスペックに合わせて適当に設定してください

@@ -29,7 +29,10 @@ $url = $config['bcdiceURL'];
 
 $encordedText = urlencode($text);
 $encordedSys = urlencode($sys);
-$ret = file_get_contents("http://{$url}?text={$encordedText}&sys={$encordedSys}");
+
+$s = "";
+if($config["enableSSL"]){$s = 's';}
+$ret = file_get_contents("http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}");
 if(trim($ret) == '1' || trim($ret) == 'error'){
     $ret = "";
 }
