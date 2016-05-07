@@ -17,7 +17,7 @@ if(!$name || !$pass){
     die();
 }
 
-if(mb_strlen($name) > 30){
+if(mb_strlen($name) >= $config['maxRoomName']){
     echo "部屋名が長過ぎます";
     die();
 }
@@ -30,6 +30,11 @@ $roomlist = unserialize(file_get_contents($dir."roomlist"));
 
 if(isset($roomlist[$name])){
     echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";
+    die();
+}
+
+if(count($roomlist) >= $config["roomLimit"]){
+    echo "これ以上部屋を立てられません、制限いっぱいです";
     die();
 }
 

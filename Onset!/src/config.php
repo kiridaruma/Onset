@@ -22,3 +22,22 @@ bcdiceへのURL
 デフォルトではindex.phpと同じ階層にあります
 */
 $config['bcdiceURL'] = "localhost/Onset!/bcdice/roll.rb";
+
+/*
+最大部屋数
+1部屋当たりはそこまで容量食いません
+サーバーのスペックに合わせて適当に設定してください
+*/
+
+$config["roomLimit"] = 100;
+
+/*
+部屋名の長さ制限
+*/
+$config['maxRoomName'] = 30;
+
+/*
+チャットの最大文字数と、ニックネームの最大文字数
+*/
+$config["maxChatText"] = 300;
+$config["maxChatNick"] = 20;
