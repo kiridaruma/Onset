@@ -1,8 +1,8 @@
 #!/bin/ruby -Ku 
 #--*-coding:utf-8-*--
 
-require './log.rb'
-require './configBcDice.rb'
+require 'log'
+require 'configBcDice.rb'
 
 
 class CountHolder

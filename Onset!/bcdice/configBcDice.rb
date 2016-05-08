@@ -1,6 +1,6 @@
 #--*-coding:utf-8-*--
 
-require './configBcDiceForSystem.rb'
+require 'configBcDiceForSystem.rb'
 
 $isDebug = false
 

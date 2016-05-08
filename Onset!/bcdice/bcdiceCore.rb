@@ -1,9 +1,9 @@
 #!/bin/ruby -Ku 
 #--*-coding:utf-8-*--
 
-require './log.rb'
-require './configBcDice.rb'
-require './CountHolder.rb'
+require 'log'
+require 'configBcDice.rb'
+require 'CountHolder.rb'
 require 'kconv'
 
 #============================== 起動法 ==============================
@@ -39,10 +39,6 @@ def encode(code, str)
   return Kconv.kconv(str, code)
 end
 
-def debug(*hoge)
-
-end
-
 # WindowsでかつRuby 1.9未満の環境であるかどうかを示す
 # 端末にShift_JISで出力する必要性の判定に用いる
 $RUBY18_WIN = RUBY_VERSION < '1.9' &&
@@ -54,12 +50,12 @@ $plotPrintChannels = {}
 $point_counter = {}
 
 
-require './CardTrader'
-require './TableFileData'
-require './diceBot/DiceBot'
-require './dice/AddDice'
-require './dice/UpperDice'
-require './dice/RerollDice'
+require 'CardTrader'
+require 'TableFileData'
+require 'diceBot/DiceBot'
+require 'dice/AddDice'
+require 'dice/UpperDice'
+require 'dice/RerollDice'
 
 
 class BCDiceMaker
@@ -98,6 +94,7 @@ class BCDice
     setDiceBot(diceBot)
     
     @cardTrader = cardTrader
+    @cardTrader.setBcDice(self)
     @counterInfos = counterInfos
     @tableFileData = tableFileData
     
@@ -127,6 +124,7 @@ class BCDice
     
     @diceBot = diceBot
     @diceBot.bcdice = self
+    @parent.diceBot = @diceBot
   end
   
   attr_reader :nick_e
@@ -138,7 +136,6 @@ class BCDice
   def setIrcClient(client)
     @ircClient = client
   end
-  
   
   def setMessage(message)
     message = cutMessageCommend(message)
@@ -784,15 +781,6 @@ class BCDice
   #=========================================================================
   #**                           コマンド分岐
   #=========================================================================
-  
-  def setNick(nick)
-    @nick_e = nick
-  end
-  
-  def setMessage(text)
-    @message = text
-  end
-  
   def dice_command   # ダイスコマンドの分岐処理
     arg = @message.upcase
     
@@ -1807,80 +1795,82 @@ class BCDice
   def setGameByTitle(gameTitle)  # 各種ゲームモードの設定
     debug('setGameByTitle gameTitle', gameTitle)
     
+    @cardTrader.initValues
+    
     diceBot = nil
     
     case gameTitle
     when /(^|\s)((Cthulhu)|(COC))$/i
-      require './diceBot/Cthulhu'
+      require 'diceBot/Cthulhu'
       diceBot = Cthulhu.new
     when /(^|\s)((Hieizan)|(COCH))$/i
-      require './diceBot/Hieizan'
+      require 'diceBot/Hieizan'
       diceBot = Hieizan.new
     when /(^|\s)((Elric!)|(EL))$/i
-      require './diceBot/Elric'
+      require 'diceBot/Elric'
       diceBot = Elric.new
     when /(^|\s)((RuneQuest)|(RQ))$/i
-      require './diceBot/RuneQuest'
+      require 'diceBot/RuneQuest'
       diceBot = RuneQuest.new
     when /(^|\s)((Chill)|(CH))$/i
-      require './diceBot/Chill'
+      require 'diceBot/Chill'
       diceBot = Chill.new
     when /(^|\s)((RoleMaster)|(RM))$/i
-      require './diceBot/RoleMaster'
+      require 'diceBot/RoleMaster'
       diceBot = RoleMaster.new
     when /(^|\s)((ShadowRun)|(SR))$/i
-      require './diceBot/ShadowRun'
+      require 'diceBot/ShadowRun'
       diceBot = ShadowRun.new
     when /(^|\s)((ShadowRun4)|(SR4))$/i
-      require './diceBot/ShadowRun4'
+      require 'diceBot/ShadowRun4'
       diceBot = ShadowRun4.new
     when /(^|\s)((Pendragon)|(PD))$/i
-      require './diceBot/Pendragon'
+      require 'diceBot/Pendragon'
       diceBot = Pendragon.new
     when /(^|\s)(SwordWorld\s*2\.0|SW\s*2\.0)$/i
-      require './diceBot/SwordWorld'
-      require './diceBot/SwordWorld2_0'
+      require 'diceBot/SwordWorld'
+      require 'diceBot/SwordWorld2_0'
       diceBot = SwordWorld2_0.new
     when /(^|\s)((SwordWorld)|(SW))$/i
-      require './diceBot/SwordWorld'
+      require 'diceBot/SwordWorld'
       diceBot = SwordWorld.new
     when /(^|\s)((Arianrhod)|(AR))$/i
-      require './diceBot/Arianrhod'
+      require 'diceBot/Arianrhod'
       diceBot = Arianrhod.new
     when /(^|\s)((Infinite[\s]*Fantasia)|(IF))$/i
-      require './diceBot/InfiniteFantasia'
+      require 'diceBot/InfiniteFantasia'
       diceBot = InfiniteFantasia.new
     when /(^|\s)(WARPS)$/i
-      require './diceBot/WARPS'
+      require 'diceBot/WARPS'
       diceBot = WARPS.new
     when /(^|\s)((Demon[\s]*Parasite)|(DP))$/i
-      require './diceBot/DemonParasite'
+      require 'diceBot/DemonParasite'
       diceBot = DemonParasite.new
     when /(^|\s)((Parasite\s*Blood)|(PB))$/i
-      require './diceBot/DemonParasite'
-      require './diceBot/ParasiteBlood'
+      require 'diceBot/DemonParasite'
+      require 'diceBot/ParasiteBlood'
       diceBot = ParasiteBlood.new
     when /(^|\s)((Gun[\s]*Dog)|(GD))$/i
-      require './diceBot/Gundog'
+      require 'diceBot/Gundog'
       diceBot = Gundog.new
     when /(^|\s)((Gun[\s]*Dog[\s]*Zero)|(GDZ))$/i
-      require './diceBot/Gundog'
-      require './diceBot/GundogZero'
+      require 'diceBot/Gundog'
+      require 'diceBot/GundogZero'
       diceBot = GundogZero.new
     when /(^|\s)((Tunnels[\s]*&[\s]*Trolls)|(TuT))$/i
-      require './diceBot/TunnelsAndTrolls'
+      require 'diceBot/TunnelsAndTrolls'
       diceBot = TunnelsAndTrolls.new
     when /(^|\s)((Nightmare[\s]*Hunter[=\s]*Deep)|(NHD))$/i
-      require './diceBot/NightmareHunterDeep'
+      require 'diceBot/NightmareHunterDeep'
       diceBot = NightmareHunterDeep.new
     when /(^|\s)((War[\s]*Hammer(FRP)?)|(WH))$/i
-      require './diceBot/Warhammer'
+      require 'diceBot/Warhammer'
       diceBot = Warhammer.new
     when /(^|\s)((Phantasm[\s]*Adventure)|(PA))$/i
-      require './diceBot/PhantasmAdventure'
+      require 'diceBot/PhantasmAdventure'
       diceBot = PhantasmAdventure.new
     when /(^|\s)((Chaos[\s]*Flare)|(CF))$/i
-      require './diceBot/ChaosFlare'
+      require 'diceBot/ChaosFlare'
       diceBot = ChaosFlare.new
       
       @cardTrader.set2Deck2Jorker
@@ -1888,76 +1878,76 @@ class BCDice
       @cardTrader.setCanTapCard(false)#場札のタップ処理の必要があるか？
       
     when /(^|\s)((Cthulhu[\s]*Tech)|(CT))$/i
-      require './diceBot/CthulhuTech'
+      require 'diceBot/CthulhuTech'
       diceBot = CthulhuTech.new
     when /(^|\s)((Tokumei[\s]*Tenkousei)|(ToT))$/i
-      require './diceBot/TokumeiTenkousei'
+      require 'diceBot/TokumeiTenkousei'
       diceBot = TokumeiTenkousei.new
     when /(^|\s)((Shinobi[\s]*Gami)|(SG))$/i
-      require './diceBot/ShinobiGami'
+      require 'diceBot/ShinobiGami'
       diceBot = ShinobiGami.new
     when /(^|\s)((Double[\s]*Cross)|(DX))$/i
-      require './diceBot/DoubleCross'
+      require 'diceBot/DoubleCross'
       diceBot = DoubleCross.new
     when /(^|\s)((Sata[\s]*Supe)|(SS))$/i
-      require './diceBot/Satasupe'
+      require 'diceBot/Satasupe'
       diceBot = Satasupe.new
     when /(^|\s)((Ars[\s]*Magica)|(AM))$/i
-      require './diceBot/ArsMagica'
+      require 'diceBot/ArsMagica'
       diceBot = ArsMagica.new
     when /(^|\s)((Dark[\s]*Blaze)|(DB))$/i
-      require './diceBot/DarkBlaze'
+      require 'diceBot/DarkBlaze'
       diceBot = DarkBlaze.new
     when /(^|\s)((Night[\s]*Wizard)|(NW))$/i
-      require './diceBot/NightWizard'
+      require 'diceBot/NightWizard'
       diceBot = NightWizard.new
     when /(^|\s)TORG$/i
-      require './diceBot/Torg'
+      require 'diceBot/Torg'
       diceBot = Torg.new
     when /(^|\s)TORG1.5$/i
-      require './diceBot/Torg'
-      require './diceBot/Torg1_5'
+      require 'diceBot/Torg'
+      require 'diceBot/Torg1_5'
       diceBot = Torg1_5.new
     when /(^|\s)(hunters\s*moon|HM)$/i
-      require './diceBot/HuntersMoon'
+      require 'diceBot/HuntersMoon'
       diceBot = HuntersMoon.new
     when /(^|\s)(Blood\s*Crusade|BC)$/i
-      require './diceBot/BloodCrusade'
+      require 'diceBot/BloodCrusade'
       diceBot = BloodCrusade.new
     when /(^|\s)(Meikyu\s*Kingdom|MK)$/i
-      require './diceBot/MeikyuKingdom'
+      require 'diceBot/MeikyuKingdom'
       diceBot = MeikyuKingdom.new
     when /(^|\s)(Earth\s*Dawn|ED)$/i
-      require './diceBot/EarthDawn'
+      require 'diceBot/EarthDawn'
       diceBot = EarthDawn.new
     when /(^|\s)(Earth\s*Dawn|ED)3$/i
-      require './diceBot/EarthDawn'
-      require './diceBot/EarthDawn3'
+      require 'diceBot/EarthDawn'
+      require 'diceBot/EarthDawn3'
       diceBot = EarthDawn3.new
     when /(^|\s)(Earth\s*Dawn|ED)4$/i
-      require './diceBot/EarthDawn'
-      require './diceBot/EarthDawn4'
+      require 'diceBot/EarthDawn'
+      require 'diceBot/EarthDawn4'
       diceBot = EarthDawn4.new
     when /(^|\s)(Embryo\s*Machine|EM)$/i
-      require './diceBot/EmbryoMachine'
+      require 'diceBot/EmbryoMachine'
       diceBot = EmbryoMachine.new
     when /(^|\s)(Gehenna\s*An|GA)$/i
-      require './diceBot/GehennaAn'
+      require 'diceBot/GehennaAn'
       diceBot = GehennaAn.new
     when /(^|\s)((Magica[\s]*Logia)|(ML))$/i
-      require './diceBot/MagicaLogia'
+      require 'diceBot/MagicaLogia'
       diceBot = MagicaLogia.new
     when /(^|\s)((Nechronica)|(NC))$/i
-      require './diceBot/Nechronica'
+      require 'diceBot/Nechronica'
       diceBot = Nechronica.new
     when /(^|\s)(Meikyu\s*Days|MD)$/i
-      require './diceBot/MeikyuDays'
+      require 'diceBot/MeikyuDays'
       diceBot = MeikyuDays.new
     when /(^|\s)(Peekaboo|PK)$/i
-      require './diceBot/Peekaboo'
+      require 'diceBot/Peekaboo'
       diceBot = Peekaboo.new
     when /(^|\s)(Barna\s*Kronika|BK)$/i
-      require './diceBot/BarnaKronika'
+      require 'diceBot/BarnaKronika'
       diceBot = BarnaKronika.new
       
       @cardTrader.set1Deck2Jorker
@@ -1965,108 +1955,108 @@ class BCDice
       @cardTrader.setCanTapCard(false)#場札のタップ処理の必要があるか？
       
     when /(^|\s)(RokumonSekai2|RS2)$/i
-      require './diceBot/RokumonSekai2'
+      require 'diceBot/RokumonSekai2'
       diceBot = RokumonSekai2.new
     when /(^|\s)(Monotone(\s*)Musium|MM)$/i
-      require './diceBot/MonotoneMusium'
+      require 'diceBot/MonotoneMusium'
       diceBot = MonotoneMusium.new
     when /(^|\s)Zettai\s*Reido$/i
-      require './diceBot/ZettaiReido'
+      require 'diceBot/ZettaiReido'
       diceBot = ZettaiReido.new
     when /(^|\s)Eclipse\s*Phase$/i
-      require './diceBot/EclipsePhase'
+      require 'diceBot/EclipsePhase'
       diceBot = EclipsePhase.new
     when /(^|\s)NJSLYRBATTLE$/i
-      require './diceBot/NjslyrBattle'
+      require 'diceBot/NjslyrBattle'
       diceBot = NjslyrBattle.new
     when /(^|\s)ShinMegamiTenseiKakuseihen$/i, /(^|\s)SMTKakuseihen$/i
-      require './diceBot/ShinMegamiTenseiKakuseihen'
+      require 'diceBot/ShinMegamiTenseiKakuseihen'
       diceBot = ShinMegamiTenseiKakuseihen.new
     when /(^|\s)Ryutama$/i
-      require './diceBot/Ryutama'
+      require 'diceBot/Ryutama'
       diceBot = Ryutama.new
     when /(^|\s)CardRanker$/i
-      require './diceBot/CardRanker'
+      require 'diceBot/CardRanker'
       diceBot = CardRanker.new
     when /(^|\s)ShinkuuGakuen$/i
-      require './diceBot/ShinkuuGakuen'
+      require 'diceBot/ShinkuuGakuen'
       diceBot = ShinkuuGakuen.new
     when /(^|\s)CrashWorld$/i
-      require './diceBot/CrashWorld'
+      require 'diceBot/CrashWorld'
       diceBot = CrashWorld.new
     when /(^|\s)WitchQuest$/i
-      require './diceBot/WitchQuest'
+      require 'diceBot/WitchQuest'
       diceBot = WitchQuest.new
     when /(^|\s)BattleTech$/i
-      require './diceBot/BattleTech'
+      require 'diceBot/BattleTech'
       diceBot = BattleTech.new
     when /(^|\s)Elysion$/i
-      require './diceBot/Elysion'
+      require 'diceBot/Elysion'
       diceBot = Elysion.new
     when /(^|\s)GeishaGirlwithKatana$/i
-      require './diceBot/GeishaGirlwithKatana'
+      require 'diceBot/GeishaGirlwithKatana'
       diceBot = GeishaGirlwithKatana.new
     when /(^|\s)GURPS$/i
-      require './diceBot/Gurps'
+      require 'diceBot/Gurps'
       diceBot = Gurps.new
     when /(^|\s)GurpsFW$/i
-      require './diceBot/GurpsFW'
+      require 'diceBot/GurpsFW'
       diceBot = GurpsFW.new
     when /(^|\s)FilledWith$/i
-      require './diceBot/FilledWith'
+      require 'diceBot/FilledWith'
       diceBot = FilledWith.new
     when /(^|\s)HarnMaster$/i
-      require './diceBot/HarnMaster'
+      require 'diceBot/HarnMaster'
       diceBot = HarnMaster.new
     when /(^|\s)Insane$/i
-      require './diceBot/Insane'
+      require 'diceBot/Insane'
       diceBot = Insane.new
     when /(^|\s)KillDeathBusiness$/i
-      require './diceBot/KillDeathBusiness'
+      require 'diceBot/KillDeathBusiness'
       diceBot = KillDeathBusiness.new
     when /(^|\s)Kamigakari$/i
-      require './diceBot/Kamigakari'
+      require 'diceBot/Kamigakari'
       diceBot = Kamigakari.new
     when /(^|\s)RecordOfSteam$/i
-      require './diceBot/RecordOfSteam'
+      require 'diceBot/RecordOfSteam'
       diceBot = RecordOfSteam.new
     when /(^|\s)Oukahoushin3rd$/i
-      require './diceBot/Oukahoushin3rd'
+      require 'diceBot/Oukahoushin3rd'
       diceBot = Oukahoushin3rd.new
     when /(^|\s)BeastBindTrinity$/i
-      require './diceBot/BeastBindTrinity'
+      require 'diceBot/BeastBindTrinity'
       diceBot = BeastBindTrinity.new
     when /(^|\s)(BloodMoon)$/i
-      require './diceBot/BloodMoon'
+      require 'diceBot/BloodMoon'
       diceBot = BloodMoon.new
     when /(^|\s)(Utakaze)$/i
-      require './diceBot/Utakaze'
+      require 'diceBot/Utakaze'
       diceBot = Utakaze.new
     when /(^|\s)(EndBreaker)$/i
-      require './diceBot/EndBreaker'
+      require 'diceBot/EndBreaker'
       diceBot = EndBreaker.new
     when /(^|\s)(KanColle)$/i
-      require './diceBot/KanColle'
+      require 'diceBot/KanColle'
       diceBot = KanColle.new
     when /(^|\s)(Grancrest)$/i
-      require './diceBot/GranCrest'
+      require 'diceBot/GranCrest'
       diceBot = GranCrest.new
     when /(^|\s)(HouraiGakuen)$/i
-      require './diceBot/HouraiGakuen'
+      require 'diceBot/HouraiGakuen'
       diceBot = HouraiGakuen.new
     when /(^|\s)(TwilightGunsmoke)$/i
-      require './diceBot/TwilightGunsmoke'
+      require 'diceBot/TwilightGunsmoke'
       diceBot = TwilightGunsmoke.new
     when /(^|\s)(Garako)$/i
-      require './diceBot/Garako'
+      require 'diceBot/Garako'
       diceBot = Garako.new
     when /(^|\s)(ShoujoTenrankai)$/i
-      require './diceBot/ShoujoTenrankai'
+      require 'diceBot/ShoujoTenrankai'
       diceBot = ShoujoTenrankai.new
     when /(^|\s)None$/i, ""
       diceBot = DiceBot.new
     else
-      require './diceBot/DiceBotLoader'
+      require 'diceBot/DiceBotLoader'
       loader = DiceBotLoader.new
       diceBot = loader.loadUnknownGame(gameTitle)
     end

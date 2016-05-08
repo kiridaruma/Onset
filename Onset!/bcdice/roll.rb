@@ -1,9 +1,30 @@
 #!/usr/bin/ruby -Ku
 #--*-coding:utf-8-*--
 
+$LOAD_PATH << File.dirname(__FILE__)
+
 require 'cgi'
-require './bcdiceCore.rb'
-require './configBcDice.rb'
+require 'bcdiceCore.rb'
+require 'configBcDice.rb'
+
+class OnsetBCDiceMaker < BCDiceMaker
+  
+  def newBcDice
+    bcdice = OnsetBCDice.new(self, @cardTrader, @diceBot, @counterInfos, @tableFileData)
+    return bcdice
+  end
+end
+
+class OnsetBCDice < BCDice
+  
+  def setMessage(text)
+    @message = text
+  end
+  
+  def setNick(nick)
+    @nick_e = nick
+  end
+end
 
 puts "Content-Type: text/plain\n\n"
 
@@ -26,8 +47,8 @@ if(params['sys'][0] == nil)
   params['sys'][0] == "None"
 end
 
-bcmaker = BCDiceMaker.new
-bcdice = bcmaker.newBcDice
+bcmaker = OnsetBCDiceMaker.new
+bcdice = bcmaker.newBcDice()
 
 bcdice.setGameByTitle(params['sys'][0])
 bcdice.setMessage(params['text'][0])

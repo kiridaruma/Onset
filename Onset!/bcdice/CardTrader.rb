@@ -1,7 +1,7 @@
 #!/perl/bin/ruby -Ku 
 #--*-coding:utf-8-*--
 
-require './configBcDice.rb'
+require 'configBcDice.rb'
 
 $ircNickRegExp = '[A-Za-z\d\-\[\]\\\'^{}_]+';
 
@@ -33,10 +33,6 @@ class CardTrader
     
     setCardPlace( 1 )
     setCanTapCard( true )
-  end
-  
-  def debug(hoge, foo)
-  
   end
   
   def setCardPlace(place)
