@@ -59,4 +59,6 @@ a{
 .chat{
     border-bottom: solid 2px #dddddd;
     padding: 0.25em 0;
+    width: calc(100% - 1em);
+    word-break: break-all;
 }
