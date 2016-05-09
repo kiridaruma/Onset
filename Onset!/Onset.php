@@ -19,9 +19,9 @@ $sysList = split("\n", file_get_contents("http{$s}://{$url}?list=1"));
     <meta charset="UTF-8">
     <title>Onset!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
     <link rel="stylesheet" href="css.css">
-    <script type="text/javascript" src="chat_rw.js"></script>
+    <script type="text/javascript" src="js/chat_rw.js"></script>
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
 </head>
