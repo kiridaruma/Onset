@@ -29,9 +29,6 @@ $roomlist = unserialize(file_get_contents($dir."roomlist"));
 $isExist = isset($roomlist[$name]);
 $roompath = $roomlist[$name]['path'];
 
-unset($roomlist[$name]);
-file_put_contents($dir."roomlist", serialize($roomlist));
-
 if(!$isExist){
     echo "部屋が存在しません(ブラウザバックをおねがいします)";
     die();
@@ -42,6 +39,9 @@ if(!password_verify($pass, $hash) && $config['pass'] != $pass){
     echo "パスワードを間違えています(ブラウザバックをおねがいします)";
     die();
 }
+
+unset($roomlist[$name]);
+file_put_contents($dir."roomlist", serialize($roomlist));
 
 foreach(scandir("{$dir}{$roompath}/connect/") as $value){
     if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/connect/{$value}");}
