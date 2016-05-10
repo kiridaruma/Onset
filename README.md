@@ -2,7 +2,7 @@
 
 Onset is simple online TRPG chat
 
-version-β1.2.2_あわかぜ(awakaze)  
+version-β1.2.3_あわかぜ(awakaze)  
 ベータ版に入りました  
 [ボーン&カーズ](https://github.com/torgtaitai/BCDice)を導入し、様々なシステムでも遊べるようになりました  
   
