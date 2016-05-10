@@ -41,6 +41,7 @@ if(count($roomlist) >= $config["roomLimit"]){
 $hash = password_hash($pass, PASSWORD_DEFAULT);
 unset($pass);     //念の為、平文のパスワードを削除
 try{
+    $uuid = uniqid("", true);
     mkdir($dir.$uuid) ? "" : function(){throw new Exception();};
     touch("{$dir}{$uuid}/pass.hash") ? "" : function(){throw new Exception();};
     touch("{$dir}{$uuid}/xxlogxx.txt") ? "" : function(){throw new Exception();};
@@ -52,7 +53,6 @@ try{
     chmod("{$dir}{$uuid}/connect/", 0777) ? "" : function(){throw new Exception();};
     file_put_contents("{$dir}{$uuid}/pass.hash", $hash) ? "" : function(){throw new Exception();};
 
-    $uuid = uniqid("", true);
     $roomlist[$name]["path"] = $uuid;
     file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
 }catch(Exception $err){
