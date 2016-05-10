@@ -29,9 +29,6 @@ $roomlist = unserialize(file_get_contents($dir."roomlist"));
 $isExist = isset($roomlist[$name]);
 $roompath = $roomlist[$name]['path'];
 
-unset($roomlist[$name]);
-file_put_contents($dir."roomlist", serialize($roomlist));
-
 if(!$isExist){
     echo "部屋が存在しません(ブラウザバックをおねがいします)";
     die();
@@ -43,14 +40,21 @@ if(!password_verify($pass, $hash) && $config['pass'] != $pass){
     die();
 }
 
-foreach(scandir("{$dir}{$roompath}/connect/") as $value){
-    if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/connect/{$value}");}
-}
-rmdir("{$dir}{$roompath}/connect/");
+try{
+    foreach(scandir("{$dir}{$roompath}/connect/") as $value){
+        if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/connect/{$value}") ? "" : function(){throw new Exception();};}
+    }
+    rmdir("{$dir}{$roompath}/connect/") ? "" : function(){throw new Exception();};
 
-foreach(scandir($dir.$roompath) as $value){
-    if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/{$value}");}
+    foreach(scandir($dir.$roompath) as $value){
+        if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/{$value}") ? "" : function(){throw new Exception();};}
+    }
+    rmdir($dir.$roompath) ? "" : function(){throw new Exception();};
+
+    unset($roomlist[$name]);
+    file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
+}catch(Exception $err){
+    echo "部屋を消せませんでした";
 }
-rmdir($dir.$roompath);
 
 header("Location: ../index.php");
