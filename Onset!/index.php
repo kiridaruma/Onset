@@ -86,9 +86,9 @@ $welcomeMesseage = file_get_contents('welcomeMesseage.txt');
                 部屋一覧<br>
                 <?php
                 foreach($roomlist as $key => $value){
-                    echo "<span class=\"room\">";
+                    echo "<label class=\"room\">";
                     echo "<input type=\"radio\" name=\"name\" value=\"{$key}\">{$key}";
-                    echo "</span>";
+                    echo "</label>";
                 }
                 ?>
             </div>
