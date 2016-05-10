@@ -17,10 +17,6 @@ end
 
 class OnsetBCDice < BCDice
   
-  def setMessage(text)
-    @message = text
-  end
-  
   def setNick(nick)
     @nick_e = nick
   end

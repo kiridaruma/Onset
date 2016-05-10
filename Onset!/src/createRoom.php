@@ -38,22 +38,24 @@ if(count($roomlist) >= $config["roomLimit"]){
     die();
 }
 
-$uuid = uniqid("", true);
-$roomlist[$name]["path"] = $uuid;
-file_put_contents($dir."roomlist", serialize($roomlist));
-
 $hash = password_hash($pass, PASSWORD_DEFAULT);
 unset($pass);     //念の為、平文のパスワードを削除
+try{
+    $uuid = uniqid("", true);
+    mkdir($dir.$uuid) ? "" : function(){throw new Exception();};
+    touch("{$dir}{$uuid}/pass.hash") ? "" : function(){throw new Exception();};
+    touch("{$dir}{$uuid}/xxlogxx.txt") ? "" : function(){throw new Exception();};
+    mkdir("{$dir}{$uuid}/connect") ? "" : function(){throw new Exception();};
 
-mkdir($dir.$uuid);
-touch("{$dir}{$uuid}/pass.hash");
-touch("{$dir}{$uuid}/xxlogxx.txt");
-mkdir("{$dir}{$uuid}/connect");
+    chmod($dir.$uuid, 0777) ? "" : function(){throw new Exception();};
+    chmod("{$dir}{$uuid}/pass.hash", 0666) ? "" : function(){throw new Exception();};
+    chmod("{$dir}{$uuid}/xxlogxx.txt", 0666) ? "" : function(){throw new Exception();};
+    chmod("{$dir}{$uuid}/connect/", 0777) ? "" : function(){throw new Exception();};
+    file_put_contents("{$dir}{$uuid}/pass.hash", $hash) ? "" : function(){throw new Exception();};
 
-chmod($dir.$uuid, 0777);
-chmod("{$dir}{$uuid}/pass.hash", 0666);
-chmod("{$dir}{$uuid}/xxlogxx.txt", 0666);
-chmod("{$dir}{$uuid}/connect/", 0777);
-file_put_contents("{$dir}{$uuid}/pass.hash", $hash);
-
+    $roomlist[$name]["path"] = $uuid;
+    file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
+}catch(Exception $err){
+    echo "部屋を立てられませんでした";
+}
 header("Location: ../index.php");

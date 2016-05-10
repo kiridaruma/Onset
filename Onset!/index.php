@@ -32,29 +32,34 @@ $welcomeMesseage = file_get_contents('welcomeMesseage.txt');
         <?= $welcomeMesseage ?>
     </div>
 
+    <p><a href="help.html">Onset!ヘルプページ</a></p>
+
     <form action="src/login.php" method="post" class="form">
-        <div id="form">
+        <div id="input">
             <input type="text" class="text" name="name" placeholder="名前"><br>
             <input type="password" class="text" name="pass" placeholder="パスワード"><br>
             <input type="submit" class="button" value="入室" class="pure-button">
         </div>
 
+        <a onclick="toggle()">部屋の作成/削除</a>
+
         <div class="list">
             部屋一覧<br>
             <?php
             foreach($roomlist as $key => $value){
-                echo "<span class=\"room\">";
+                echo "<label class=\"room\">";
                 echo "<input type=\"radio\" name=\"room\" value=\"{$key}\">{$key}";
-                echo "</span>";
+                echo "</label>";
             }
             ?>
         </div>
     </form>
 
-    <a onclick="toggle()" id="toggle">部屋の作成/削除</a>
-
     <div id="edit">
-        <h3>作成</h3>
+        
+        <a onclick="toggle()">入室画面に戻る</a>
+        
+        <h2>作成</h2>
 
         <form action="src/createRoom.php" method="post">
             <input type="text" class="text" name="name" placeholder="部屋名"><br>
@@ -65,30 +70,29 @@ $welcomeMesseage = file_get_contents('welcomeMesseage.txt');
 
             <input type="submit" class="button" value="作成" class="pure-button">
         </form>
+        
+        <hr style="margin: 2em;">
 
-        <h3>削除</h3>
+        <h2>削除</h2>
 
         <form action="src/deleteRoom.php" method="post">
+
+            <input type="password" class="text" name="pass" placeholder="パスワード"><br>
+            <input type="hidden" name="rand" value="<?= $rand ?>">
+            <input type="hidden" name="mode" value="del">
+            <input type="submit" class="button" value="削除">
+
             <div class="list">
                 部屋一覧<br>
                 <?php
                 foreach($roomlist as $key => $value){
-                    echo "<span class=\"room\">";
+                    echo "<label class=\"room\">";
                     echo "<input type=\"radio\" name=\"name\" value=\"{$key}\">{$key}";
-                    echo "</span>";
+                    echo "</label>";
                 }
                 ?>
             </div>
-            <input type="password" class="text" name="pass" placeholder="パスワード"><br>
-
-            <input type="hidden" name="rand" value="<?= $rand ?>">
-            <input type="hidden" name="mode" value="del">
-
-            <input type="submit" class="button" value="削除">
-
         </form>
     </div>
-
-    <p><a href="help.html">Onset!ヘルプページ</a></p>
 
 </body></html>

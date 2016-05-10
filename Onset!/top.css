@@ -47,8 +47,14 @@ a{
     text-align: left;
     display: list-item;
     list-style: none;
+    text-decoration: underline;
+    color: #aaddaa;
 }
 
 #edit{
     display: none;
+}
+
+#input{
+    padding: 1em 0;
 }
