@@ -1,4 +1,6 @@
 <?php
+require_once('core.php');
+
 session_start();
 
 $name = isset($_POST['name']) && $_POST['name'] != NULL ? trim($_POST['name']) : FALSE;
