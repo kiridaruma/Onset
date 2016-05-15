@@ -1,7 +1,7 @@
 <?php
 
 require_once('config.php');
-require_once('core.php')
+require_once('core.php');
 
 $name = isset($_POST['name']) || $_POST['name'] != 0 ? htmlspecialchars($_POST['name'], ENT_QUOTES) : FALSE;
 $pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
@@ -15,7 +15,7 @@ if(!$name || !$pass || !$room){
 $dir = $config['roomSavepath'];
 $roomlist = unserial($dir);
 
-if(!isset($roomlist[$room])){
+if(isExistRoom($roomlist, $name)){
 	echo "存在しない部屋です(ブラウザバックをお願いします)";
 	die();
 }

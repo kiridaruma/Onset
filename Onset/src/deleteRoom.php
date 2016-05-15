@@ -31,10 +31,9 @@ $dir = $config['roomSavepath'];
 
 $roomlist = unserial($dir);
 
-$isExist = isset($roomlist[$name]);
 $roompath = $roomlist[$name]['path'];
 
-if(!$isExist){
+if(isExistRoom($roomlist, $name)){
 	echo "部屋が存在しません(ブラウザバックをおねがいします)";
 	die();
 }
