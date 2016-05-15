@@ -37,6 +37,7 @@ function isLongRoomName($name) {
 		echo "部屋名が長過ぎます。";
 		die();
 	}
+	return true;
 }
 
 /*
@@ -54,5 +55,17 @@ function isLongChat($text, $name) {
 		echo "最大数:".$config["maxChatNick"];
 		die();
 	}
+	return true;
+}
+
+/*
+ * isNULLRoom
+ */
+function isNULLRoom($room) {
+	if($room === NULL) {
+		echo "Invalid Access: Room number is null.";
+		die();
+	}
+
 	return true;
 }

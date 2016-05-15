@@ -3,18 +3,11 @@ require_once('config.php');
 require_once('core.php');
 
 session_start();
-if($_SESSION['onset_room'] === NULL){
-			echo "不正なアクセス:invalid access";
-			die();
-}
 
-require_once('config.php');
+isNULLRoom($_SESSION['onset_room']);
 
-$logdir = "{$dir}{$_SESSION['onset_room']}/xxlogxx.txt";
-$text = file_get_contents($logdir);
-
-$text = strip_tags($text);
-$text = htmlspecialchars_decode($text);
+$logdir = $dir.$_SESSION['onset_room']."/xxlogxx.txt";
+$text = htmlspecialchars_decode(strip_tags(file_get_contents($logdir)));
 
 header("Content-type: text/plain");
 echo $text;
