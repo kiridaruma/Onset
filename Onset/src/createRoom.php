@@ -26,8 +26,6 @@ if(mb_strlen($name) >= $config['maxRoomName']){
 
 $name = htmlspecialchars($name, ENT_QUOTES);
 
-$roomlist = unserial($dir);
-
 if(isExistRoom($roomlist, $name) === true) {
 	echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";
 	die();

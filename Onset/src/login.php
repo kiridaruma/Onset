@@ -12,8 +12,6 @@ if(!$name || !$pass || !$room){
 	die();
 }
 
-$roomlist = unserial($dir);
-
 if(isExistRoom($roomlist, $name)){
 	echo "存在しない部屋です(ブラウザバックをお願いします)";
 	die();

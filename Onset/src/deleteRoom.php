@@ -27,8 +27,6 @@ if(mb_strlen($name) > 30){
 	die();
 }
 
-$roomlist = unserial($dir);
-
 $roompath = $roomlist[$name]['path'];
 
 if(isExistRoom($roomlist, $name)){
