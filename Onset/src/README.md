@@ -1,23 +1,23 @@
-# core.php
+## core.php
 統一できそうな処理、もしくは長い処理をこちらにまとめています。
 全コードでのインクルードをおすすめします。
 
-# config.php
+## config.php
 すべてのファイルで使用されうる設定ファイルです。
 全コードでのインクルードをおすすめします。
 
-# checkLoginUser.php
+## checkLoginUser.php
 
-# createRoom.php
+## createRoom.php
 
-# deleteRoom.php
+## deleteRoom.php
 
-# login.php
+## login.php
 
-# logout.php
+## logout.php
 
-# logput.php
+## logput.php
 
-# read.php
+## read.php
 
-# write.php
+## write.php
