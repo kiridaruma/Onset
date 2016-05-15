@@ -66,6 +66,21 @@ function isNULLRoom($room) {
 		echo "Invalid Access: Room number is null.";
 		die();
 	}
+	return true;
+}
 
+/*
+ * isSetNamePass
+ */
+function isSetNameAndPass($name, $pass) {
+	if(!$name) {
+		echo "部屋名を設定してください。";
+		die();
+	}
+
+	if($pass) {
+		echo "パスワードを設定してください。";
+		die();
+	}
 	return true;
 }

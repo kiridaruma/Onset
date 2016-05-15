@@ -14,11 +14,7 @@ $room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 $mode = $_POST['mode'];
 
-if(!$name || !$pass){
-	echo "部屋名とパスワードを入力してください";
-	die();
-}
-
+isSetRoomAndName($room, $name);
 isLongRoomName($room);
 
 $roompath = $roomlist[$room]['path'];

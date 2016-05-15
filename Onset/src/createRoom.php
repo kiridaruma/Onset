@@ -14,11 +14,7 @@ $name = isset($_POST['name']) && $_POST['name'] != "" ? $_POST['name'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 $mode = $_POST['mode'];
 
-if(!$name || !$pass){
-	echo "部屋名とパスワードを入力してください";
-	die();
-}
-
+isSetNameAndPass($name, $pass);
 isLongRoomName($name);
 
 $name = htmlspecialchars($name, ENT_QUOTES);
