@@ -1,3 +1,99 @@
 .edit {
-	display: none;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+header {
+ width: 100%;
+ background-color: #333;
+ color: white;
+ margin-bottom: 2%;
+ padding-left: 3%;
+ box-shadow: 0 1px 1px 1px #888;
+}
+
+header li {
+	display: inline-block;
+	padding: 1%;
+}
+
+header li a {
+	text-decoration: none;
+	display: block;
+}
+
+header li a:visited {
+	color: #aaa;
+}
+
+header li a:hover {
+	color: #555;
+}
+
+
+.form {
+	display: inline;
+}
+
+input[type="text"],
+input[type="password"],
+textarea,select {
+	outline: none;
+	border: 1px solid #aaa;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+	-moz-box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+	box-shadow: inner 0 0 4px rgba(0, 0, 0, 0.2);
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+	box-shadow: 0 0 7px #1abc9c;
+	border: 1px solid #1abc9c;
+}
+
+input {
+	padding: 10px;
+}
+textarea {
+	padding: 10px;
+	margin-top: 0.5%;
+	resize: vertical;
+	display: inline-block;
+	width: 80%;
+	float: left;
+}
+
+select {
+	padding: 8px;
+}
+
+button {
+	display: inline;
+	margin-top: 0.5%;
+	margin-left: 1%;
+	padding: 5px;
+	width: 16%;
+}
+
+.notice {
+	clear: both;
+}
+
+.chat {
+	border: 1px solid #666;
+	margin: 1% 0;
+	padding: 1%;
+}
+
+.room input {
+
 }

@@ -2,8 +2,8 @@
 session_start();
 
 if(!isset($_SESSION['onset_room'])){
-		header("Location: index.php");
-		die();
+	header("Location: index.php");
+	die();
 }
 
 require_once('src/config.php');
@@ -27,32 +27,29 @@ $sysList = split("\n", file_get_contents("http{$s}://{$url}?list=1"));
 		<script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body>
+	<header>
+		<li><a href="src/logput.php" class="top-item">ログ出力</a></li>
+		<li><a href="src/logout.php" class="top-item">ログアウト</a></li>
+		<li><a class="top-item" onclick="checkLoginUser()">ログイン一覧</a></li>
+	</header>
+	<div class="contents">
+	<div class="form">
+		<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>>(<?= $_SESSION['onset_id'] ?>)
+		<select id="sys">
+		<option value="None" selected>指定なし</option>
+<?php
+foreach($sysList as $value) {
+	echo "<option value=\"{$value}\">{$value}</option>";
+}
+?>
+		</select>
+		<textarea id="text" rows="1"></textarea><br>
+		<button type="button" id="button" value="送信" onclick="send_chat()">送信</button>
+	</div>
 
-		<div class="top">
-				<a href="src/logput.php" class="top-item">ログ出力</a>
-				<a href="src/logout.php" class="top-item">ログアウト</a>
-				<a class="top-item" onclick="checkLoginUser()">ログイン一覧</a>
-		</div>
-
-		<div class="form">
-				<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>>(<?= $_SESSION['onset_id'] ?>)
-				<select id="sys">
-						<option value="None" selected>指定なし</option>
-						<?php
-						foreach($sysList as $value) {
-								echo "<option value=\"{$value}\">{$value}</option>";
-						}
-						?>
-				</select>
-				<br>
-				<textarea id="text" rows="4"></textarea><br>
-				<input type="button" id="button" value="送信" onclick="send_chat()">
-		</div>
-
-		<div class="notice"></div>
-
+	<div class="notice"></div>
 		<script>$(document).ready(function(){get_log();});</script>
-		<div class="chats"></div>
-
+	<div class="chats"></div>
+	</div>
 </body>
 </html>

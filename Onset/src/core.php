@@ -1,5 +1,5 @@
 <?php
-require_once('config.php');
+require_once(dirname(__FILE__).'/config.php');
 
 /*
  * isIllegalAccess
@@ -32,6 +32,7 @@ function isExistRoom($roomlist, $room) {
  * isLongRoomName
  */
 function isLongRoomName($name) {
+	global $config;
 	if(mb_strlen($name) < $config['maxRoomName']) {
 		echo mb_strlen($name);
 		echo "部屋名が長過ぎます。";
@@ -44,6 +45,7 @@ function isLongRoomName($name) {
  * isLongChat
  */
 function isLongChat($text, $name) {
+	global $config;
 	if(mb_strlen($text) >= $config["maxChatText"]) {
 		echo "送信するテキストの文字数が多すぎます(ブラウザバックをお願いします)。";
 		echo "最大数:".$config["maxChatText"];

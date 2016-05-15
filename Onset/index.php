@@ -47,10 +47,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 				<?php endforeach; ?>
 			</div>
 		</form>
-
-		<button onclick="toggle()">部屋の作成と削除</button>
-
-			</div>
+	</div>
 
 	<div class="edit">
 
@@ -80,7 +77,6 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 			<?php endforeach; ?>
 		</div>
 		</form>
-		<button onclick="toggle()">入室画面に戻る</button>
 	</div>
 </div>
 </body>

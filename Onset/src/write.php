@@ -1,5 +1,5 @@
 <?php
-require_once('core.php');
+require_once(dirname(__FILE__).'/core.php');
 
 session_start();
 
