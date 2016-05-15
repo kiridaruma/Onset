@@ -4,29 +4,31 @@ require_once('config.php');
 
 session_start();
 
-$time = isset($_POST['time']) && $_POST['time'] != NULL ? $_POST['time'] : FALSE;
-$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
+$time = isset($_POST['time']) 					&& $_POST['time'] 					!= NULL ? $_POST['time'] 					: FALSE;
+$room = isset($_SESSION['onset_room']) 	&& $_SESSION['onset_room'] 	!= NULL ? $_SESSION['onset_room']	: FALSE;
 
 if(!$time || !$room){
-	echo "不正なアクセス：invalid_access";
+	echo "Invalid Access: Time OR Room variables is null.";
 	die();
 }
 
 $dir = $dir.$room;
 
-if($time < filemtime("{$dir}/xxlogxx.txt") * 1000){
-	$fp = fopen("{$dir}/xxlogxx.txt", 'r');
+if($time < filemtime($dir."/xxlogxx.txt") * 1000) {
+	$fp = fopen($dir."/xxlogxx.txt", 'r');
 	$eof = FALSE;
+
 	while(!$eof){
 		$line = fgets($fp);
-		if($line !== FALSE){
+		if($line !== FALSE) {
 			echo $line;
-		}else{
+		} else {
 			$eof = TRUE;
 		}
 	}
+
 	fclose($fp);
-}else{
+} else {
 	echo "none";
 }
 
