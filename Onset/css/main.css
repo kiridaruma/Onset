@@ -1,0 +1,196 @@
+/* ==========================================================================
+	 Akagi Web UI
+	 MIT Licence
+
+	 1. global reset
+	 2. margin
+	 3. elements
+	 4. blockquote
+	 5. table
+	 6. h1 - h6
+ 
+	 ========================================================================== */
+
+/* ==========================================================================
+	 global reset
+	 ========================================================================== */
+body {
+	font-family: 'Meiryo', sans-selif;
+}
+.contents {
+	margin: 1% 5%;
+}
+.article {
+	border: 1px solid #ddd;
+}
+.article * {
+	font-size: 14px;
+}
+
+/* ==========================================================================
+	 margin
+	 ========================================================================== */
+
+.article p, pre, table, img, address, h4, h5, h6, hr {
+	margin: 1% 3%;
+}
+
+/* ==========================================================================
+	 elements
+	 ========================================================================== */
+
+hr {
+	border: 2px solid #eee;
+}
+
+.article var, code, kbd, sub, sup, time, samp {
+	font-family: monospace;
+}
+
+.article pre {
+	border: 1px solid #ddd;
+	border-left: 5px solid #333;
+	padding: 1%;
+}
+.article abbr {
+	padding: 0 1px;
+	margin: 0;
+}
+.article ul {
+	padding-left: 5%;
+	list-style-type: disc;
+}
+.article ol {
+	padding-left: 5%;
+	list-style-type: decimal;
+}
+.article dt, dd {
+	padding-left: 3%;
+}
+.article a {
+	text-decoration: none;
+	color: #60e:
+}
+.article a:hover {
+	color: #06e;
+}
+.article sub, sup {
+	margin: 0;
+	padding: 0;
+}
+.article img {
+	display: inline-block;
+	max-height: 500px;
+	width: auto;
+	box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);
+	-o-box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);
+	-webkit-box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);
+}
+
+.article dt {
+	font-weight: bold;
+}
+
+/* ==========================================================================
+	 blockquote
+	 ========================================================================== */
+
+.article blockquote {
+	background-color: #eee;
+	margin: 3%;
+	padding: 3em 1em;
+	position: relative;
+}
+.article blockquote:before {
+	content: "“";
+	font-size: 600%;
+	line-height: 1em;
+	font-family: "ＭＳ Ｐゴシック", sans-serif;
+	color: #333;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+blockquote:after {
+	content: "”";
+	font-size: 600%;
+	line-height: 0em;
+	font-family: "ＭＳ Ｐゴシック", sans-serif;
+	color: #333;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+blockquote cite {
+	position: relative;
+	color: #aaa;
+}
+
+/* ==========================================================================
+	 table
+	 ========================================================================== */
+
+.article table {
+	min-width: 50%;
+}
+.article thead {
+	border-bottom: 2px solid #333;
+}
+.article thead tr{
+	border: 1px solid #ddd;
+	background-color: #eee;
+}
+.article table tr {
+	height: 2em;
+}
+.article table tbody tr:nth-child(2n+1) {
+	background-color: #fff;
+}
+.article table tbody tr:nth-child(2n+0) {
+	background-color: #eee;
+}
+.article tr td {
+	text-align: center;
+	border: 1px solid #ddd;
+	padding: 0 3px;
+}
+
+/* ==========================================================================
+	 h1 - h6
+	 ========================================================================== */
+
+h1, h2, h3, h4 {
+	background-color: #333;
+	color: #fff;
+	padding: 1%;
+}
+.article h1 {
+	font-size: 20px;
+	border-left: 10px solid #06e;
+}
+h1:first-letter {
+	margin-right: .1em;
+	font-size: 1.5em;
+}
+.article h2 {
+	font-size: 18px;
+	border-left: 10px solid #60e;
+}
+h2:first-letter {
+	margin-right: .1em;
+	font-size: 1.5em;
+}
+.article h3 {
+	border-left: 10px solid #e06;
+}
+.article h4 {
+	border-left: 6px solid #e60;
+}
+h5, h6 {
+	font-size: 16px;
+	background-color: #eee;
+	padding: .5em .75em;
+	border-left: 6px solid #ccc;
+}
