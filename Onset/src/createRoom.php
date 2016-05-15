@@ -1,10 +1,12 @@
 <?php
 
 require_once('config.php');
+require_once('core.php');
+
 session_start();
 
-if($_POST['rand'] != $_SESSION['onset_rand']){
-	echo "無効なアクセス:invalid_access";
+if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
+	echo 'Illegal Access: invalid_access.';
 	die();
 }
 

@@ -1,16 +1,21 @@
 <?php
 
 require_once('config.php');
+require_once('core.php');
+
 session_start();
 
-if($_POST['rand'] != $_SESSION['onset_rand']){
-	echo "無効なアクセス:invalid_access";
+if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
+	echo 'Illegal Access: invalid_access.';
 	die();
 }
 
 $name = isset($_POST['name']) && $_POST['name'] != "" ? $_POST['name'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 $mode = $_POST['mode'];
+
+var_dump($name);
+var_dump($pass);
 
 if(!$name || !$pass){
 	echo "部屋名とパスワードを入力してください";

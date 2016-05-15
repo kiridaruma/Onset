@@ -7,7 +7,7 @@ $roomlist = unserialize(file_get_contents($dir."roomlist"));
 session_start();
 $_SESSION['onset_rand'] = $rand = mt_rand();
 
-$welcomeMessage = file_get_contents('welcomeMessage.txt');
+$welcomeMessage = file_get_contents('welcomeMessage.html');
 
 ?>
 
@@ -19,7 +19,8 @@ $welcomeMessage = file_get_contents('welcomeMessage.txt');
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
-	<link rel="stylesheet" href="top.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/local.css">
 </head>
 <body>
 <div class="contents">
@@ -36,19 +37,20 @@ $welcomeMessage = file_get_contents('welcomeMessage.txt');
 				<input class="text" type="password" name="pass" placeholder="パスワード">
 				<input class="button" type="submit" value="入室">
 			</div>
+
+			<div class="list">
+				<p>部屋一覧</p>
+				<?php foreach($roomlist as $key => $value) : ?>
+					<label class="room">
+					<input type="radio" name="room" value="<?=$key?>"><?=$key?>
+					</label>
+				<?php endforeach; ?>
+			</div>
 		</form>
 
 		<button onclick="toggle()">部屋の作成と削除</button>
 
-		<div class="list">
-			<p>部屋一覧</p>
-			<?php foreach($roomlist as $key => $value) : ?>
-				<label class="room" for="">
-				<input type="radio" name="room" value="<?=$key?>"><?=$key?>
-				</label>
-			<?php endforeach; ?>
-		</div>
-	</div>
+			</div>
 
 	<div class="edit">
 
@@ -69,15 +71,15 @@ $welcomeMessage = file_get_contents('welcomeMessage.txt');
 			<input type="hidden" name="rand" value="<?=$rand?>">
 			<input type="hidden" name="mode" value="del">
 			<input type="submit" class="button" value="削除">
-		</form>
 		<div class="list">
 			<p>部屋一覧</p>
 			<?php foreach($roomlist as $key => $value) : ?>
 				<label class="room" for="">
-				<input type="radio" name="room" value="<?=$key?>"><?=$key?>
+				<input type="radio" name="name" value="<?=$key?>"><?=$key?>
 				</label>
 			<?php endforeach; ?>
 		</div>
+		</form>
 		<button onclick="toggle()">入室画面に戻る</button>
 	</div>
 </div>
