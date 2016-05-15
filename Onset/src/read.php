@@ -1,5 +1,7 @@
 <?php
 
+require_once('config.php');
+
 session_start();
 
 $time = isset($_POST['time']) && $_POST['time'] != NULL ? $_POST['time'] : FALSE;
@@ -9,8 +11,6 @@ if(!$time || !$room){
 	echo "不正なアクセス：invalid_access";
 	die();
 }
-
-require_once('config.php');
 
 $dir = $dir.$room;
 
