@@ -24,8 +24,6 @@ if(mb_strlen($name) >= $config['maxRoomName']){
 	die();
 }
 
-$dir = $config['roomSavepath'];
-
 $name = htmlspecialchars($name, ENT_QUOTES);
 
 $roomlist = unserial($dir);

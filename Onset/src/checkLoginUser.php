@@ -1,4 +1,6 @@
 <?php
+require_once('config.php');
+
 session_start();
 
 $room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
@@ -8,9 +10,7 @@ if(!$room || !$id){
 	echo "不正なアクセス:invalid_access";
 }
 
-require_once('config.php');
-
-$dir = "{$config['roomSavepath']}{$room}/connect/";
+$dir = $dir.$room."/connect/";
 $arr = scandir($dir);
 
 if($_POST['lock'] === 'unlock'){
