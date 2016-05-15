@@ -28,7 +28,7 @@ $dir = $config['roomSavepath'];
 
 $name = htmlspecialchars($name, ENT_QUOTES);
 
-$roomlist = unserialize(file_get_contents($dir."roomlist"));
+$roomlist = unserial($dir);
 
 if(isset($roomlist[$name])){
 	echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";

@@ -29,7 +29,7 @@ if(mb_strlen($name) > 30){
 
 $dir = $config['roomSavepath'];
 
-$roomlist = unserialize(file_get_contents($dir."roomlist"));
+$roomlist = unserial($dir);
 
 $isExist = isset($roomlist[$name]);
 $roompath = $roomlist[$name]['path'];
