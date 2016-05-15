@@ -16,3 +16,13 @@ function isIllegalAccess($rand, $onset_rand) {
 function unserial($dir) {
 	return unserialize(file_get_contents($dir.'roomlist'));
 }
+
+/*
+ * isExistRoom
+ */
+function isExistRoom($roomlist, $name) {
+	if(isset($roomlist[$name])) {
+		return true;
+	}
+	return false;
+}
