@@ -19,10 +19,7 @@ if(!$name || !$pass){
 	die();
 }
 
-if(mb_strlen($name) >= $config['maxRoomName']){
-	echo "部屋名が長過ぎます";
-	die();
-}
+isLongRoomName($name);
 
 $name = htmlspecialchars($name, ENT_QUOTES);
 

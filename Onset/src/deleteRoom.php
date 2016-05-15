@@ -10,26 +10,20 @@ if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
 	die();
 }
 
-$name = isset($_POST['name']) && $_POST['name'] != "" ? $_POST['name'] : FALSE;
+$room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 $mode = $_POST['mode'];
-
-var_dump($name);
-var_dump($pass);
 
 if(!$name || !$pass){
 	echo "部屋名とパスワードを入力してください";
 	die();
 }
 
-if(mb_strlen($name) > 30){
-	echo "部屋名が長過ぎます";
-	die();
-}
+isLongRoomName($room);
 
-$roompath = $roomlist[$name]['path'];
+$roompath = $roomlist[$room]['path'];
 
-if(isExistRoom($roomlist, $name)){
+if(isExistRoom($roomlist, $room) === false) {
 	echo "部屋が存在しません(ブラウザバックをおねがいします)";
 	die();
 }
@@ -51,7 +45,7 @@ try{
 	}
 	rmdir($dir.$roompath) ? "" : function(){throw new Exception();};
 
-	unset($roomlist[$name]);
+	unset($roomlist[$room]);
 	file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
 } catch(Exception $e) {
 	echo "部屋を消せませんでした";

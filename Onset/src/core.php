@@ -1,4 +1,5 @@
 <?php
+require_once('config.php');
 
 /*
  * isIllegalAccess
@@ -20,9 +21,38 @@ function unserial($dir) {
 /*
  * isExistRoom
  */
-function isExistRoom($roomlist, $name) {
-	if(isset($roomlist[$name])) {
+function isExistRoom($roomlist, $room) {
+	if(isset($roomlist[$room])) {
 		return true;
 	}
 	return false;
+}
+
+/*
+ * isLongRoomName
+ */
+function isLongRoomName($name) {
+	if(mb_strlen($name) < $config['maxRoomName']) {
+		echo mb_strlen($name);
+		echo "部屋名が長過ぎます。";
+		die();
+	}
+}
+
+/*
+ * isLongChat
+ */
+function isLongChat($text, $name) {
+	if(mb_strlen($text) >= $config["maxChatText"]) {
+		echo "送信するテキストの文字数が多すぎます(ブラウザバックをお願いします)。";
+		echo "最大数:".$config["maxChatText"];
+		die();
+	}
+
+	if(mb_strlen($name) >= $config["maxChatNick"]) {
+		echo "送信する名前の文字数が多すぎます(ブラウザバックをお願いします)。";
+		echo "最大数:".$config["maxChatNick"];
+		die();
+	}
+	return true;
 }

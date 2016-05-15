@@ -12,7 +12,7 @@ if(!$name || !$pass || !$room){
 	die();
 }
 
-if(isExistRoom($roomlist, $name)){
+if(isExistRoom($roomlist, $room) === false){
 	echo "存在しない部屋です(ブラウザバックをお願いします)";
 	die();
 }
