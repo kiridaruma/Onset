@@ -3,12 +3,12 @@ session_start();
 
 $name = isset($_POST['name']) && $_POST['name'] != NULL ? trim($_POST['name']) : FALSE;
 $text = isset($_POST['text']) && $_POST['text'] != NULL ? trim($_POST['text']) : FALSE;
+$sys  = isset($_POST['sys'])  && $_POST['sys']  != NULL ? trim($_POST['sys'])  : FALSE;
 $room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
-$sys = isset($_POST['sys']) && $_POST['sys'] != NULL ? trim($_POST['sys']) : FALSE;
 
 if(!$text || !$name || !$room || !$sys){
-    echo "不正なアクセス:invalid_access";
-    die();
+	echo "不正なアクセス:invalid_access";
+	die();
 }
 
 require_once('config.php');
@@ -16,8 +16,8 @@ require_once('config.php');
 $dir = "{$config['roomSavepath']}{$room}";
 
 if(mb_strlen($text) >= $config["maxChatText"] || mb_strlen($name) >= $config["maxChatNick"]){
-    echo "文字数が多すぎます(ブラウザバックをお願いします)";
-    die();
+	echo "文字数が多すぎます(ブラウザバックをお願いします)";
+	die();
 }
 
 //var_dump($_POST);
@@ -28,13 +28,13 @@ if(mb_strlen($text) >= $config["maxChatText"] || mb_strlen($name) >= $config["ma
 $url = $config['bcdiceURL'];
 
 $encordedText = urlencode($text);
-$encordedSys = urlencode($sys);
+$encordedSys  = urlencode($sys);
 
 $s = "";
 if($config["enableSSL"]){$s = 's';}
 $ret = file_get_contents("http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}");
 if(trim($ret) == '1' || trim($ret) == 'error'){
-    $ret = "";
+	$ret = "";
 }
 $diceRes = str_replace('onset: ', '', $ret);
 
@@ -52,9 +52,6 @@ $line = "<div class=\"chat\"><b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$text
 
 //var_dump($line);
 
-
 $line = $line.file_get_contents("{$dir}/xxlogxx.txt");
 file_put_contents("{$dir}/xxlogxx.txt", $line, LOCK_EX);
 $_SESSION['onset_name'] = $name;
-
-?>
