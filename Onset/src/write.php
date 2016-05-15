@@ -13,7 +13,11 @@ if(!$text || !$name || !$room || !$sys){
 
 require_once('config.php');
 
+<<<<<<< HEAD
 $dir = $dir.$room;
+=======
+$dir = $dir.$room
+>>>>>>> e03d9943b39bcc28b3f07dd9aa5a81467831c538
 
 if(mb_strlen($text) >= $config["maxChatText"] || mb_strlen($name) >= $config["maxChatNick"]){
 	echo "文字数が多すぎます(ブラウザバックをお願いします)";
