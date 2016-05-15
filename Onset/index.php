@@ -41,12 +41,13 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 			<div class="list">
 				<p>部屋一覧</p>
 				<?php foreach($roomlist as $key => $value) : ?>
-					<label class="room">
+					<li><label class="room">
 					<input type="radio" name="room" value="<?=$key?>"><?=$key?>
-					</label>
+					</label></li>
 				<?php endforeach; ?>
 			</div>
 		</form>
+		<button><a onclick="toggle()" id="toggle">部屋の作成/削除</a></button>
 	</div>
 
 	<div class="edit">
@@ -71,12 +72,13 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 		<div class="list">
 			<p>部屋一覧</p>
 			<?php foreach($roomlist as $key => $value) : ?>
-				<label class="room" for="">
+				<li><label class="room" for="">
 				<input type="radio" name="room" value="<?=$key?>"><?=$key?>
-				</label>
+				</label></li>
 			<?php endforeach; ?>
 		</div>
 		</form>
+		<button><a onclick="toggle()" id="toggle">閉じる</a></button>
 	</div>
 </div>
 </body>

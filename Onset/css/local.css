@@ -1,9 +1,11 @@
 .edit {
+	display: none;
 }
 
 body {
 	margin: 0;
 	padding: 0;
+	text-align:center;
 }
 
 header {
@@ -94,6 +96,6 @@ button {
 	padding: 1%;
 }
 
-.room input {
-
+.list li {
+	list-style-type: none;
 }
