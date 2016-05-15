@@ -55,11 +55,7 @@ $config["maxChatNick"] = 20;
  * もしくはそれに準ずる身の危険を否定できません。
  */
 
-<<<<<<< HEAD
 require_once('core.php');
 
 $dir = $config['roomSavepath'];
 $roomlist = unserial($dir);
-=======
-$dir = $config['roomSavepath'];
->>>>>>> e03d9943b39bcc28b3f07dd9aa5a81467831c538

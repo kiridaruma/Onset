@@ -12,11 +12,7 @@ if(!$time || !$room){
 
 require_once('config.php');
 
-<<<<<<< HEAD
 $dir = $dir.$room;
-=======
-$dir = $dir..$room;
->>>>>>> e03d9943b39bcc28b3f07dd9aa5a81467831c538
 
 if($time < filemtime("{$dir}/xxlogxx.txt") * 1000){
 	$fp = fopen("{$dir}/xxlogxx.txt", 'r');
