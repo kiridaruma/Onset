@@ -12,7 +12,6 @@ if(!$name || !$pass || !$room){
 	die();
 }
 
-$dir = $config['roomSavepath'];
 $roomlist = unserial($dir);
 
 if(isExistRoom($roomlist, $name)){

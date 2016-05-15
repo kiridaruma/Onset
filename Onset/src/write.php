@@ -13,7 +13,7 @@ if(!$text || !$name || !$room || !$sys){
 
 require_once('config.php');
 
-$dir = "{$config['roomSavepath']}{$room}";
+$dir = $dir.$room
 
 if(mb_strlen($text) >= $config["maxChatText"] || mb_strlen($name) >= $config["maxChatNick"]){
 	echo "文字数が多すぎます(ブラウザバックをお願いします)";

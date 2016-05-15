@@ -27,8 +27,6 @@ if(mb_strlen($name) > 30){
 	die();
 }
 
-$dir = $config['roomSavepath'];
-
 $roomlist = unserial($dir);
 
 $roompath = $roomlist[$name]['path'];

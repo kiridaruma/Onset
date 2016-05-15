@@ -12,7 +12,7 @@ if(!$time || !$room){
 
 require_once('config.php');
 
-$dir = "{$config['roomSavepath']}{$room}";
+$dir = $dir..$room;
 
 if($time < filemtime("{$dir}/xxlogxx.txt") * 1000){
 	$fp = fopen("{$dir}/xxlogxx.txt", 'r');
