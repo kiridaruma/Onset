@@ -1,5 +1,4 @@
 <?php
-
 require_once('config.php');
 require_once('core.php');
 
@@ -19,12 +18,11 @@ if(isExistRoom($roomlist, $room) === false){
 
 $roompath = $roomlist[$room]['path'];
 
-$hash = file_get_contents("{$dir}{$roompath}/pass.hash");
+$hash = file_get_contents($dir.$roompath."/pass.hash");
 
 isCorrectPassword($pass, $hash);
 
-$ip = ip2long($_SERVER['REMOTE_ADDR']);
-$id = $ip + mt_rand();
+$id = ip2long($_SERVER['REMOTE_ADDR']) + mt_rand();
 
 session_start();
 
