@@ -25,10 +25,8 @@ if(isExistRoom($roomlist, $room) === false) {
 }
 
 $hash = file_get_contents("{$dir}{$roompath}/pass.hash");
-if(!password_verify($pass, $hash) && $config['pass'] != $pass){
-	echo "パスワードを間違えています(ブラウザバックをおねがいします)";
-	die();
-}
+
+isCorrectPassword($pass, $hash);
 
 try{
 	foreach(scandir("{$dir}{$roompath}/connect/") as $value){

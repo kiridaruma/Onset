@@ -21,10 +21,7 @@ $roompath = $roomlist[$room]['path'];
 
 $hash = file_get_contents("{$dir}{$roompath}/pass.hash");
 
-if(!password_verify($pass, $hash) && $config['pass'] != $pass){
-	echo "パスワードが間違っています(ブラウザバックをお願いします)";
-	die();
-}
+isCorrectPassword($pass, $hash);
 
 $ip = ip2long($_SERVER['REMOTE_ADDR']);
 $id = $ip + mt_rand();
