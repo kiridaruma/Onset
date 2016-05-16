@@ -47,10 +47,12 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 				<?php endforeach; ?>
 			</div>
 		</form>
-		<button><a onclick="toggle()" id="toggle">部屋の作成/削除</a></button>
+		<button onclick="toggle()">部屋の作成/削除</button>
 	</div>
 
 	<div class="edit">
+		
+		<button onclick="toggle()">閉じる</button>
 
 		<h2>作成</h2>
 
@@ -78,7 +80,6 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 			<?php endforeach; ?>
 		</div>
 		</form>
-		<button><a onclick="toggle()" id="toggle">閉じる</a></button>
 	</div>
 </div>
 </body>

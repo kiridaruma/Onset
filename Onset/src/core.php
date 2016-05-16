@@ -33,9 +33,9 @@ function isExistRoom($roomlist, $room) {
  */
 function isLongRoomName($name) {
 	global $config;
-	if(mb_strlen($name) < $config['maxRoomName']) {
-		echo mb_strlen($name);
+	if(mb_strlen($name) >= $config['maxRoomName']) {
 		echo "部屋名が長過ぎます。";
+		echo "(".mb_strlen($name)."文字)";
 		die();
 	}
 	return true;
@@ -80,7 +80,7 @@ function isSetNameAndPass($name, $pass) {
 		die();
 	}
 
-	if($pass) {
+	if(!$pass) {
 		echo "パスワードを設定してください。";
 		die();
 	}
