@@ -7,18 +7,17 @@ body {
 	padding: 0;
 }
 
-.header, .join, .edit {
+.header, .join, .edit, header{
 	text-align: center;
 }
 
 header {
-	text-align: center;
- width: 100%;
- background-color: #333;
- color: white;
- margin-bottom: 2%;
- padding-left: 3%;
- box-shadow: 0 1px 1px 1px #888;
+	width: 100%;
+	background-color: #333;
+	color: white;
+	margin-bottom: 2%;
+	padding-left: 3%;
+	box-shadow: 0 1px 1px 1px #888;
 }
 
 header li {
@@ -46,7 +45,6 @@ header li a:hover {
 input[type="text"],
 input[type="password"],
 textarea,select {
-	text-align: left;
 	outline: none;
 	border: 1px solid #aaa;
 	-webkit-transition: all .3s;
@@ -66,13 +64,15 @@ textarea:focus {
 	border: 1px solid #1abc9c;
 }
 
+input, textarea, select {
+	padding: 8px;
+}
+
 input {
-	padding: 10px;
 	margin-right: 3px;
 }
 
 textarea {
-	padding: 10px;
 	margin-top: 0.5%;
 	resize: vertical;
 	display: inline-block;
@@ -80,11 +80,7 @@ textarea {
 	float: left;
 }
 
-select {
-	padding: 8px;
-}
-
-button {
+button, .button {
 	display: inline;
 	margin-top: 0.5%;
 	margin-left: 1%;
@@ -108,6 +104,10 @@ button {
 	list-style-type: none;
 }
 
+.join .form {
+	text-align: center;
+}
+
 @media (max-width: 1024px) {
 	.form {
 		display: block;
@@ -123,23 +123,28 @@ button {
 	select {
 		padding: 3px;
 	}
+
+	.join button {
+		width: 50%;
+		padding: 3px;
+	}
 }
 
 @media (max-width: 768px) {
 
 	.form {
 		display: block;
+		text-align: left;
 	}
 
 	input[type="text"],
 	input[type="password"],
 	textarea {
 		padding: 5px;
-		display: left;
 	}
 
 	select {
-		padding: 2px;
+		padding: 3px;
 	}
 
 	input[type="text"] {
