@@ -76,12 +76,12 @@ function isNULLRoom($room) {
  */
 function isSetNameAndPass($name, $pass) {
 	if(!$name) {
-		echo "部屋名を設定してください。";
+		echo "部屋名を設定、もしくは指定してください。";
 		die();
 	}
 
-	if($pass) {
-		echo "パスワードを設定してください。";
+	if(!$pass) {
+		echo "パスワードを設定、もしくは指定してください。";
 		die();
 	}
 	return true;
