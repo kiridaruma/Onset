@@ -47,7 +47,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 				<?php endforeach; ?>
 			</div>
 		</form>
-		<button><a onclick="toggle()" id="toggle">部屋の作成/削除</a></button>
+		<button onclick="toggle()" id="toggle">部屋の作成/削除</button>
 	</div>
 
 	<div class="edit">
@@ -63,6 +63,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 		</form>
 
 		<h2>削除</h2>
+		<button onclick="toggle()">閉じる</button>
 
 		<form action="src/deleteRoom.php" method="post">
 			<input type="password" class="text" name="pass" placeholder="パスワード">
@@ -78,7 +79,6 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 			<?php endforeach; ?>
 		</div>
 		</form>
-		<button><a onclick="toggle()" id="toggle">閉じる</a></button>
 	</div>
 </div>
 </body>
