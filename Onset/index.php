@@ -25,10 +25,9 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 		<header class="header"><br />
 			<div class="jumbotron">
 				<h1>Onset!</h1>
-				<p>Onset is one of TRPG environment system.</p>
+				<p>Onset is one of TRPG environment.</p>
 			</div>
 		</header>
-		<hr />
 		<article class="join">
 			<div class="panel panel-info join">
 			<div class="panel-heading" onclick="toggleJoin()">入室する</div>
