@@ -6,7 +6,7 @@ require_once('core.php');
 session_start();
 
 if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
-	echo 'Illegal Access: invalid_access.';
+	echo 'Exception: invalid_access.';
 	die();
 }
 
@@ -30,19 +30,19 @@ isCorrectPassword($pass, $hash);
 
 try{
 	foreach(scandir("{$dir}{$roompath}/connect/") as $value){
-		if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/connect/{$value}") ? "" : function(){throw new Exception();};}
-	}
-	rmdir("{$dir}{$roompath}/connect/") ? "" : function(){throw new Exception();};
+		if($value != "." || $value != "..") {
+			unlink("{$dir}{$roompath}/connect/{$value}") ? "" : function() { throw new Exception('Failed to unlink "/connect".'); }; } }
+	rmdir("{$dir}{$roompath}/connect/") ? "" : function(){throw new Exception('Failed to delete "/connect".');};
 
 	foreach(scandir($dir.$roompath) as $value){
-		if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/{$value}") ? "" : function(){throw new Exception();};}
-	}
+		if($value != "." || $value != "..") {
+			unlink("{$dir}{$roompath}/{$value}") ? "" : function(){throw new Exception('Failed to unlink "." or "..".');}; } }
 	rmdir($dir.$roompath) ? "" : function(){throw new Exception();};
 
 	unset($roomlist[$room]);
-	file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
+	file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception('Failed to put contents to "roomlist".');};
 } catch(Exception $e) {
-	echo "部屋を消せませんでした";
+	echo "Exception: ".$e;
 }
 
 header("Location: ../index.php");
