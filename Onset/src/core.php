@@ -33,8 +33,8 @@ function isExistRoom($roomlist, $room) {
  */
 function isLongRoomName($name) {
 	global $config;
-	if(mb_strlen($name) < $config['maxRoomName']) {
-		echo mb_strlen($name);
+	if(mb_strlen($name) >= $config['maxRoomName']) {
+		echo mb_strlen($name)."文字";
 		echo "部屋名が長過ぎます。";
 		die();
 	}
