@@ -19,38 +19,33 @@ $dir = $dir.$room;
 
 isLongChat($text, $name);
 
-//var_dump($_POST);
-//var_dump($name);
-//var_dump($text);
-
 //ダイス処理
 $url = $config['bcdiceURL'];
 
 $encordedText = urlencode($text);
 $encordedSys  = urlencode($sys);
 
+// SSL Configure
 $s = "";
-if($config["enableSSL"]){$s = 's';}
+if($config["enableSSL"]) $s = 's';
+
 $ret = file_get_contents("http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}");
+
 if(trim($ret) == '1' || trim($ret) == 'error'){
 	$ret = "";
 }
+
 $diceRes = str_replace('onset: ', '', $ret);
 
-//var_dump($name);
-//var_dump($text);
-//var_dump($diceRes);
-
-$name = htmlspecialchars($name, ENT_QUOTES);
-$text = htmlspecialchars($text, ENT_QUOTES);
+$name    = htmlspecialchars($name, ENT_QUOTES);
+$text    = htmlspecialchars($text, ENT_QUOTES);
 $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
 
-$text = nl2br($text);
+$text    = nl2br($text);
 
-$line = "<div class=\"chat\"><b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$text}<br>\n<i>{$diceRes}</i></div>\n";
+// TODO https://github.com/AkagiCrafter/Onset/issues/5
+$line    = "<div class=\"chat\"><b>{$name}</b>({$_SESSION['onset_id']})<br>\n{$text}<br>\n<i>{$diceRes}</i></div>\n";
 
-//var_dump($line);
-
-$line = $line.file_get_contents("{$dir}/xxlogxx.txt");
+$line    = $line.file_get_contents("{$dir}/xxlogxx.txt");
 file_put_contents("{$dir}/xxlogxx.txt", $line, LOCK_EX);
 $_SESSION['onset_name'] = $name;
