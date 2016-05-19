@@ -37,12 +37,12 @@ try{
 	$uuid = uniqid("", true);
 	mkdir($dir.$uuid) 									? ""	: function(){throw new Exception('Failed to make directory.');};
 	touch("{$dir}{$uuid}/pass.hash")		? "" 	: function(){throw new Exception('Failed to make password hash.');};
-	touch("{$dir}{$uuid}/xxlogxx.txt")	? ""	: function(){throw new Exception('Failed to make xxlogxx.txt.');};
+	touch("{$dir}{$uuid}/chatLogs.json")	? ""	: function(){throw new Exception('Failed to make xxlogxx.txt.');};
 	mkdir("{$dir}{$uuid}/connect") 			? "" 	: function(){throw new Exception('Failed to make directory "connect".');};
 
 	chmod($dir.$uuid, 									0777) ? ""	: function(){throw new Exception('Failed to change permission directory.');};
 	chmod("{$dir}{$uuid}/pass.hash", 		0666) ? ""	: function(){throw new Exception('Failed to change permission "pass.hash".');};
-	chmod("{$dir}{$uuid}/xxlogxx.txt", 	0666) ? ""	: function(){throw new Exception('Failed to change permission "xxlogxx.txt"/');};
+	chmod("{$dir}{$uuid}/chatLogs.json", 	0666) ? ""	: function(){throw new Exception('Failed to change permission "xxlogxx.txt"/');};
 	chmod("{$dir}{$uuid}/connect/", 		0777) ? ""	: function(){throw new Exception('Failed to change permission "/connect".');};
 
 	file_put_contents("{$dir}{$uuid}/pass.hash", $hash) ? "" : function(){throw new Exception('Failed to put contents to "pass.hash".');};

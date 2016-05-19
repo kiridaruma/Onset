@@ -4,7 +4,7 @@ function get_log(){
 
 	function ajax(){
 		$.ajax({
-			url: "src/read.php",
+			url: "src/chatRead.php",
 			type: "POST",
 			cache: false,
 			data: {
@@ -16,7 +16,8 @@ function get_log(){
 			},
 			success: function(data){
 				if(data != "none"){
-					$(".chats").html(data);
+					JSON.parse(data);
+					console.log(data);
 					time = $.now();
 				}
 				setTimeout(function(){ajax();} , 1000);
@@ -47,7 +48,7 @@ function send_chat(){
 	}
 
 	$.ajax({
-		url: "src/write.php",
+		url: "src/chatWrite.php",
 		type: "POST",
 		data: {
 			"name": name,
@@ -58,11 +59,11 @@ function send_chat(){
 			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
 		},
 		success: function(){
-			$("#text").val("");
-			var chat = $(".chats").html();
-			$(".chats").html("<b>送信中...</b><br>" + chat);
-			$(".notice").html("");
+			$(".notice").html("Posting...");
 			time = 1;
+		},
+		error: function() {
+			$(".notice").html('ERR!');
 		}
 	});
 }
