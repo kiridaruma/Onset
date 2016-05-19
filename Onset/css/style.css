@@ -1,0 +1,64 @@
+body{
+    background-color: #000030;
+    color: #dddddd;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    -webkit-appearance: none;
+}
+
+a{
+    color:#aaddaa;
+    font-style:normal;
+    text-decoration:underline;
+}
+
+header{
+    background-color: #503080;
+}
+
+.top-item{
+    margin: 0 0.5em;
+    flex: left;
+}
+
+.form{
+    margin: 1em;
+}
+
+#text, #name{
+    border-radius: 3px;
+    margin: 0.3em 0;
+    font-size: 0.9em;
+}
+
+#text{
+    width: 95%;
+}
+
+@media screen and (min-width: 1000px) {
+    #text{ max-width: 33%; }
+}
+
+#button{
+    background-color: #CCC;
+    -webkit-appearance: none;
+    font-size: 1em;
+    padding: 0.3em 1em;
+}
+
+.notice{
+    margin: 0 1em;
+}
+
+.chats{
+    margin: 0 1em;
+    border-top: solid 2px #dddddd;
+}
+
+.chat{
+    border-bottom: solid 2px #dddddd;
+    padding: 0.25em 0;
+    width: calc(100% - 1em);
+    word-break: break-all;
+}

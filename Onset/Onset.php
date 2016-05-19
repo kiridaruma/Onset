@@ -19,8 +19,7 @@ $sysList = split("\n", file_get_contents("http{$s}://{$url}?list=1"));
 		<meta charset="UTF-8">
 		<title>Onset!</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/local.css">
+		<link rel="stylesheet" href="css/style.css">
 		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Cache-Control" content="no-cache">
 		<script type="text/javascript" src="js/chat_rw.js"></script>
@@ -28,9 +27,9 @@ $sysList = split("\n", file_get_contents("http{$s}://{$url}?list=1"));
 </head>
 <body>
 	<header>
-		<li><a href="src/logput.php" class="top-item">ログ出力</a></li>
-		<li><a href="src/logout.php" class="top-item">ログアウト</a></li>
-		<li><a class="top-item" onclick="checkLoginUser()">ログイン一覧</a></li>
+		<a href="src/logput.php" class="top-item">ログ出力</a>
+		<a href="src/logout.php" class="top-item">ログアウト</a>
+		<a class="top-item" onclick="checkLoginUser()">ログイン一覧</a>
 	</header>
 	<div class="contents">
 	<div class="form">
@@ -42,8 +41,8 @@ foreach($sysList as $value) {
 	echo "<option value=\"{$value}\">{$value}</option>";
 }
 ?>
-		</select>
-		<textarea id="text" rows="1"></textarea><br>
+		</select><br />
+		<textarea id="text" rows="3" cols="40"></textarea><br />
 		<button type="button" id="button" value="送信" onclick="send_chat()">送信</button>
 	</div>
 
