@@ -21,7 +21,7 @@ $config['roomSavepath'] = __DIR__."/../../room/";
  * ダイスボットへのパスを書いてください
  * デフォルトではindex.phpと同じ階層にあります
  */
-$config['bcdiceURL'] = "localhost/TRPG/Onset/bcdice/roll.rb";
+$config['bcdiceURL'] = "localhost/Onset/bcdice/roll.rb";
 
 /*
  * SSLを有効にするか
