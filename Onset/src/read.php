@@ -14,19 +14,19 @@ if(!$time || !$room){
 
 $dir = $dir.$room;
 
-if($time < filemtime($dir."/xxlogxx.txt") * 1000) {
-	$fp = fopen($dir."/xxlogxx.txt", 'r');
+if($time < filemtime($dir."/chatLog.json") * 1000) {
+	$json = fopen($dir."/chatLog.json", 'r');
 	$eof = false;
-
+/*
 	while(!$eof){
-		$line = fgets($fp);
+		$line = fgets($json);
 		if($line !== false) {
 			echo $line;
 		} else {
 			$eof = true;
 		}
 	}
-
+ */
 	fclose($fp);
 } else {
 	echo "none";

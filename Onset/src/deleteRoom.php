@@ -6,7 +6,7 @@ require_once('core.php');
 session_start();
 
 if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
-	echo 'Illegal Access: invalid_access.';
+	echo 'Exception: invalid_access.';
 	die();
 }
 
@@ -14,7 +14,7 @@ $room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 $mode = $_POST['mode'];
 
-isSetNameAndPass($room, $name);
+isSetNameAndPass($room, $pass);
 isLongRoomName($room);
 
 $roompath = $roomlist[$room]['path'];
@@ -29,20 +29,25 @@ $hash = file_get_contents("{$dir}{$roompath}/pass.hash");
 isCorrectPassword($pass, $hash);
 
 try{
-	foreach(scandir("{$dir}{$roompath}/connect/") as $value){
-		if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/connect/{$value}") ? "" : function(){throw new Exception();};}
+	foreach(scandir("{$dir}{$roompath}/connect/") as $value) {
+		if($value != "." || $value != "..") {
+			unlink("{$dir}{$roompath}/connect/{$value}") ? "" : function() { throw new Exception('Failed to unlink "/connect".'); };
+		}
 	}
-	rmdir("{$dir}{$roompath}/connect/") ? "" : function(){throw new Exception();};
+	rmdir("{$dir}{$roompath}/connect/") ? "" : function(){throw new Exception('Failed to delete "/connect".');};
 
-	foreach(scandir($dir.$roompath) as $value){
-		if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/{$value}") ? "" : function(){throw new Exception();};}
+	foreach(scandir($dir.$roompath) as $value) {
+		if($value != "." || $value != "..") {
+			unlink("{$dir}{$roompath}/{$value}") ? "" : function(){throw new Exception('Failed to unlink "." or "..".');};
+		}
 	}
 	rmdir($dir.$roompath) ? "" : function(){throw new Exception();};
 
 	unset($roomlist[$room]);
-	file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
+	file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception('Failed to put contents to "roomlist".');};
+
 } catch(Exception $e) {
-	echo "部屋を消せませんでした";
+	echo "Exception: ".$e;
 }
 
 header("Location: ../index.php");

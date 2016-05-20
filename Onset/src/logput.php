@@ -6,8 +6,8 @@ session_start();
 
 isNULLRoom($_SESSION['onset_room']);
 
-$logdir = $dir.$_SESSION['onset_room']."/xxlogxx.txt";
-$text = htmlspecialchars_decode(strip_tags(file_get_contents($logdir)));
+$json = $dir.$_SESSION['onset_room']."/chatLogs.json";
+$text = file_get_contents($json, true);
 
-header("Content-type: text/plain");
+header("Content-type: application/json");
 echo $text;

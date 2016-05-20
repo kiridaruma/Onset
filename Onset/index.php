@@ -14,7 +14,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="http://bootswatch.com/superhero/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/local.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
@@ -25,10 +25,9 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 		<header class="header"><br />
 			<div class="jumbotron">
 				<h1>Onset!</h1>
-				<p>Onset is one of TRPG environment system.</p>
+				<p>Onset is one of TRPG environment.</p>
 			</div>
 		</header>
-		<hr />
 		<article class="join">
 			<div class="panel panel-info join">
 			<div class="panel-heading" onclick="toggleJoin()">入室する</div>
