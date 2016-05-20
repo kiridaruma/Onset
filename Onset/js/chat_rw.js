@@ -33,6 +33,7 @@ function get_log(){
 					var obj = JSON.parse(data);
 					// Compute data each JSON object.
 					jQuery.each(obj, function(){
+						// チャットデータの多重作成はお断り致し申し上げ奉ります。
 						if($('.chat').hasClass(this.UNIXtime) != true) {
 							// for DEBUG.
 							// console.log(this.name + ' ' + this.RFC822time);
