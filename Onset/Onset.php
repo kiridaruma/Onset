@@ -20,7 +20,7 @@ $sysList = split("\n", file_get_contents("http{$s}://{$url}?list=1"));
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<title>Onset!</title>
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="http://bootswatch.com/superhero/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/local.css">
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Cache-Control" content="no-cache">
