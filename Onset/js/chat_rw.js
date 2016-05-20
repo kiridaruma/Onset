@@ -1,9 +1,22 @@
 var time = 1;
 
+// get_log ログを取得します。
+//
+// .chats クラス内に、 .chat クラスを生成。
+// .chat クラス内に
+// 	<UNIXtime>time chatTime
+// 	<UNIXtime>name chatName
+// 	<UNIXtime>text chatText
+//
+// 	をそれぞれ生成します。
+//
+// 	それぞれのクラス内に、RFC822time, name, textを代入します。
+//
 function get_log(){
 
 	function ajax(){
 		$.ajax({
+			// TODO: POSTじゃなくってGETでいいのでは...?
 			url: "src/chatRead.php",
 			type: "POST",
 			cache: false,
@@ -16,17 +29,26 @@ function get_log(){
 			},
 			success: function(data){
 				if(data != "none"){
+					// obj is original JSON data.
 					var obj = JSON.parse(data);
+					// Compute data each JSON object.
 					jQuery.each(obj, function(){
 						if($('.chat').hasClass(this.UNIXtime) != true) {
-							console.log(this.name + ' ' + this.RFC822time);
-							console.dir(this);
+							// for DEBUG.
+							// console.log(this.name + ' ' + this.RFC822time);
+							// console.dir(this);
+
+							// Result: <div class="<UNIXtime> chat"></div>
 							var div = $('<div class="' + this.UNIXtime + ' chat"></div>');
 							$('.chats').prepend(div);
+
+							// 上記通り。
+							// Result: <div class="..."></div>
 							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'time chatTime"></div>');
 							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'name chatName"></div>');
 							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'text chatText"></div>');
 
+							// 各クラス内に値を代入。
 							$('.' + this.UNIXtime + 'time').html(this.RFC822time);
 							$('.' + this.UNIXtime + 'name').html(this.name);
 							$('.' + this.UNIXtime + 'text').html(this.text);
@@ -52,12 +74,12 @@ function send_chat(){
 	var sys = $("#sys").val().trim();
 
 	if(name == "" || text == ""){
-		$(".notice").html("<b>名前と本文を入力してください</b>");
+		$(".notice").html("名前と本文を入力してください");
 		return 0;
 	}
 
 	if(name.length > 20 || text.length > 300){
-		$(".notice").html("<b>文字数が多すぎます</b>");
+		$(".notice").html("文字数が多すぎます");
 		return 0;
 	}
 
@@ -73,15 +95,21 @@ function send_chat(){
 			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
 		},
 		success: function(){
+			// textareaの内容を空にする。
+			$("#text").val("");
+
+			// 成功したらエラーメッセージもろども消える。
 			$(".notice").html("");
 			time = 1;
 		},
 		error: function() {
+			// 「素晴らしく運がないな、君は。」
 			$(".notice").html('送信に失敗しました。');
 		}
 	});
 }
 
+// ...なんやこれ?
 $(function($){
 	$("#text").keydown(function(e){
 		if(e.ctrlKey && e.keyCode === 13){
@@ -91,6 +119,10 @@ $(function($){
 	});
 });
 
+// checkLoginUser
+// Onset.php の上部バーの[ログイン一覧]の処理。
+//
+// TODO: POST?
 function checkLoginUser(){
 	$.ajax({
 		url: 'src/checkLoginUser.php',
