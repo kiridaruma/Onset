@@ -59,7 +59,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 						<div class="form-inline form-group">
 							<input class="form-control" type="text" name="name" placeholder="部屋名">
 							<input class="form-control" type="password" name="pass" placeholder="パスワード">
-							<input class="form-control" type="hidden" name="rand" value=<?=$rand?>>
+							<input class="form-control" type="hidden" name="rand" value="<?=$rand?>">
 							<input class="form-control" type="hidden" name="mode" value="create">
 						</div>
 						<div class="form-group">
