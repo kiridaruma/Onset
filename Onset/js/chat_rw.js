@@ -108,6 +108,8 @@ function send_chat(){
 			$(".notice").html('送信に失敗しました。');
 		}
 	});
+
+	get_log();
 }
 
 // ...なんやこれ?
