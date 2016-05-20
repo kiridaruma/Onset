@@ -17,8 +17,6 @@ require_once('config.php');
 
 $dir = $dir.$room;
 
-$dir = $dir.'test';
-
 isLongChat($text, $name);
 
 //ダイス処理
@@ -48,16 +46,6 @@ $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
 
 $file = file_get_contents($dir.'/chatLogs.json');
 
-
-if(strlen($file) == 0) {
-	$json = [
-		"chatLogs" => []
-	];
-
-	$json = json_encode($json).PHP_EOL;
-	file_put_contents("{$dir}/chatLogs.json", $json, LOCK_EX);
-}
-
 $line    = array(
 	"name" => $name,
 	"text" => $text,
@@ -67,9 +55,9 @@ $line    = array(
 	"RFC822time"  => $RFC822time
 );
 
-$file = json_decode($file);
+$json = json_decode($file, true);
 
-$json = $file->chatLogs + $line;
+$json[] = $line;
 $json = json_encode($json);
 
 file_put_contents("{$dir}/chatLogs.json", $json, LOCK_EX);

@@ -36,7 +36,7 @@ if(trim($ret) == '1' || trim($ret) == 'error') $ret = "";
 $diceRes = str_replace('onset: ', '', $ret);
 
  */
-$dir  = $dir.'test';
+$dir  = $dir.'573ed929838e14.46438988';
 $name = htmlspecialchars("Akane", ENT_QUOTES);
 $text = nl2br(htmlspecialchars("Subjeeeeeeect.", ENT_QUOTES));
 
@@ -45,6 +45,8 @@ $ISO8601time    = date('c');
 $RFC822time     = date('r');
 $UNIXtime       = date('U');
 # $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
+
+$json = array();
 
 $file = file_get_contents($dir.'/chatLogs.json');
 
@@ -57,6 +59,8 @@ $line    = array(
 );
 
 $json = json_decode($file, true);
+
+var_dump($json);
 
 $json[] = $line;
 $json = json_encode($json);

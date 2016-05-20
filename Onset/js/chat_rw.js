@@ -16,8 +16,22 @@ function get_log(){
 			},
 			success: function(data){
 				if(data != "none"){
-					JSON.parse(data);
-					console.log(data);
+					var obj = JSON.parse(data);
+					jQuery.each(obj, function(){
+						if($('.chat').hasClass(this.UNIXtime) != true) {
+							console.log(this.name + ' ' + this.RFC822time);
+							console.dir(this);
+							var div = $('<div class="' + this.UNIXtime + ' chat"></div>');
+							$('.chats').prepend(div);
+							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'time chatTime"></div>');
+							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'name chatName"></div>');
+							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'text chatText"></div>');
+
+							$('.' + this.UNIXtime + 'time').html(this.RFC822time);
+							$('.' + this.UNIXtime + 'name').html(this.name);
+							$('.' + this.UNIXtime + 'text').html(this.text);
+						}
+					});
 					time = $.now();
 				}
 				setTimeout(function(){ajax();} , 1000);
@@ -59,11 +73,11 @@ function send_chat(){
 			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
 		},
 		success: function(){
-			$(".notice").html("Posting...");
+			$(".notice").html("");
 			time = 1;
 		},
 		error: function() {
-			$(".notice").html('ERR!');
+			$(".notice").html('送信に失敗しました。');
 		}
 	});
 }
