@@ -47,6 +47,7 @@ $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
 $file = file_get_contents($dir.'/chatLogs.json');
 
 $line    = array(
+	"sessionID" => $_SESSION['onset_id'],
 	"name" => $name,
 	"text" => $text,
 	"diceRes" => $diceRes,
