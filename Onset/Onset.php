@@ -22,8 +22,8 @@ $sysList = split("\n", file_get_contents("http{$s}://{$url}?list=1"));
 		<link rel="stylesheet" href="css/style.css">
 		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Cache-Control" content="no-cache">
-		<script type="text/javascript" src="js/chat_rw.js"></script>
 		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/chat_rw.js"></script>
 </head>
 <body>
 	<header>
