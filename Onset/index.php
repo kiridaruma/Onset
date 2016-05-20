@@ -74,9 +74,9 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 		<div class="list">
 			<p>部屋一覧</p>
 			<?php foreach($roomlist as $key => $value) : ?>
-				<li><label class="room" for="">
-				<input type="radio" name="room" value="<?=$key?>"><?=$key?>
-				</label></li>
+				<label class="room">
+					<input type="radio" name="room" value="<?=$key?>"><?=$key?>
+				</label>
 			<?php endforeach; ?>
 		</div>
 		</form>
