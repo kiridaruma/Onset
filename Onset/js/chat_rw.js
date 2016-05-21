@@ -45,8 +45,8 @@ function get_log(){
 
 							// 上記通り。
 							// Result: <div class="..."></div>
-							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'time chatTime"></div>');
 							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'name chatName"></div>');
+							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'time chatTime"></div>');
 							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'text chatText"></div>');
 							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'dice chatDice"></div>');
 

@@ -1,13 +1,43 @@
-.panel-body {
-	display: none;
+body {
+	font-family: "メイリオ", Meiryo, Osaka, sans-serif;
 }
 
 textarea {
 	resize: horizontal;
 }
 
+.panel-body {
+	display: none;
+}
+
+.chats {
+	line-height: 1.6em;
+}
+
 .chat {
 	background-color: #4e5d6c;
-	padding: 15px;
-	margin: 15px 0;
+	margin: 10px;
+	padding: 1%;
+}
+
+.chatName, .chatTime {
+}
+
+.chatText, .chatDice {
+	padding: 0  2%;
+}
+
+.chatName {
+	display: inline;
+	float: left;
+	font-weight: bold;
+}
+
+.chatTime {
+	opacity: 0.8;
+	text-align: right;
+}
+
+.chatText {
+	clear: both;
 }
