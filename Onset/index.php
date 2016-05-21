@@ -18,14 +18,16 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 	<link rel="stylesheet" href="css/local.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
-	<title>Onset.</title>
+	<title>Onset!</title>
 </head>
 <body>
 	<div class="container col-md-6 col-md-offset-3 text-center">
 		<header class="header"><br />
 			<div class="jumbotron">
-				<h1>Onset!</h1>
-				<p>Onset is one of TRPG environment.</p>
+				<h1 class="OnsetTitle">Onset!</h1>
+				<hr />
+				<!-- welcomeMessage.html -->
+				<div class="welcomeMessage"><?=$welcomeMessage?></div>
 			</div>
 		</header>
 		<article class="join">
