@@ -40,7 +40,7 @@ $text    = nl2br(htmlspecialchars($text, ENT_QUOTES));
 
 date_default_timezone_set('asia/Tokyo');
 $ISO8601time    = date('c');
-$RFC822time     = date('r');
+$RFC2822time     = date('r');
 $UNIXtime       = date('U');
 $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
 
@@ -53,7 +53,7 @@ $line    = array(
 	"diceRes" => $diceRes,
 	"UNIXtime" => $UNIXtime,
 	"ISO8601time" => $ISO8601time,
-	"RFC822time"  => $RFC822time
+	"RFC2822time"  => $RFC2822time
 );
 
 $json = json_decode($file, true);

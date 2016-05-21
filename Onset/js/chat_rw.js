@@ -51,7 +51,7 @@ function get_log(){
 							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'dice chatDice"></div>');
 
 							// 各クラス内に値を代入。
-							$('.' + this.UNIXtime + 'time').html(this.RFC822time);
+							$('.' + this.UNIXtime + 'time').html(this.RFC2822time);
 							$('.' + this.UNIXtime + 'name').html(this.name);
 							$('.' + this.UNIXtime + 'text').html(this.text);
 							$('.' + this.UNIXtime + 'dice').html(this.diceRes);
