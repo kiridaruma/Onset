@@ -29,19 +29,22 @@ if(count($roomlist) >= $config["roomLimit"]){
 	die();
 }
 
-$hash =	[
-	"roomName" => $_POST['name'],
-	"roomPassword" => password_hash($pass, PASSWORD_DEFAULT)
-];
-
-$roomJSON = json_encode($hash);
-
-$roomJSONpw = password_hash($pass, PASSWORD_DEFAULT);
-unset($pass);			//念の為、平文のパスワードを削除
 
 try{
-
 	$uuid = uniqid("", true);
+
+	// roomInfo.json
+	// roomList.jsonの処理と間違えないようにっ!
+	$hash =	[
+		"roomName" => $_POST['name'],
+		"roomPassword" => password_hash($pass, PASSWORD_DEFAULT)
+	];
+
+	$roomJSON = json_encode($hash);
+	$roomJSONpw = password_hash($pass, PASSWORD_DEFAULT);
+
+	unset($pass);			//念の為、平文のパスワードを削除
+
 	mkdir($dir.$uuid);
 
 	// pass.hash
@@ -69,11 +72,13 @@ try{
 	file_put_contents($dir.$uuid.'/pass.hash',		 $roomJSONpw);
 
 	$newRoom = [
-		'roomID' => $uuid,
-		'roomName' => $_POST['name']
+		$uuid => [
+			'roomID' => $uuid,
+			'roomName' => $_POST['name']
+		]
 	];
 
-	$roomlist[] = $newRoom;
+	$roomlist = array_merge($roomlist, $newRoom);
 	$json = json_encode($roomlist);
 
 	file_put_contents($dir.'/roomLists.json', $json) ? "" : function(){throw new Exception('Failed to put contents to "roomList.json".');};

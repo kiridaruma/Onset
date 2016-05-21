@@ -17,19 +17,19 @@ $mode = $_POST['mode'];
 isSetNameAndPass($room, $pass);
 isLongRoomName($room);
 
-foreach($roomlist as $k) {
-	if($k['roomName'] === $room) {
-		$roomID = $k['roomID'];
-	}
-}
-
 if(isExistRoom($roomlist, $room) === false) {
 	echo "部屋が存在しません(ブラウザバックをおねがいします)";
 	die();
 }
 
-$json = file_get_contents($dir.$roomID.'/roomInfo.json');
-$json = json_decode($json, true);
+foreach($roomlist as $k) {
+	if($k['roomName'] === $room) {
+		$roomID   = $k['roomID'];
+		$roomName = $k['roomName'];
+	}
+}
+
+$json = json_decode(file_get_contents($dir.$roomID.'/roomInfo.json'), true);
 
 $hash = $json['roomPassword'];
 
@@ -50,9 +50,8 @@ try{
 	}
 	rmdir($dir.$roomID) ? "" : function(){throw new Exception();};
 
-	foreach($roomlist as $k) {
-		if($k['roomID'] = $roomID) unset($k);
-	}
+	unset($roomlist[$roomID]);
+	$roomlist = json_encode($roomlist);
 
 	file_put_contents($dir."/roomLists.json", $roomlist) ? "" : function(){throw new Exception('Failed to put contents to "roomlist".');};
 
