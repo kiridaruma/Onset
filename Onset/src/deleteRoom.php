@@ -24,7 +24,10 @@ if(isExistRoom($roomlist, $room) === false) {
 	die();
 }
 
-$hash = file_get_contents("{$dir}{$roompath}/pass.hash");
+$json = file_get_contents($dir.$roompath.'/roomInfo.json');
+$json = json_decode($json, true);
+
+$hash = $json['roomPassword'];
 
 isCorrectPassword($pass, $hash);
 

@@ -48,6 +48,7 @@ $sysList = split("\n", file_get_contents("http{$s}://{$url}?list=1"));
 						<li><a href="" onclick="checkLoginUser()">ログイン一覧</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
+						<li><a href="">Room: <?=$_SESSION['onset_room']?></a></li>
 						<li><a href="">ID <?=$_SESSION['onset_id']?></a></li>
 						<li><a href="src/logout.php">ログアウト</a></li>
 					</ul>

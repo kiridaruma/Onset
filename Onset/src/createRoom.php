@@ -29,23 +29,44 @@ if(count($roomlist) >= $config["roomLimit"]){
 	die();
 }
 
-$hash = password_hash($pass, PASSWORD_DEFAULT);
+$hash =	[
+	"roomName" => $_POST['name'],
+	"roomPassword" => password_hash($pass, PASSWORD_DEFAULT)
+];
+
+$roomJSON = json_encode($hash);
+
+$roomJSONpw = password_hash($pass, PASSWORD_DEFAULT);
 unset($pass);			//念の為、平文のパスワードを削除
 
 try{
 
 	$uuid = uniqid("", true);
-	mkdir($dir.$uuid) 									? ""	: function(){throw new Exception('Failed to make directory.');};
-	touch("{$dir}{$uuid}/pass.hash")		? "" 	: function(){throw new Exception('Failed to make password hash.');};
-	touch("{$dir}{$uuid}/chatLogs.json")	? ""	: function(){throw new Exception('Failed to make xxlogxx.txt.');};
-	mkdir("{$dir}{$uuid}/connect") 			? "" 	: function(){throw new Exception('Failed to make directory "connect".');};
+	mkdir($dir.$uuid);
 
-	chmod($dir.$uuid, 									0777) ? ""	: function(){throw new Exception('Failed to change permission directory.');};
-	chmod("{$dir}{$uuid}/pass.hash", 		0666) ? ""	: function(){throw new Exception('Failed to change permission "pass.hash".');};
-	chmod("{$dir}{$uuid}/chatLogs.json", 	0666) ? ""	: function(){throw new Exception('Failed to change permission "xxlogxx.txt"/');};
-	chmod("{$dir}{$uuid}/connect/", 		0777) ? ""	: function(){throw new Exception('Failed to change permission "/connect".');};
+	// pass.hash
+	// レガシなroomInfo.json
+	touch($dir.$uuid.'/pass.hash');
 
-	file_put_contents("{$dir}{$uuid}/pass.hash", $hash) ? "" : function(){throw new Exception('Failed to put contents to "pass.hash".');};
+	// roomInfo.json
+	// 部屋データの管理
+	touch($dir.$uuid.'/roomInfo.json');
+
+	// chatLogs.json
+	// チャットデータの管理
+	touch($dir.$uuid.'/chatLogs.json');
+	mkdir($dir.$uuid.'/connect');
+
+	// 'chmod b111000000\n'
+	// - Ar tonelico
+	chmod($dir.$uuid, 									0777);
+	chmod($dir.$uuid.'/pass.hash', 			0666);
+	chmod($dir.$uuid.'/chatLogs.json',	0666);
+	chmod($dir.$uuid.'/roomInfo.json', 	0666);
+	chmod($dir.$uuid.'/connect/',		 		0777);
+
+	file_put_contents($dir.$uuid.'/roomInfo.json', $roomJSON);
+	file_put_contents($dir.$uuid.'/pass.hash',		 $roomJSONpw);
 
 	$roomlist[$name]["path"] = $uuid;
 
