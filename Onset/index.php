@@ -37,8 +37,8 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 						<input class="form-control" type="text" name="name" placeholder="名前">
 						<input class="form-control" type="password" name="pass" placeholder="パスワード">
 						<select id="room" class="form-control" name="room">
-<?php foreach($roomlist as $key => $value) : ?>
-							<option value="<?=$key?>"><?=$key?></option>
+<?php foreach($roomlist as $k) : ?>
+							<option value="<?=$k['roomName']?>"><?=$k['roomName']?></option>
 <?php endforeach; ?>
 						</select>
 					</div>
@@ -76,8 +76,8 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 					<form class="form" action="src/deleteRoom.php" method="post">
 						<div class="form-group form-inline">
 							<select id="room" class="form-control" name="room">
-<?php foreach($roomlist as $key => $value) : ?>
-							<option value="<?=$key?>"><?=$key?></option>
+<?php foreach($roomlist as $k) : ?>
+							<option value="<?=$k['roomName']?>"><?=$k['roomName']?></option>
 <?php endforeach; ?>
 							</select>
 							<input class="form-control" type="password" name="pass" placeholder="パスワード">

@@ -17,14 +17,18 @@ $mode = $_POST['mode'];
 isSetNameAndPass($room, $pass);
 isLongRoomName($room);
 
-$roompath = $roomlist[$room]['path'];
+foreach($roomlist as $k) {
+	if($k['roomName'] === $room) {
+		$roomID = $k['roomID'];
+	}
+}
 
 if(isExistRoom($roomlist, $room) === false) {
 	echo "部屋が存在しません(ブラウザバックをおねがいします)";
 	die();
 }
 
-$json = file_get_contents($dir.$roompath.'/roomInfo.json');
+$json = file_get_contents($dir.$roomID.'/roomInfo.json');
 $json = json_decode($json, true);
 
 $hash = $json['roomPassword'];
@@ -32,25 +36,28 @@ $hash = $json['roomPassword'];
 isCorrectPassword($pass, $hash);
 
 try{
-	foreach(scandir("{$dir}{$roompath}/connect/") as $value) {
+	foreach(scandir("{$dir}{$roomID}/connect/") as $value) {
 		if($value != "." || $value != "..") {
-			unlink("{$dir}{$roompath}/connect/{$value}") ? "" : function() { throw new Exception('Failed to unlink "/connect".'); };
+			unlink("{$dir}{$roomID}/connect/{$value}") ? "" : function() { throw new Exception('Failed to unlink "/connect".'); };
 		}
 	}
-	rmdir("{$dir}{$roompath}/connect/") ? "" : function(){throw new Exception('Failed to delete "/connect".');};
+	rmdir("{$dir}{$roomID}/connect/") ? "" : function(){throw new Exception('Failed to delete "/connect".');};
 
-	foreach(scandir($dir.$roompath) as $value) {
+	foreach(scandir($dir.$roomID) as $value) {
 		if($value != "." || $value != "..") {
-			unlink("{$dir}{$roompath}/{$value}") ? "" : function(){throw new Exception('Failed to unlink "." or "..".');};
+			unlink("{$dir}{$roomID}/{$value}") ? "" : function(){throw new Exception('Failed to unlink "." or "..".');};
 		}
 	}
-	rmdir($dir.$roompath) ? "" : function(){throw new Exception();};
+	rmdir($dir.$roomID) ? "" : function(){throw new Exception();};
 
-	unset($roomlist[$room]);
-	file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception('Failed to put contents to "roomlist".');};
+	foreach($roomlist as $k) {
+		if($k['roomID'] = $roomID) unset($k);
+	}
 
+	file_put_contents($dir."/roomLists.json", $roomlist) ? "" : function(){throw new Exception('Failed to put contents to "roomlist".');};
+
+	header("Location: ../index.php");
 } catch(Exception $e) {
 	echo "Exception: ".$e;
 }
 
-header("Location: ../index.php");

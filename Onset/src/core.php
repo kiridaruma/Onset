@@ -12,19 +12,27 @@ function isIllegalAccess($rand, $onset_rand) {
 }
 
 /*
- * unserial
+ * unserial -> will deleted.
  */
 function unserial($dir) {
-	return unserialize(file_get_contents($dir.'roomlist'));
+ 	return unserialize(file_get_contents($dir.'roomlist'));
+}
+
+/*
+ * getRoomList
+ */
+function getRoomList($dir) {
+	return json_decode(file_get_contents($dir.'roomlist.json'));
 }
 
 /*
  * isExistRoom
  */
 function isExistRoom($roomlist, $room) {
-	if(isset($roomlist[$room])) {
-		return true;
+	foreach($roomlist as $k) {
+		if($k['roomName'] === $room) return true;
 	}
+
 	return false;
 }
 

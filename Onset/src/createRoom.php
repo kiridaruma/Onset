@@ -68,9 +68,15 @@ try{
 	file_put_contents($dir.$uuid.'/roomInfo.json', $roomJSON);
 	file_put_contents($dir.$uuid.'/pass.hash',		 $roomJSONpw);
 
-	$roomlist[$name]["path"] = $uuid;
+	$newRoom = [
+		'roomID' => $uuid,
+		'roomName' => $_POST['name']
+	];
 
-	file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception('Failed to put contents to "roomlist".');};
+	$roomlist[] = $newRoom;
+	$json = json_encode($roomlist);
+
+	file_put_contents($dir.'/roomLists.json', $json) ? "" : function(){throw new Exception('Failed to put contents to "roomList.json".');};
 
 } catch(Exception $e) {
 		echo "Exception: ".$e;

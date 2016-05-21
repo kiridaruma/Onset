@@ -16,9 +16,16 @@ if(isExistRoom($roomlist, $room) === false){
 	die();
 }
 
-$roompath = $roomlist[$room]['path'];
+foreach($roomlist as $k) {
+	if($k['roomName'] === $room) {
+		$roomID   = $k['roomID'];
+		$roomName = $k['roomName'];
+	}
+}
 
-$json = file_get_contents($dir.$roompath.'/roomInfo.json');
+$roomPath = $dir.$roomID.'/roomInfo.json';
+
+$json = file_get_contents($roomPath);
 $json = json_decode($json, true);
 $hash = $json['roomPassword'];
 
@@ -29,7 +36,7 @@ $id = ip2long($_SERVER['REMOTE_ADDR']) + mt_rand();
 session_start();
 
 $_SESSION['onset_name'] = $name;
-$_SESSION['onset_room'] = $roompath;
+$_SESSION['onset_room'] = $roomID;
 $_SESSION['onset_id']   = dechex($id);
 
 header("Location: ../Onset.php");
