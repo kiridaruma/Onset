@@ -14,7 +14,11 @@ $name = isset($_POST['name']) && $_POST['name'] != "" ? $_POST['name'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 $mode = $_POST['mode'];
 
+
+// 部屋名とPWセットの確認
 isSetNameAndPass($name, $pass);
+
+// 部屋の長さチェック
 isLongRoomName($name);
 
 $name = htmlspecialchars($name, ENT_QUOTES);
@@ -31,6 +35,10 @@ if(count($roomlist) >= $config["roomLimit"]){
 
 
 try{
+	// $uuidは
+	// 部屋のディレクトリ名
+	// 部屋のID
+	// に使われます。
 	$uuid = uniqid("", true);
 
 	// roomInfo.json
@@ -41,15 +49,10 @@ try{
 	];
 
 	$roomJSON = json_encode($hash);
-	$roomJSONpw = password_hash($pass, PASSWORD_DEFAULT);
 
 	unset($pass);			//念の為、平文のパスワードを削除
 
 	mkdir($dir.$uuid);
-
-	// pass.hash
-	// レガシなroomInfo.json
-	touch($dir.$uuid.'/pass.hash');
 
 	// roomInfo.json
 	// 部屋データの管理
@@ -63,14 +66,18 @@ try{
 	// 'chmod b111000000\n'
 	// - Ar tonelico
 	chmod($dir.$uuid, 									0777);
-	chmod($dir.$uuid.'/pass.hash', 			0666);
 	chmod($dir.$uuid.'/chatLogs.json',	0666);
 	chmod($dir.$uuid.'/roomInfo.json', 	0666);
 	chmod($dir.$uuid.'/connect/',		 		0777);
 
 	file_put_contents($dir.$uuid.'/roomInfo.json', $roomJSON);
-	file_put_contents($dir.$uuid.'/pass.hash',		 $roomJSONpw);
 
+	//
+	// UUID: {
+	//   'roomID'   : 'UUID',
+	//   'roomName' : 'NAME'
+	// }
+	//
 	$newRoom = [
 		$uuid => [
 			'roomID' => $uuid,
@@ -78,13 +85,14 @@ try{
 		]
 	];
 
+	// マージ。
 	$roomlist = array_merge($roomlist, $newRoom);
 	$json = json_encode($roomlist);
 
-	file_put_contents($dir.'/roomLists.json', $json) ? "" : function(){throw new Exception('Failed to put contents to "roomList.json".');};
+	file_put_contents($dir.'/roomLists.json', $json);
+	header("Location: ../index.php");
 
 } catch(Exception $e) {
 		echo "Exception: ".$e;
 }
 
-header("Location: ../index.php");

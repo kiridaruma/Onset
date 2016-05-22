@@ -54,6 +54,7 @@ $config["maxChatNick"] = 20;
  * もしくはそれに準ずる身の危険を否定できません。
  */
 
-$dir = $config['roomSavepath'];
-$roomlist = file_get_contents($dir.'/roomLists.json');
-$roomlist = json_decode($roomlist, true);
+$dir      = $config['roomSavepath'];
+
+// $roomlist roomLists.jsonの配列
+$roomlist = json_decode(file_get_contents($dir.'/roomLists.json'), true);

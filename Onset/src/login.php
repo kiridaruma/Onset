@@ -25,8 +25,7 @@ foreach($roomlist as $k) {
 
 $roomPath = $dir.$roomID.'/roomInfo.json';
 
-$json = file_get_contents($roomPath);
-$json = json_decode($json, true);
+$json = json_decode(file_get_contents($roomPath), true);
 $hash = $json['roomPassword'];
 
 isCorrectPassword($pass, $hash);

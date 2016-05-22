@@ -22,6 +22,8 @@ if(isExistRoom($roomlist, $room) === false) {
 	die();
 }
 
+// $roomID   : 部屋のUUID
+// $roomName : 部屋の名前
 foreach($roomlist as $k) {
 	if($k['roomName'] === $room) {
 		$roomID   = $k['roomID'];
@@ -30,9 +32,9 @@ foreach($roomlist as $k) {
 }
 
 $json = json_decode(file_get_contents($dir.$roomID.'/roomInfo.json'), true);
-
 $hash = $json['roomPassword'];
 
+// PW一致の確認。
 isCorrectPassword($pass, $hash);
 
 try{
@@ -56,6 +58,7 @@ try{
 	file_put_contents($dir."/roomLists.json", $roomlist) ? "" : function(){throw new Exception('Failed to put contents to "roomlist".');};
 
 	header("Location: ../index.php");
+
 } catch(Exception $e) {
 	echo "Exception: ".$e;
 }
