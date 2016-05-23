@@ -7,20 +7,20 @@ $pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
 $room = isset($_POST['room']) || $_POST['room'] != 0 ? $_POST['room'] : FALSE;
 
 if(!$name || !$pass || !$room){
-	echo "名前とパスワードを入力してください(ブラウザバックをお願いします)";
-	die();
+  echo "名前とパスワードを入力してください(ブラウザバックをお願いします)";
+  die();
 }
 
 if(isExistRoom($roomlist, $room) === false){
-	echo "存在しない部屋です(ブラウザバックをお願いします)";
-	die();
+  echo "存在しない部屋です(ブラウザバックをお願いします)";
+  die();
 }
 
 foreach($roomlist as $k) {
-	if($k['roomName'] === $room) {
-		$roomID   = $k['roomID'];
-		$roomName = $k['roomName'];
-	}
+  if($k['roomName'] === $room) {
+    $roomID   = $k['roomID'];
+    $roomName = $k['roomName'];
+  }
 }
 
 $roomPath = $dir.$roomID.'/roomInfo.json';

@@ -6,8 +6,8 @@ require_once('core.php');
 session_start();
 
 if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
-	echo 'Illegal Access: invalid_access.';
-	die();
+  echo 'Illegal Access: invalid_access.';
+  die();
 }
 
 $name = isset($_POST['name']) && $_POST['name'] != "" ? $_POST['name'] : FALSE;
@@ -24,75 +24,75 @@ isLongRoomName($name);
 $name = htmlspecialchars($name, ENT_QUOTES);
 
 if(isExistRoom($roomlist, $name) === true) {
-	echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";
-	die();
+  echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";
+  die();
 }
 
 if(count($roomlist) >= $config["roomLimit"]){
-	echo "これ以上部屋を立てられません、制限いっぱいです。";
-	die();
+  echo "これ以上部屋を立てられません、制限いっぱいです。";
+  die();
 }
 
 
 try{
-	// $uuidは
-	// 部屋のディレクトリ名
-	// 部屋のID
-	// に使われます。
-	$uuid = uniqid("", true);
+  // $uuidは
+  // 部屋のディレクトリ名
+  // 部屋のID
+  // に使われます。
+  $uuid = uniqid("", true);
 
-	// roomInfo.json
-	// roomList.jsonの処理と間違えないようにっ!
-	$hash =	[
-		"roomName" => $_POST['name'],
-		"roomPassword" => password_hash($pass, PASSWORD_DEFAULT)
-	];
+  // roomInfo.json
+  // roomList.jsonの処理と間違えないようにっ!
+  $hash =	[
+    "roomName" => $_POST['name'],
+    "roomPassword" => password_hash($pass, PASSWORD_DEFAULT)
+  ];
 
-	$roomJSON = json_encode($hash);
+  $roomJSON = json_encode($hash);
 
-	unset($pass);			//念の為、平文のパスワードを削除
+  unset($pass);			//念の為、平文のパスワードを削除
 
-	mkdir($dir.$uuid);
+  mkdir($dir.$uuid);
 
-	// roomInfo.json
-	// 部屋データの管理
-	touch($dir.$uuid.'/roomInfo.json');
+  // roomInfo.json
+  // 部屋データの管理
+  touch($dir.$uuid.'/roomInfo.json');
 
-	// chatLogs.json
-	// チャットデータの管理
-	touch($dir.$uuid.'/chatLogs.json');
-	mkdir($dir.$uuid.'/connect');
+  // chatLogs.json
+  // チャットデータの管理
+  touch($dir.$uuid.'/chatLogs.json');
+  mkdir($dir.$uuid.'/connect');
 
-	// 'chmod b111000000\n'
-	// - Ar tonelico
-	chmod($dir.$uuid, 									0777);
-	chmod($dir.$uuid.'/chatLogs.json',	0666);
-	chmod($dir.$uuid.'/roomInfo.json', 	0666);
-	chmod($dir.$uuid.'/connect/',		 		0777);
+  // 'chmod b111000000\n'
+  // - Ar tonelico
+  chmod($dir.$uuid, 									0777);
+  chmod($dir.$uuid.'/chatLogs.json',	0666);
+  chmod($dir.$uuid.'/roomInfo.json', 	0666);
+  chmod($dir.$uuid.'/connect/',		 		0777);
 
-	file_put_contents($dir.$uuid.'/roomInfo.json', $roomJSON);
+  file_put_contents($dir.$uuid.'/roomInfo.json', $roomJSON);
 
-	//
-	// UUID: {
-	//   'roomID'   : 'UUID',
-	//   'roomName' : 'NAME'
-	// }
-	//
-	$newRoom = [
-		$uuid => [
-			'roomID' => $uuid,
-			'roomName' => $_POST['name']
-		]
-	];
+  //
+  // UUID: {
+  //   'roomID'   : 'UUID',
+  //   'roomName' : 'NAME'
+  // }
+  //
+  $newRoom = [
+    $uuid => [
+      'roomID' => $uuid,
+      'roomName' => $_POST['name']
+    ]
+  ];
 
-	// マージ。
-	$roomlist = array_merge($roomlist, $newRoom);
-	$json = json_encode($roomlist);
+  // マージ。
+  $roomlist = array_merge($roomlist, $newRoom);
+  $json = json_encode($roomlist);
 
-	file_put_contents($dir.'/roomLists.json', $json);
-	header("Location: ../index.php");
+  file_put_contents($dir.'/roomLists.json', $json);
+  header("Location: ../index.php");
 
 } catch(Exception $e) {
-		echo "Exception: ".$e;
+  echo "Exception: ".$e;
 }
 

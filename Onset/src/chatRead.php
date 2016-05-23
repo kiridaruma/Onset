@@ -10,8 +10,8 @@ $time = isset($_POST['time']);
 
 // 値が未セットなら終わり
 if(!$room || !$time) {
-	echo "Invalid Access: Time OR Room variables is null.";
-	die();
+  echo "Invalid Access: Time OR Room variables is null.";
+  die();
 }
 
 $dir = $dir.$room;

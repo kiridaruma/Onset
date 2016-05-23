@@ -17,8 +17,8 @@ $room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SE
 
 // どれか1つでも未セットならエラー
 if(!$text || !$name || !$room || !$sys){
-	echo "不正なアクセス:invalid_access";
-	die();
+  echo "不正なアクセス:invalid_access";
+  die();
 }
 
 require_once('config.php');
@@ -56,13 +56,13 @@ $UNIXtime    = date('U'); // UNIXtime
 $diceRes     = htmlspecialchars($diceRes, ENT_QUOTES); // BCDice結果
 
 $line            = array(
-	"userID"      => $_SESSION['onset_id'],
-	"name"        => $name,
-	"text"        => $text,
-	"diceRes"     => $diceRes,
-	"UNIXtime"    => $UNIXtime,
-	"ISO8601time" => $ISO8601time,
-	"RFC2822time" => $RFC2822time
+  "userID"      => $_SESSION['onset_id'],
+  "name"        => $name,
+  "text"        => $text,
+  "diceRes"     => $diceRes,
+  "UNIXtime"    => $UNIXtime,
+  "ISO8601time" => $ISO8601time,
+  "RFC2822time" => $RFC2822time
 );
 
 $json   = json_decode(file_get_contents($dir.'/chatLogs.json'), true);
