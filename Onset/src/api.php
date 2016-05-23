@@ -8,34 +8,56 @@ require_once('config.php');
  */
 
 class OnsetAPI {
-  private $roomID   = '';
-  private $roomPass = '';
-  private $resultHash = [
-    'resultMessages' => [
-      'code' => '200',
-      'message' => 'OK'
+  private $roomID        = '';
+  private $roomPassword  = '';
+  private $resultHash    = [
+    'resultMessages'    => [
+      'code'            => '200',
+      'message'         => 'OK'
     ]
   ];
 
-  public function __construct($roomID, $roomPass) {
+  public function __construct($roomID, $roomPassword) {
     $this->setRoomID($roomID);
-    $this->setRoomPass($roomPass);
+    $this->setRoomPass($roomPassword);
   }
 
   public function setRoomID($roomName) {
     $this->roomID = (string)filter_var($roomName);
   }
 
-  public function setRoomPass($roomPass) {
-    $this->roomPass = (string)filter_var($roomPass);
+  public function setRoomPass($roomPassword) {
+    $this->roomPassword = (string)filter_var($roomPassword);
   }
 
-  public function setResultMessageID($code) {
+  private function setResultMessageID($code) {
     $this->resultHash['resultMessages']['code'] = $code;
   }
 
-  public function setResultMessageContent($text) {
+  private function setResultMessageContent($text) {
     $this->resultHash['resultMessages']['message'] = $text;
+  }
+
+  public function executeFunction($f) {
+    if($f === null || $f === '') {
+      $this->setResultMessageID('400 Bad Request.');
+      $this->setResultMessageContent('Please set action.');
+
+      echo json_encode($this->resultHash);
+
+      return false;
+    }
+
+    switch($f) {
+    case 'getRoomLists':
+      $this->getRoomLists();
+      break;
+    case 'getChatLogs':
+      $this->getChatLogs();
+      break;
+    default:
+      break;
+    }
   }
 
   public function getRoomLists() {
@@ -43,7 +65,7 @@ class OnsetAPI {
 
     header("Content-type: application/json");
 
-    if(!$roomLists) {
+    if(!json_encode($roomLists)) {
       $this->setResultMessageID('500 Internal Server Error.');
       $this->setResultMessageContent('An error has occurred in internal. Please tell this to administrator.');
       echo json_encode($this->resultHash);
@@ -83,7 +105,7 @@ class OnsetAPI {
 
     $roomInfoJSON = json_decode(file_get_contents($dir.$this->roomID.'/roomInfo.json'), true);
 
-    if(isCorrectPassword($this->roomPass, $roomInfoJSON['roomPassword']) === false) {
+    if(isCorrectPassword($this->roomPassword, $roomInfoJSON['roomPassword']) === false) {
       $this->setResultMessageID('401 Unauthorized.');
       $this->setResultMessageContent('Illegal password. Please request CORRECT password.');
 
@@ -101,8 +123,7 @@ class OnsetAPI {
   }
 }
 
-// $instance = new OnsetAPI('roomID', 'PASSWORD');
-
-echo $instance->getRoomLists();
-echo PHP_EOL;
-echo $instance->getChatLogs();
+if(!$_GET['roomID']) $roomID             = '';
+if(!$_GET['roomPassword']) $roomPassword = '';
+$instance = new OnsetAPI($roomID, $roomPassword);
+$instance->executeFunction($_GET['action']);
