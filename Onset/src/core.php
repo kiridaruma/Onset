@@ -28,9 +28,9 @@ function getRoomList($dir) {
 /*
  * isExistRoom
  */
-function isExistRoom($roomlist, $room) {
-  foreach($roomlist as $k) {
-    if($k['roomName'] === $room) return true;
+function isExistRoom($roomLists, $room) {
+  foreach($roomLists as $k) {
+    if($k['roomName'] === $room || $k['roomID'] === $room) return true;
   }
 
   return false;

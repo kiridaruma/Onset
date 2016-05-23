@@ -10,32 +10,31 @@ if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
   die();
 }
 
-$room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
-$pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
-$mode = $_POST['mode'];
+$roomName = isset($_POST['roomName']) && $_POST['roomName'] != "" ? $_POST['roomName'] : FALSE;
+$roomPass = isset($_POST['roomPass']) && $_POST['roomPass'] != "" ? $_POST['roomPass'] : FALSE;
+$roomMode = $_POST['mode'];
 
-isSetNameAndPass($room, $pass);
-isLongRoomName($room);
+isSetNameAndPass($roomName, $roomPass);
+isLongRoomName($roomName);
 
-if(isExistRoom($roomlist, $room) === false) {
+// $roomID   : 部屋のUUID
+// $roomName : 部屋の名前
+foreach($roomLists as $k) {
+  if($k['roomName'] === $roomName) {
+    $roomID   = $k['roomID'];
+  }
+}
+
+if(isExistRoom($roomLists, $roomID) === false) {
   echo "部屋が存在しません(ブラウザバックをおねがいします)";
   die();
 }
 
-// $roomID   : 部屋のUUID
-// $roomName : 部屋の名前
-foreach($roomlist as $k) {
-  if($k['roomName'] === $room) {
-    $roomID   = $k['roomID'];
-    $roomName = $k['roomName'];
-  }
-}
-
-$json = json_decode(file_get_contents($dir.$roomID.'/roomInfo.json'), true);
-$hash = $json['roomPassword'];
+$roomInfoJSON = json_decode(file_get_contents($dir.$roomID.'/roomInfo.json'), true);
+$roomPassHash = $roomInfoJSON['roomPassword'];
 
 // PW一致の確認。
-isCorrectPassword($pass, $hash);
+isCorrectPassword($roomPass, $roomPassHash);
 
 try{
   foreach(scandir("{$dir}{$roomID}/connect/") as $value) {
@@ -52,10 +51,10 @@ try{
   }
   rmdir($dir.$roomID) ? "" : function(){throw new Exception();};
 
-  unset($roomlist[$roomID]);
-  $roomlist = json_encode($roomlist);
+  unset($roomLists[$roomID]);
+  $roomLists = json_encode($roomLists);
 
-  file_put_contents($dir."/roomLists.json", $roomlist) ? "" : function(){throw new Exception('Failed to put contents to "roomlist".');};
+  file_put_contents($dir."/roomLists.json", $roomLists) ? "" : function(){throw new Exception('Failed to put contents to "roomlist".');};
 
   header("Location: ../index.php");
 

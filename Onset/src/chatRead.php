@@ -4,17 +4,17 @@ require_once('config.php');
 
 session_start();
 
-$room = isset($_SESSION['onset_room']) 	&& $_SESSION['onset_room'] 	!= NULL ? $_SESSION['onset_room']	: false;
+$roomID = isset($_SESSION['onset_room']) 	&& $_SESSION['onset_room'] 	!= NULL ? $_SESSION['onset_room']	: false;
 $time = isset($_POST['time']);
 
 
 // 値が未セットなら終わり
-if(!$room || !$time) {
+if(!$roomID || !$time) {
   echo "Invalid Access: Time OR Room variables is null.";
   die();
 }
 
-$dir = $dir.$room;
+$dir = $dir.$roomID;
 $json = file_get_contents($dir."/chatLogs.json", 'r');
 echo $json;
 

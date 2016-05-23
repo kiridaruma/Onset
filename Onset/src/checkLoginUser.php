@@ -3,10 +3,10 @@ require_once('config.php');
 
 session_start();
 
-$room = isset($_SESSION['onset_room']) 	&& $_SESSION['onset_room']	!= NULL ? $_SESSION['onset_room']	: FALSE;
-$id   = isset($_SESSION['onset_id']) 		&& $_SESSION['onset_id']		!= NULL ? $_SESSION['onset_id'] 	: FALSE;
+$roomID  = isset($_SESSION['onset_room']) 	&& $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room']	: FALSE;
+$loginID = isset($_SESSION['onset_id']) 		&& $_SESSION['onset_id']   != NULL ? $_SESSION['onset_id'] 	: FALSE;
 
-if(!$room || !$id){
+if(!$roomID || !$loginID){
   echo "Invalid Access: Room OR ID variables is NULL.";
   die();
 }
@@ -15,11 +15,11 @@ $dir = $dir.$room."/connect/";
 $arr = scandir($dir);
 
 if($_POST['lock'] === 'unlock') {
-  file_put_contents($dir.$id, time()."\n".$_SESSION['onset_name']);
+  file_put_contents($dir.$roomID, time()."\n".$_SESSION['onset_name']);
   die();
 }
 
-file_put_contents($dir.$id, time()."\n".$_SESSION['onset_name']."\nlocked");
+file_put_contents($dir.$roomID, time()."\n".$_SESSION['onset_name']."\nlocked");
 
 foreach($arr as $value) {
   if($value == "." || $value == "..") continue;

@@ -36,10 +36,10 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 			<div class="panel-body" id="join">
 				<form class="form" action="src/login.php" method="post">
 					<div class="form-inline form-group">
-						<input class="form-control" type="text" name="name" placeholder="名前">
-						<input class="form-control" type="password" name="pass" placeholder="パスワード">
-						<select id="room" class="form-control" name="room">
-<?php foreach($roomlist as $k) : ?>
+						<input class="form-control" type="text" name="loginName" placeholder="名前">
+						<input class="form-control" type="password" name="roomPass" placeholder="パスワード">
+						<select id="room" class="form-control" name="roomName">
+<?php foreach($roomLists as $k) : ?>
 							<option value="<?=$k['roomName']?>"><?=$k['roomName']?></option>
 <?php endforeach; ?>
 						</select>
@@ -58,8 +58,8 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 				<div class="panel-body" id="create">
 					<form class="form" action="src/createRoom.php" method="post">
 						<div class="form-inline form-group">
-							<input class="form-control" type="text" name="name" placeholder="部屋名">
-							<input class="form-control" type="password" name="pass" placeholder="パスワード">
+							<input class="form-control" type="text" name="roomName" placeholder="部屋名">
+							<input class="form-control" type="password" name="roomPass" placeholder="パスワード">
 							<input class="form-control" type="hidden" name="rand" value="<?=$rand?>">
 							<input class="form-control" type="hidden" name="mode" value="create">
 						</div>
@@ -77,14 +77,14 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 				<div class="panel-body" id="delete">
 					<form class="form" action="src/deleteRoom.php" method="post">
 						<div class="form-group form-inline">
-							<select id="room" class="form-control" name="room">
-<?php foreach($roomlist as $k) : ?>
+							<select id="room" class="form-control" name="roomName">
+<?php foreach($roomLists as $k) : ?>
 							<option value="<?=$k['roomName']?>"><?=$k['roomName']?></option>
 <?php endforeach; ?>
 							</select>
-							<input class="form-control" type="password" name="pass" placeholder="パスワード">
+							<input class="form-control" type="password" name="roomPass" placeholder="パスワード">
 							<input class="form-control" type="hidden" name="rand" value="<?=$rand?>">
-							<input class="form-control" type="hidden" name="mode" value="del">
+							<input class="form-control" type="hidden" name="mode" value="delete">
 					</div>
 					<div class="form-group">
 						<button class="btn btn-danger" type="submit">部屋を削除する</button>

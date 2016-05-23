@@ -10,25 +10,25 @@ if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
   die();
 }
 
-$name = isset($_POST['name']) && $_POST['name'] != "" ? $_POST['name'] : FALSE;
-$pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
-$mode = $_POST['mode'];
+$roomName = isset($_POST['roomName']) && $_POST['roomName'] != "" ? $_POST['roomName'] : FALSE;
+$roomPass = isset($_POST['roomPass']) && $_POST['roomPass'] != "" ? $_POST['roomPass'] : FALSE;
+$roomMode = $_POST['mode'];
 
 
 // 部屋名とPWセットの確認
-isSetNameAndPass($name, $pass);
+isSetNameAndPass($roomName, $roomPass);
 
 // 部屋の長さチェック
-isLongRoomName($name);
+isLongRoomName($roomName);
 
-$name = htmlspecialchars($name, ENT_QUOTES);
+$roomName = htmlspecialchars($roomName, ENT_QUOTES);
 
-if(isExistRoom($roomlist, $name) === true) {
+if(isExistRoom($roomLists, $roomName) === true) {
   echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";
   die();
 }
 
-if(count($roomlist) >= $config["roomLimit"]){
+if(count($roomLists) >= $config["roomLimit"]){
   echo "これ以上部屋を立てられません、制限いっぱいです。";
   die();
 }
@@ -40,17 +40,6 @@ try{
   // 部屋のID
   // に使われます。
   $uuid = uniqid("", true);
-
-  // roomInfo.json
-  // roomList.jsonの処理と間違えないようにっ!
-  $hash =	[
-    "roomName" => $_POST['name'],
-    "roomPassword" => password_hash($pass, PASSWORD_DEFAULT)
-  ];
-
-  $roomJSON = json_encode($hash);
-
-  unset($pass);			//念の為、平文のパスワードを削除
 
   mkdir($dir.$uuid);
 
@@ -70,26 +59,46 @@ try{
   chmod($dir.$uuid.'/roomInfo.json', 	0666);
   chmod($dir.$uuid.'/connect/',		 		0777);
 
-  file_put_contents($dir.$uuid.'/roomInfo.json', $roomJSON);
-
   //
   // UUID: {
   //   'roomID'   : 'UUID',
   //   'roomName' : 'NAME'
   // }
   //
-  $newRoom = [
+  $newRoomListHash = [
     $uuid => [
       'roomID' => $uuid,
-      'roomName' => $_POST['name']
+      'roomName' => $roomName
     ]
   ];
 
   // マージ。
-  $roomlist = array_merge($roomlist, $newRoom);
-  $json = json_encode($roomlist);
+  $mergedRoomLists = json_encode(array_merge($roomLists, $newRoomListHash));
 
-  file_put_contents($dir.'/roomLists.json', $json);
+  file_put_contents($dir.'/roomLists.json', $mergedRoomLists);
+
+  //
+  // roomInfo.json
+  // roomList.jsonの処理と間違えないようにっ!
+  //
+  // {
+  //   'roomName'     : '$roomName',
+  //   'roomPassword' : '$roomPass'
+  // }
+  //
+  $newRoomInfoHash =	[
+    "roomName" => $roomName,
+    "roomPassword" => password_hash($roomPass, PASSWORD_DEFAULT)
+  ];
+
+  $roomInfoJSON = json_encode($newRoomInfoHash);
+
+  file_put_contents($dir.$uuid.'/roomInfo.json', $roomInfoJSON);
+
+
+  unset($roomPass);			//念の為、平文のパスワードを削除
+  unset($_POST['roomPass']);
+
   header("Location: ../index.php");
 
 } catch(Exception $e) {

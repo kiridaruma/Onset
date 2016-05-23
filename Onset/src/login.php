@@ -2,40 +2,39 @@
 require_once('config.php');
 require_once('core.php');
 
-$name = isset($_POST['name']) || $_POST['name'] != 0 ? htmlspecialchars($_POST['name'], ENT_QUOTES) : FALSE;
-$pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
-$room = isset($_POST['room']) || $_POST['room'] != 0 ? $_POST['room'] : FALSE;
+$loginName = isset($_POST['loginName']) || $_POST['loginName'] != 0 ? htmlspecialchars($_POST['loginName'], ENT_QUOTES) : FALSE;
+$roomName  = isset($_POST['roomName']) || $_POST['roomName']   != 0 ? $_POST['roomName'] : FALSE;
+$roomPass  = isset($_POST['roomPass']) || $_POST['roomPass']   != 0 ? $_POST['roomPass'] : FALSE;
 
-if(!$name || !$pass || !$room){
+if(!$loginName || !$roomPass || !$roomName){
   echo "名前とパスワードを入力してください(ブラウザバックをお願いします)";
   die();
 }
 
-if(isExistRoom($roomlist, $room) === false){
+if(isExistRoom($roomLists, $roomName) === false){
   echo "存在しない部屋です(ブラウザバックをお願いします)";
   die();
 }
 
-foreach($roomlist as $k) {
-  if($k['roomName'] === $room) {
+foreach($roomLists as $k) {
+  if($k['roomName'] === $roomName) {
     $roomID   = $k['roomID'];
-    $roomName = $k['roomName'];
   }
 }
 
 $roomPath = $dir.$roomID.'/roomInfo.json';
 
-$json = json_decode(file_get_contents($roomPath), true);
-$hash = $json['roomPassword'];
+$roomInfoJSON = json_decode(file_get_contents($roomPath), true);
+$roomPassHash = $roomInfoJSON['roomPassword'];
 
-isCorrectPassword($pass, $hash);
+isCorrectPassword($roomPass, $roomPassHash);
 
-$id = ip2long($_SERVER['REMOTE_ADDR']) + mt_rand();
+$userID = ip2long($_SERVER['REMOTE_ADDR']) + mt_rand();
 
 session_start();
 
-$_SESSION['onset_name'] = $name;
+$_SESSION['onset_name'] = $loginName;
 $_SESSION['onset_room'] = $roomID;
-$_SESSION['onset_id']   = dechex($id);
+$_SESSION['onset_id']   = dechex($userID);
 
 header("Location: ../Onset.php");

@@ -57,4 +57,4 @@ $config["maxChatNick"] = 20;
 $dir      = $config['roomSavepath'];
 
 // $roomlist roomLists.jsonの配列
-$roomlist = json_decode(file_get_contents($dir.'/roomLists.json'), true);
+$roomLists = json_decode(file_get_contents($dir.'/roomLists.json'), true);
