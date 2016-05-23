@@ -34,7 +34,10 @@ $roomInfoJSON = json_decode(file_get_contents($dir.$roomID.'/roomInfo.json'), tr
 $roomPassHash = $roomInfoJSON['roomPassword'];
 
 // PW一致の確認。
-isCorrectPassword($roomPass, $roomPassHash);
+if(isCorrectPassword($roomPass, $roomPassHash) === false) {
+  echo 'パスワードが違います。';
+  die();
+}
 
 try{
   foreach(scandir("{$dir}{$roomID}/connect/") as $value) {

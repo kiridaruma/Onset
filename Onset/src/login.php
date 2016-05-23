@@ -27,7 +27,10 @@ $roomPath = $dir.$roomID.'/roomInfo.json';
 $roomInfoJSON = json_decode(file_get_contents($roomPath), true);
 $roomPassHash = $roomInfoJSON['roomPassword'];
 
-isCorrectPassword($roomPass, $roomPassHash);
+if(isCorrectPassword($roomPass, $roomPassHash) === false) {
+  echo 'パスワードが違います。';
+  die();
+}
 
 $userID = ip2long($_SERVER['REMOTE_ADDR']) + mt_rand();
 

@@ -101,8 +101,7 @@ function isSetNameAndPass($name, $pass) {
 function isCorrectPassword($pass, $hash) {
   global $config;
   if(!password_verify($pass, $hash) && $config['pass'] != $pass) {
-    echo 'Illegal Access: Password is incorrect.';
-    die();
+    return false;
   }
   return true;
 }
