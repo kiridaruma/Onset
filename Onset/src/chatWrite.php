@@ -23,9 +23,6 @@ if(!$loginName || !$sendText || !$usingSystem || !$roomID){
 
 require_once('config.php');
 
-// "<dir>/<roomID>"
-$dir = $dir.$roomID;
-
 // 行数処理
 isLongChat($sendText, $loginName);
 
@@ -69,6 +66,6 @@ $json   = json_decode(file_get_contents($dir.$roomID.'/chatLogs.json'), true);
 $json[] = $line;
 $json   = json_encode($json);
 
-file_put_contents($dir."/chatLogs.json", $json, LOCK_EX);
+file_put_contents($dir.$roomID."/chatLogs.json", $json, LOCK_EX);
 
 $_SESSION['onset_name'] = $loginName;
