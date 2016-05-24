@@ -22,9 +22,7 @@ foreach($roomLists as $k) {
   }
 }
 
-$roomPath = $dir.$roomID.'/roomInfo.json';
-
-$roomInfoJSON = json_decode(file_get_contents($roomPath), true);
+$roomInfoJSON = getRoomInfoJSON($roomID);
 $roomPassHash = $roomInfoJSON['roomPassword'];
 
 if(isCorrectPassword($roomPass, $roomPassHash) === false) {

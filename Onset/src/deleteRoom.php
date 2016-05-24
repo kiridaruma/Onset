@@ -30,7 +30,7 @@ if(isExistRoom($roomLists, $roomID) === false) {
   die();
 }
 
-$roomInfoJSON = json_decode(file_get_contents($dir.$roomID.'/roomInfo.json'), true);
+$roomInfoJSON = getRoomInfoJSON($roomID);
 $roomPassHash = $roomInfoJSON['roomPassword'];
 
 // PW一致の確認。

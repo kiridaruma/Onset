@@ -4,10 +4,11 @@ require_once('core.php');
 
 session_start();
 
-isNULLRoom($_SESSION['onset_room']);
+$roomID  = isset($_SESSION['onset_room'])   && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room']  : FALSE;
 
-$json = $dir.$_SESSION['onset_room']."/chatLogs.json";
-$text = file_get_contents($json, true);
+isNULLRoom($roomID);
+
+$text = file_get_contents($dir.$roomID.'/chatLogs.json', true);
 
 header("Content-type: application/json");
 echo $text;
