@@ -7,6 +7,23 @@ require_once('config.php');
  * Author 赤城。
  */
 
+/*
+ * Class OnsetAPI
+ *
+ * functions:
+ * - public  __construct             Constructer Constructer.
+ *
+ * - public  setRoomID               Setter      set RoomID.
+ * - public  setRoomPass             Setter      set RoomPassword.
+ * - private setResultMessageID      Setter      set HTTP Code of Result.
+ * - private setResultMessageContent Setter      set message of Result.
+ *
+ * - public getRoomLists             Getter      Get roomLists.json.
+ * - public getChatLogs              Getter      Get chatLogs.json.
+ *
+ * - public executeFunction          Getter      Execute each fucntions.
+ *
+ */
 class OnsetAPI {
   private $roomID        = '';
   private $roomPassword  = '';
