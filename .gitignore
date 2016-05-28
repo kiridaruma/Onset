@@ -1,2 +1,6 @@
 room/
 room/roomLists.json
+Onset/output
+Onset/composer.lock
+Onset/composer.phar
+Onset/vendor
