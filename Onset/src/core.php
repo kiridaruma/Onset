@@ -2,6 +2,59 @@
 require_once(dirname(__FILE__).'/config.php');
 
 /*
+ * getRoomListsJSON
+ * roomLists.jsonを取得します。
+ *
+ * @param  boolean        $isDecode 返却するJSONをデコードするか
+ * @return resource/array $JSON     返却するJSON $isDecodeがtrueならarray
+ *
+ */
+function getRoomListsJSON($isDecode = true) {
+  global $dir;
+
+  $JSON = file_get_contents($dir.'roomLists.json');
+
+  if($isDecode) $JSON = json_decode($JSON, true);
+
+  return $JSON;
+}
+
+/*
+ * getRoomInfoJSON
+ * roomInfo.jsonを取得します。
+ *
+ * @param  string         $roomID   部屋ID
+ * @param  boolean        $isDecode 返却するJSONをデコードするか
+ * @return resource/array $JSON     返却するJSON $isDecodeがtrueならarray
+ *
+ */
+function getRoomInfoJSON($roomID, $isDecode = true) {
+  global $dir;
+  $JSON = file_get_contents($dir.$roomID.'/roomInfo.json');
+
+  if($isDecode) $JSON = json_decode($JSON, true);
+
+  return $JSON;
+}
+
+/*
+ * getChatLogsJSON
+ * chatLogs.jsonを取得します。
+ *
+ * @param  string         $roomID   部屋ID
+ * @param  boolean        $isDecode 返却するJSONをデコードするか
+ * @return resource/array $JSON     返却するJSON $isDecodeがtrueならarray
+ */
+function getChatLogsJSON($roomID, $isDecode = true) {
+  global $dir;
+  $JSON = file_get_contents($dir.$roomID.'/chatLogs.json');
+
+  if($isDecode) $JSON = json_decode($JSON, true);
+
+  return $JSON;
+}
+
+/*
  * isIllegalAccess
  */
 function isIllegalAccess($rand, $onset_rand) {
@@ -9,20 +62,6 @@ function isIllegalAccess($rand, $onset_rand) {
     return false;
   }
   return true;
-}
-
-/*
- * unserial -> will deleted.
- */
-function unserial($dir) {
-  return unserialize(file_get_contents($dir.'roomlist'));
-}
-
-/*
- * getRoomList
- */
-function getRoomList($dir) {
-  return json_decode(file_get_contents($dir.'roomlist.json'));
 }
 
 /*

@@ -1,5 +1,6 @@
 <?php
 
+require_once('core.php');
 require_once('config.php');
 
 session_start();
@@ -14,11 +15,10 @@ if(!$roomID || !$time) {
   die();
 }
 
-$dir = $dir.$roomID;
-$json = file_get_contents($dir."/chatLogs.json", 'r');
-echo $json;
+$chatLogsJSON = getChatLogsJSON($roomID, false);
+echo $chatLogsJSON;
 
-$tmp = $dir."/connect/".$_SESSION['onset_id'];
-file_put_contents($tmp, time()."\n".$_SESSION['onset_name']);
+$tmp = $dir.$roomID."/connect/".$roomID;
+file_put_contents($tmp, time()."\n".$roomID);
 
 clearstatcache();

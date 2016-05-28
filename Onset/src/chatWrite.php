@@ -62,7 +62,9 @@ $line            = array(
   "RFC2822time" => $RFC2822time
 );
 
-$json   = json_decode(file_get_contents($dir.$roomID.'/chatLogs.json'), true);
+// $json   = json_decode(file_get_contents($dir.$roomID.'/chatLogs.json'), true);
+
+$json = getChatLogsJSON($roomID);
 $json[] = $line;
 $json   = json_encode($json);
 

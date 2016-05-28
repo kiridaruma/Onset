@@ -4,10 +4,18 @@ require_once('core.php');
 
 session_start();
 
-isNULLRoom($_SESSION['onset_room']);
+$roomID  = isset($_SESSION['onset_room'])   && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room']  : FALSE;
 
-$json = $dir.$_SESSION['onset_room']."/chatLogs.json";
-$text = file_get_contents($json, true);
+isNULLRoom($roomID);
 
-header("Content-type: application/json");
-echo $text;
+$chatLogsJSON = getChatLogsJSON($roomID);
+
+header("Content-type: text/plain");
+foreach($chatLogsJSON as $k) {
+  if($k['diceRes'] === '') {
+    echo $k['ISO8601time'].' : '.$k['name'].' : '.$k['text'].PHP_EOL;
+    continue;
+  }
+
+  echo $k['ISO8601time'].' : '.$k['name'].' : '.$k['text'].' '.$k['diceRes'];
+}
