@@ -8,7 +8,14 @@ $roomID  = isset($_SESSION['onset_room'])   && $_SESSION['onset_room'] != NULL ?
 
 isNULLRoom($roomID);
 
-$text = file_get_contents($dir.$roomID.'/chatLogs.json', true);
+$chatLogsJSON = getChatLogsJSON($roomID);
 
-header("Content-type: application/json");
-echo $text;
+header("Content-type: text/plain");
+foreach($chatLogsJSON as $k) {
+  if($k['diceRes'] === '') {
+    echo $k['ISO8601time'].' : '.$k['name'].' : '.$k['text'].PHP_EOL;
+    continue;
+  }
+
+  echo $k['ISO8601time'].' : '.$k['name'].' : '.$k['text'].' '.$k['diceRes'];
+}

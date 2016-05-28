@@ -38,7 +38,7 @@ function getRoomInfoJSON($roomID, $isDecode = true) {
 }
 
 /*
- * getChatLogs
+ * getChatLogsJSON
  * chatLogs.jsonを取得します。
  *
  * @param  string         $roomID   部屋ID
