@@ -33,7 +33,7 @@ $sysList = split("\n", file_get_contents("http{$s}://{$url}?list=1"));
 	</header>
 	<div class="contents">
 	<div class="form">
-		<input type="text" id="name" value=<?= $_SESSION['onset_name'] ?>>(<?= $_SESSION['onset_id'] ?>)
+		<input type="text" id="nick" value=<?= $_SESSION['onset_nick'] ?>>(<?= $_SESSION['onset_id'] ?>)
 		<select id="sys">
 		<option value="None" selected>指定なし</option>
 <?php

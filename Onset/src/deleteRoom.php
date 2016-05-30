@@ -14,8 +14,7 @@ $room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 $mode = $_POST['mode'];
 
-isSetRoomAndName($room, $name);
-isLongRoomName($room);
+isSetNameAndPass($room, $pass);
 
 $roompath = $roomlist[$room]['path'];
 

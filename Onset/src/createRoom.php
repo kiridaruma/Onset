@@ -10,16 +10,15 @@ if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
 	die();
 }
 
-$name = isset($_POST['name']) && $_POST['name'] != "" ? $_POST['name'] : FALSE;
+$room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
-$mode = $_POST['mode'];
 
-isSetNameAndPass($name, $pass);
-isLongRoomName($name);
+isSetNameAndPass($room, $pass);
+isLongRoomName($room);
 
-$name = htmlspecialchars($name, ENT_QUOTES);
+$room = htmlspecialchars($room, ENT_QUOTES);
 
-if(isExistRoom($roomlist, $name) === true) {
+if(isExistRoom($roomlist, $room) === true) {
 	echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";
 	die();
 }
@@ -34,19 +33,19 @@ unset($pass);			//念の為、平文のパスワードを削除
 try{
 
 	$uuid = uniqid("", true);
-	mkdir($dir.$uuid) 									? ""	: function(){throw new Exception();};
-	touch("{$dir}{$uuid}/pass.hash")		? "" 	: function(){throw new Exception();};
-	touch("{$dir}{$uuid}/xxlogxx.txt")	? ""	: function(){throw new Exception();};
-	mkdir("{$dir}{$uuid}/connect") 			? "" 	: function(){throw new Exception();};
+	mkdir($dir.$uuid) ? "" : function(){throw new Exception();};
+	touch("{$dir}{$uuid}/pass.hash") ? "" : function(){throw new Exception();};
+	touch("{$dir}{$uuid}/xxlogxx.txt") ? "" : function(){throw new Exception();};
+	mkdir("{$dir}{$uuid}/connect") ? "" : function(){throw new Exception();};
 
-	chmod($dir.$uuid, 									0777) ? ""	: function(){throw new Exception();};
-	chmod("{$dir}{$uuid}/pass.hash", 		0666) ? ""	: function(){throw new Exception();};
-	chmod("{$dir}{$uuid}/xxlogxx.txt", 	0666) ? ""	: function(){throw new Exception();};
-	chmod("{$dir}{$uuid}/connect/", 		0777) ? ""	: function(){throw new Exception();};
+	chmod($dir.$uuid, 0777) ? "" : function(){throw new Exception();};
+	chmod("{$dir}{$uuid}/pass.hash", 0666) ? "" : function(){throw new Exception();};
+	chmod("{$dir}{$uuid}/xxlogxx.txt", 0666) ? "" : function(){throw new Exception();};
+	chmod("{$dir}{$uuid}/connect/", 0777) ? "" : function(){throw new Exception();};
 
 	file_put_contents("{$dir}{$uuid}/pass.hash", $hash) ? "" : function(){throw new Exception();};
 
-	$roomlist[$name]["path"] = $uuid;
+	$roomlist[$room]["path"] = $uuid;
 
 	file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
 

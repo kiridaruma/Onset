@@ -34,7 +34,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 		<a id="toggle" onclick="toggle()">部屋の作成/削除</a>
 		<form class="form" action="src/login.php" method="post">
 			<div id="input">
-				<input class="text" type="text" name="name" placeholder="名前"><br />
+				<input class="text" type="text" name="nick" placeholder="名前"><br />
 				<input class="text" type="password" name="pass" placeholder="パスワード"><br />
 				<input class="button" type="submit" value="入室">
 			</div>
@@ -57,10 +57,9 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 		<h2>作成</h2>
 
 		<form action="src/createRoom.php" method="post">
-			<input type="text" class="text" name="name" placeholder="部屋名"><br />
+			<input type="text" class="text" name="room" placeholder="部屋名"><br />
 			<input type="password" class="text" name="pass" placeholder="パスワード"><br />
 			<input type="hidden" name="rand" value="<?=$rand?>">
-			<input type="hidden" name="mode" value="create">
 			<input type="submit" class="button" value="作成">
 		</form>
 
@@ -69,16 +68,15 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 		<form action="src/deleteRoom.php" method="post">
 			<input type="password" class="text" name="pass" placeholder="パスワード"><br />
 			<input type="hidden" name="rand" value="<?=$rand?>">
-			<input type="hidden" name="mode" value="del">
 			<input type="submit" class="button" value="削除">
 		<div class="list">
-			<p>部屋一覧</p>
-			<?php foreach($roomlist as $key => $value) : ?>
-				<li><label class="room" for="">
-				<input type="radio" name="room" value="<?=$key?>"><?=$key?>
-				</label></li>
-			<?php endforeach; ?>
-		</div>
+				<p>部屋一覧</p>
+				<?php foreach($roomlist as $key => $value) : ?>
+					<label class="room">
+						<input type="radio" name="room" value="<?=$key?>"><?=$key?>
+					</label>
+				<?php endforeach; ?>
+			</div>
 		</form>
 	</div>
 </div>

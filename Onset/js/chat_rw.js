@@ -32,17 +32,12 @@ function get_log(){
 
 function send_chat(){
 
-	var name = $("#name").val().trim();
+	var nick = $("#nick").val().trim();
 	var text = $("#text").val().trim();
 	var sys = $("#sys").val().trim();
 
-	if(name == "" || text == ""){
+	if(nick == "" || text == ""){
 		$(".notice").html("<b>名前と本文を入力してください</b>");
-		return 0;
-	}
-
-	if(name.length > 20 || text.length > 300){
-		$(".notice").html("<b>文字数が多すぎます</b>");
 		return 0;
 	}
 
@@ -50,7 +45,7 @@ function send_chat(){
 		url: "src/write.php",
 		type: "POST",
 		data: {
-			"name": name,
+			"nick": nick,
 			"text": text,
 			"sys": sys
 		},
