@@ -2,11 +2,18 @@
 require_once(dirname(__FILE__).'/config.php');
 
 /*
+ * 全体的なTODOなこと
+ * 1. $roomListsはglobalでこっちで処理はどうだろう。
+ * 2. true/falseで返すように。
+ *
+ */
+
+/*
  * getRoomListsJSON
  * roomLists.jsonを取得します。
  *
- * @param  boolean        $isDecode 返却するJSONをデコードするか
- * @return resource/array $JSON     返却するJSON $isDecodeがtrueならarray
+ * @param  boolean $isDecode    返却するJSONをデコードするか
+ * @return mixed   返却するJSON $isDecodeがtrueならarray
  *
  */
 function getRoomListsJSON($isDecode = true) {
@@ -23,9 +30,9 @@ function getRoomListsJSON($isDecode = true) {
  * getRoomInfoJSON
  * roomInfo.jsonを取得します。
  *
- * @param  string         $roomID   部屋ID
- * @param  boolean        $isDecode 返却するJSONをデコードするか
- * @return resource/array $JSON     返却するJSON $isDecodeがtrueならarray
+ * @param  string  $roomID      部屋ID
+ * @param  boolean $isDecode    返却するJSONをデコードするか
+ * @return mixed   返却するJSON $isDecodeがtrueならarray
  *
  */
 function getRoomInfoJSON($roomID, $isDecode = true) {
@@ -41,9 +48,9 @@ function getRoomInfoJSON($roomID, $isDecode = true) {
  * getChatLogsJSON
  * chatLogs.jsonを取得します。
  *
- * @param  string         $roomID   部屋ID
- * @param  boolean        $isDecode 返却するJSONをデコードするか
- * @return resource/array $JSON     返却するJSON $isDecodeがtrueならarray
+ * @param  string  $roomID      部屋ID
+ * @param  boolean $isDecode    返却するJSONをデコードするか
+ * @return mixed   返却するJSON $isDecodeがtrueならarray
  */
 function getChatLogsJSON($roomID, $isDecode = true) {
   global $dir;
@@ -55,7 +62,14 @@ function getChatLogsJSON($roomID, $isDecode = true) {
 }
 
 /*
- * isIllegalAccess
+ * イリーガルなアクセスか確認する
+ *
+ * @param string $rand       ランダム値
+ * @param string $onset_rand ランダム値
+ *
+ * @return boolean trueかfalse
+ *
+ * TODO: 要らなくね(使用箇所が一箇所だけなのでここに置く理由がない)?
  */
 function isIllegalAccess($rand, $onset_rand) {
   if($rand != $onset_rand) {
@@ -65,7 +79,14 @@ function isIllegalAccess($rand, $onset_rand) {
 }
 
 /*
- * isExistRoom
+ * 部屋が存在するか確認する
+ *
+ * @param array  $roomLists 部屋配列
+ * @param string $room      部屋名
+ *
+ * @return boolean true/false...
+ *
+ * TODO: isNULLRoomとの統合
  */
 function isExistRoom($roomLists, $room) {
   foreach($roomLists as $k) {
@@ -76,7 +97,13 @@ function isExistRoom($roomLists, $room) {
 }
 
 /*
- * isLongRoomName
+ * 部屋名が長くないかチェックする
+ *
+ * @param string $name 部屋名
+ *
+ * @return mixed 部屋名が投げぇかtrueが返される。
+ *
+ * TODO: true/false...
  */
 function isLongRoomName($name) {
   global $config;
@@ -89,7 +116,15 @@ function isLongRoomName($name) {
 }
 
 /*
- * isLongChat
+ * チャット送信内容が過剰に長くないかチェックする
+ *
+ * @param string $text チャットデータ
+ * @param string $name 名前
+ *
+ * @return mixed 下記のコード見てください...大丈夫ならtrue.
+ *
+ * TODO: true/falseで投げてくだせぇ!?
+ * TODO: textとnameは分離すべきなのか。
  */
 function isLongChat($text, $name) {
   global $config;
@@ -108,7 +143,14 @@ function isLongChat($text, $name) {
 }
 
 /*
- * isNULLRoom
+ * 部屋が存在しないか確認する。
+ *
+ * @param string $room 部屋名
+ *
+ * @return mixed Invalid accessと返すかtrue...ｱｲｴｴｴｴｴ!?
+ *
+ * TODO: isExistRoomとの統合はどうでしょうか。
+ *
  */
 function isNULLRoom($room) {
   if($room === NULL) {
@@ -119,7 +161,16 @@ function isNULLRoom($room) {
 }
 
 /*
- * isSetNamePass
+ * 部屋名とパスワードの値セットのチェック
+ *
+ * @param string $name 部屋名
+ * @param string $pass パスワード
+ *
+ * @return boolean true/false...
+ *
+ * TODO: 名前とパスワードはメソッドを分離して処理でいいんじゃないかな。
+ * TODO: true/falseで投げてくだせぇ!?
+ *
  */
 function isSetNameAndPass($name, $pass) {
   if(!$name) {
@@ -135,7 +186,13 @@ function isSetNameAndPass($name, $pass) {
 }
 
 /*
- * isCorrectPassword
+ * パスワードのベリファイ。
+ *
+ * @param string $pass パスワード
+ * @param string $hash パスワードのハッシュ
+ *
+ * @return boolean true/false...
+ *
  */
 function isCorrectPassword($pass, $hash) {
   global $config;

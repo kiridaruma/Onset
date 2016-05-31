@@ -36,6 +36,7 @@ $encordedSys  = urlencode($usingSystem);
 $s = "";
 if($config["enableSSL"]) $s = 's';
 
+// BCDiceにダイスロールを投げる。
 $resultDice = file_get_contents("http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}");
 
 if(trim($resultDice) == '1' || trim($resultDice) == 'error') $resultDice = "";
@@ -62,12 +63,17 @@ $line            = array(
   "RFC2822time" => $RFC2822time
 );
 
-// $json   = json_decode(file_get_contents($dir.$roomID.'/chatLogs.json'), true);
-
+// chatLogs.json
 $json = getChatLogsJSON($roomID);
+
+// チャットデータを追加
 $json[] = $line;
+
+// Encode.
 $json   = json_encode($json);
 
+// PUT.
 file_put_contents($dir.$roomID."/chatLogs.json", $json, LOCK_EX);
 
+// セッションのプレイヤー名を更新。
 $_SESSION['onset_name'] = $loginName;
