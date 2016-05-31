@@ -2,29 +2,29 @@ var time = 1;
 
 function get_log(){
 
-	function ajax(){
-		$.ajax({
-			url: "src/read.php",
-			type: "POST",
-			cache: false,
-			data: {
-				"time": time
-			},
+    function ajax(){
+        $.ajax({
+            url: "src/read.php",
+            type: "POST",
+            cache: false,
+            data: {
+                "time": time
+            },
 
-			beforeSend: function(xhr) {
-				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-			},
-			success: function(data){
-				if(data != "none"){
-					$(".chats").html(data);
-					time = $.now();
-				}
-				setTimeout(function(){ajax();} , 1000);
-			}
-		});
-	}
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            success: function(data){
+                if(data != "none"){
+                    $(".chats").html(data);
+                    time = $.now();
+                }
+                setTimeout(function(){ajax();} , 1000);
+            }
+        });
+    }
 
-	ajax();
+    ajax();
 
 }
 
@@ -32,62 +32,62 @@ function get_log(){
 
 function send_chat(){
 
-	var nick = $("#nick").val().trim();
-	var text = $("#text").val().trim();
-	var sys = $("#sys").val().trim();
+    var nick = $("#nick").val().trim();
+    var text = $("#text").val().trim();
+    var sys = $("#sys").val().trim();
 
-	if(nick == "" || text == ""){
-		$(".notice").html("<b>名前と本文を入力してください</b>");
-		return 0;
-	}
+    if(nick == "" || text == ""){
+        $(".notice").html("<b>名前と本文を入力してください</b>");
+        return 0;
+    }
 
-	$.ajax({
-		url: "src/write.php",
-		type: "POST",
-		data: {
-			"nick": nick,
-			"text": text,
-			"sys": sys
-		},
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-		},
-		success: function(){
-			$("#text").val("");
-			var chat = $(".chats").html();
-			$(".chats").html("<b>送信中...</b><br>" + chat);
-			$(".notice").html("");
-			time = 1;
-		}
-	});
+    $.ajax({
+        url: "src/write.php",
+        type: "POST",
+        data: {
+            "nick": nick,
+            "text": text,
+            "sys": sys
+        },
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function(){
+            $("#text").val("");
+            var chat = $(".chats").html();
+            $(".chats").html("<b>送信中...</b><br>" + chat);
+            $(".notice").html("");
+            time = 1;
+        }
+    });
 }
 
 $(function($){
-	$("#text").keydown(function(e){
-		if(e.ctrlKey && e.keyCode === 13){
-			send_chat();
-			return false;
-		}
-	});
+    $("#text").keydown(function(e){
+        if(e.ctrlKey && e.keyCode === 13){
+            send_chat();
+            return false;
+        }
+    });
 });
 
 function checkLoginUser(){
-	$.ajax({
-		url: 'src/checkLoginUser.php',
-		type: 'POST',
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-		},
-		success: function(data){
-			alert(data);
-			$.ajax({
-				url: 'src/checkLoginUser.php',
-				type: 'POST',
-				data: {'lock': 'unlock'},
-				beforeSend: function(xhr) {
-					xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-				}
-			});
-		}
-	});
+    $.ajax({
+        url: 'src/checkLoginUser.php',
+        type: 'POST',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function(data){
+            alert(data);
+            $.ajax({
+                url: 'src/checkLoginUser.php',
+                type: 'POST',
+                data: {'lock': 'unlock'},
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                }
+            });
+        }
+    });
 }

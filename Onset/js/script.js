@@ -1,4 +1,4 @@
 function toggle(){
-  $(".edit").slideToggle('fast');
-	$(".join").slideToggle('fast');
+    $(".edit").slideToggle('fast');
+    $(".join").slideToggle('fast');
 }

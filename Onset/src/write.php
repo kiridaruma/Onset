@@ -9,8 +9,8 @@ $sys  = isset($_POST['sys'])  && $_POST['sys']  != NULL ? trim($_POST['sys'])  :
 $room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
 
 if(!$text || !$nick || !$room || !$sys){
-	echo "不正なアクセス:invalid_access";
-	die();
+    echo "不正なアクセス:invalid_access";
+    die();
 }
 
 require_once('config.php');
@@ -33,7 +33,7 @@ $s = "";
 if($config["enableSSL"]){$s = 's';}
 $ret = file_get_contents("http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}");
 if(trim($ret) == '1' || trim($ret) == 'error'){
-	$ret = "";
+    $ret = "";
 }
 $diceRes = str_replace('onset: ', '', $ret);
 

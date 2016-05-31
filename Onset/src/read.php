@@ -8,29 +8,29 @@ $time = isset($_POST['time']) && $_POST['time'] != NULL ? $_POST['time'] : FALSE
 $room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
 
 if(!$time || !$room){
-	echo "Invalid Access: Time OR Room variables is null.";
-	die();
+    echo "Invalid Access: Time OR Room variables is null.";
+    die();
 }
 
 
 $dir = $config['roomSavepath'].$room;
 
 if($time < filemtime($dir."/xxlogxx.txt") * 1000) {
-	$fp = fopen($dir."/xxlogxx.txt", 'r');
-	$eof = FALSE;
+    $fp = fopen($dir."/xxlogxx.txt", 'r');
+    $eof = FALSE;
 
-	while(!$eof){
-		$line = fgets($fp);
-		if($line !== FALSE) {
-			echo $line;
-		} else {
-			$eof = TRUE;
-		}
-	}
+    while(!$eof){
+        $line = fgets($fp);
+        if($line !== FALSE) {
+            echo $line;
+        } else {
+            $eof = TRUE;
+        }
+    }
 
-	fclose($fp);
+    fclose($fp);
 } else {
-	echo "none";
+    echo "none";
 }
 
 $tmp = $dir."/connect/".$_SESSION['onset_id'];
