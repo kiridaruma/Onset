@@ -16,12 +16,15 @@ $mode = $_POST['mode'];
 
 isSetNameAndPass($room, $pass);
 
+$roomlist = getRoomlist();
 $roompath = $roomlist[$room]['path'];
 
 if(isExistRoom($roomlist, $room) === false) {
 	echo "部屋が存在しません(ブラウザバックをおねがいします)";
 	die();
 }
+
+$dir = $config['roomSavepath'];
 
 $hash = file_get_contents("{$dir}{$roompath}/pass.hash");
 if(!password_verify($pass, $hash) && $config['pass'] != $pass){

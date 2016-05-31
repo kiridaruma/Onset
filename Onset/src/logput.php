@@ -5,7 +5,7 @@ require_once('core.php');
 session_start();
 
 isNULLRoom($_SESSION['onset_room']);
-
+$dir = $config['roomSavepath'];
 $logdir = $dir.$_SESSION['onset_room']."/xxlogxx.txt";
 $text = htmlspecialchars_decode(strip_tags(file_get_contents($logdir)));
 

@@ -12,12 +12,15 @@ if(!$nick || !$pass || !$room){
 	die();
 }
 
+$roomlist = getRoomlist();
+
 if(isExistRoom($roomlist, $room) === false){
 	echo "存在しない部屋です(ブラウザバックをお願いします)";
 	die();
 }
 
 $roompath = $roomlist[$room]['path'];
+$dir = $config['roomSavepath'];
 
 $hash = file_get_contents("{$dir}{$roompath}/pass.hash");
 

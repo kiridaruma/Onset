@@ -47,14 +47,3 @@ $config['maxRoomName'] = 30;
  */
 $config["maxChatText"] = 300;
 $config["maxChatNick"] = 20;
-
-/*
- * 以下、PHP処理上の記述
- * 編集した場合はOnset!が実行されないばかりか、最悪暴発、
- * もしくはそれに準ずる身の危険を否定できません。
- */
-
-require_once('core.php');
-
-$dir = $config['roomSavepath'];
-$roomlist = unserial($dir);

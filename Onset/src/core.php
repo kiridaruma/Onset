@@ -12,9 +12,11 @@ function isIllegalAccess($rand, $onset_rand) {
 }
 
 /*
- * unserial
+ * getRoomlist
  */
-function unserial($dir) {
+function getRoomlist() {
+	global $config;
+	$dir = $config['roomSavepath'];
 	return unserialize(file_get_contents($dir.'roomlist'));
 }
 

@@ -11,7 +11,7 @@ if(!$room || !$id){
 	die();
 }
 
-$dir = $dir.$room."/connect/";
+$dir = $config['roomSavepath'].$room."/connect/";
 $arr = scandir($dir);
 
 if($_POST['lock'] === 'unlock') {

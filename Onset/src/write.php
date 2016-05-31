@@ -15,7 +15,7 @@ if(!$text || !$nick || !$room || !$sys){
 
 require_once('config.php');
 
-$dir = $dir.$room;
+$dir = $config['roomSavepath'].$room;
 
 isLongChat($text, $nick);
 

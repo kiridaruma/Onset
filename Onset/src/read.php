@@ -12,7 +12,8 @@ if(!$time || !$room){
 	die();
 }
 
-$dir = $dir.$room;
+
+$dir = $config['roomSavepath'].$room;
 
 if($time < filemtime($dir."/xxlogxx.txt") * 1000) {
 	$fp = fopen($dir."/xxlogxx.txt", 'r');

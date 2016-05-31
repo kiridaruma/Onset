@@ -17,6 +17,7 @@ isSetNameAndPass($room, $pass);
 isLongRoomName($room);
 
 $room = htmlspecialchars($room, ENT_QUOTES);
+$roomlist = getRoomlist();
 
 if(isExistRoom($roomlist, $room) === true) {
 	echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";
@@ -27,7 +28,7 @@ if(count($roomlist) >= $config["roomLimit"]){
 	echo "これ以上部屋を立てられません、制限いっぱいです";
 	die();
 }
-
+$dir = $config['roomSavepath'];
 $hash = password_hash($pass, PASSWORD_DEFAULT);
 unset($pass);			//念の為、平文のパスワードを削除
 try{
