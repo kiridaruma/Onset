@@ -51,10 +51,10 @@ function get_log(){
 							$('.' + this.UNIXtime).append('<div class="' + this.UNIXtime + 'dice chatDice"></div>');
 
 							// 各クラス内に値を代入。
-							$('.' + this.UNIXtime + 'time').html(this.RFC2822time);
-							$('.' + this.UNIXtime + 'name').html(this.name);
-							$('.' + this.UNIXtime + 'text').html(this.text);
-							$('.' + this.UNIXtime + 'dice').html(this.diceRes);
+							$('.' + this.UNIXtime + 'time').text(this.RFC2822time);
+							$('.' + this.UNIXtime + 'name').text(this.name);
+							$('.' + this.UNIXtime + 'text').text(this.text);
+							$('.' + this.UNIXtime + 'dice').text(this.diceRes);
 						}
 					});
 					time = $.now();
@@ -114,7 +114,7 @@ function send_chat(){
 	get_log();
 }
 
-// ...なんやこれ?
+// Ctrl + Enter押すと上手い子と送信してくれるらしい。
 $(function($){
 	$("#text").keydown(function(e){
 		if(e.ctrlKey && e.keyCode === 13){
