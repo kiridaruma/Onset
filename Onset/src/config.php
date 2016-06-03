@@ -45,5 +45,5 @@ $config['maxRoomName'] = 30;
 /*
  * チャットの最大文字数と、ニックネームの最大文字数
  */
-$config["maxChatText"] = 300;
-$config["maxChatNick"] = 20;
+$config["maxText"] = 300;
+$config["maxNick"] = 20;

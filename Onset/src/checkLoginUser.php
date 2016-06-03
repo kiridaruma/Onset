@@ -7,7 +7,7 @@ $room = isset($_SESSION['onset_room']) 	&& $_SESSION['onset_room']	!= NULL ? $_S
 $id = isset($_SESSION['onset_id']) && $_SESSION['onset_id'] != NULL ? $_SESSION['onset_id'] : FALSE;
 
 if(!$room || !$id){
-    echo "Invalid Access: Room OR ID variables is NULL.";
+    echo "不正なアクセス";
     die();
 }
 

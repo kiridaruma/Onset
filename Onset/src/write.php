@@ -9,7 +9,7 @@ $sys  = isset($_POST['sys'])  && $_POST['sys']  != NULL ? trim($_POST['sys'])  :
 $room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
 
 if(!$text || !$nick || !$room || !$sys){
-    echo "不正なアクセス:invalid_access";
+    echo Onset::errorJson("不正なアクセス:invalid_access");
     die();
 }
 
@@ -17,25 +17,21 @@ require_once('config.php');
 
 $dir = $config['roomSavepath'].$room;
 
-isLongChat($text, $nick);
+if($config['maxNick'] <= $nick){
+    echo Onset::errorJson("名前が長すぎます(".mb_strlen($nick).")");
+    die();
+}
+if($config['maxText'] <= $text){
+    echo Onset::errorJson("テキストが長すぎます(".mb_strlen($text).")");
+    die();
+}
 
 //var_dump($_POST);
 //var_dump($nick);
 //var_dump($text);
 
 //ダイス処理
-$url = $config['bcdiceURL'];
-
-$encordedText = urlencode($text);
-$encordedSys  = urlencode($sys);
-
-$s = "";
-if($config["enableSSL"]){$s = 's';}
-$ret = file_get_contents("http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}");
-if(trim($ret) == '1' || trim($ret) == 'error'){
-    $ret = "";
-}
-$diceRes = str_replace('onset: ', '', $ret);
+$diceRes = Onset::diceroll($text);
 
 //var_dump($nick);
 //var_dump($text);

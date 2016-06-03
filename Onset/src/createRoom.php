@@ -5,27 +5,33 @@ require_once('core.php');
 
 session_start();
 
-if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
-    echo 'Illegal Access: invalid_access.';
+if(!Onset::isValidAccess($_POST['rand'])) {
+    echo Onset::errorJson('不正なアクセス');
     die();
 }
 
 $room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 
-isSetNameAndPass($room, $pass);
-isLongRoomName($room);
+if(!$room || !$pass){
+    echo Onset::errorJson("部屋名かパスワードが空です");
+    die();
+}
+
+if($room >= $config['maxRoomName']){
+    echo Onset::errorJson("部屋名が長すぎます");
+}
 
 $room = htmlspecialchars($room, ENT_QUOTES);
-$roomlist = getRoomlist();
+$roomlist = Onset::getRoomlist();
 
-if(isExistRoom($roomlist, $room) === true) {
-    echo "同名の部屋がすでに存在しています(ブラウザバックをおねがいします)";
+if(isset($roomlist[$room])) {
+    echo Onset::errorJson("同名の部屋がすでに存在しています");
     die();
 }
 
 if(count($roomlist) >= $config["roomLimit"]){
-    echo "これ以上部屋を立てられません、制限いっぱいです";
+    echo Onset::errorJson("部屋数制限いっぱいです");
     die();
 }
 $dir = $config['roomSavepath'];
@@ -51,7 +57,7 @@ try{
     file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
 
 } catch(Exception $e) {
-        echo "部屋を立てられませんでした。";
+        echo Onset::errorJson("部屋を立てられませんでした");
 }
 
 header("Location: ../index.php");

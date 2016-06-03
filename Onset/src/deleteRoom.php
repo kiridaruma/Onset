@@ -5,22 +5,24 @@ require_once('core.php');
 
 session_start();
 
-if(isIllegalAccess($_POST['rand'], $_SESSION['onset_rand']) === false) {
-    echo 'Illegal Access: invalid_access.';
+if(!Onset::isValidAccess($_POST['rand'])) {
+    echo Onset::errorJson('不正なアクセス');
     die();
 }
 
 $room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
-$mode = $_POST['mode'];
 
-isSetNameAndPass($room, $pass);
+if(!$room || !pass){
+    echo Onset::errorJson("ルーム名かパスワードがセットされていません");
+    die();
+}
 
-$roomlist = getRoomlist();
+$roomlist = Onset::getRoomlist();
 $roompath = $roomlist[$room]['path'];
 
-if(isExistRoom($roomlist, $room) === false) {
-    echo "部屋が存在しません(ブラウザバックをおねがいします)";
+if(!isset($roomlist[$room])) {
+    echo Onset::errorJson("部屋が存在しません");
     die();
 }
 
@@ -28,7 +30,7 @@ $dir = $config['roomSavepath'];
 
 $hash = file_get_contents("{$dir}{$roompath}/pass.hash");
 if(!password_verify($pass, $hash) && $config['pass'] != $pass){
-    echo "パスワードを間違えています(ブラウザバックをおねがいします)";
+    echo Onset::errorJson("パスワードを間違えています");
     die();
 }
 
@@ -46,7 +48,7 @@ try{
     unset($roomlist[$room]);
     file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
 } catch(Exception $e) {
-    echo "部屋を消せませんでした";
+    echo Onset::errorJson("部屋を消せませんでした");
 }
 
 header("Location: ../index.php");

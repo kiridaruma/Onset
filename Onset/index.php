@@ -1,8 +1,9 @@
 <?php
 require_once('src/config.php');
+require_once('src/core.php');
 
 $dir = $config['roomSavepath'];
-$roomlist = unserialize(file_get_contents($dir."roomlist"));
+$roomlist = Onset::getRoomlist();
 
 session_start();
 $_SESSION['onset_rand'] = $rand = mt_rand();

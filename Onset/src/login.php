@@ -8,14 +8,14 @@ $pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
 $room = isset($_POST['room']) || $_POST['room'] != 0 ? $_POST['room'] : FALSE;
 
 if(!$nick || !$pass || !$room){
-    echo "名前とパスワードを入力してください(ブラウザバックをお願いします)";
+    echo Onset::errorJson("名前かパスワードか部屋名が空欄です");
     die();
 }
 
-$roomlist = getRoomlist();
+$roomlist = Onset::getRoomlist();
 
-if(isExistRoom($roomlist, $room) === false){
-    echo "存在しない部屋です(ブラウザバックをお願いします)";
+if(isset($roomlist[$room]) === false){
+    echo Onset::errorJson("存在しない部屋です");
     die();
 }
 
@@ -25,7 +25,7 @@ $dir = $config['roomSavepath'];
 $hash = file_get_contents("{$dir}{$roompath}/pass.hash");
 
 if(!password_verify($pass, $hash) && $config['pass'] != $pass){
-    echo "パスワードが間違っています(ブラウザバックをお願いします)";
+    echo Onset::errorJson("パスワードが間違っています");
     die();
 }
 
