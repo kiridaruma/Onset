@@ -20,12 +20,13 @@ if(!$room || !$pass){
     die();
 }
 
+$roomlist = Onset::getRoomlist();
+
 if(!isset($roomlist[$room])) {
     echo Onset::errorJson("部屋が存在しません");
     die();
 }
 
-$roomlist = Onset::getRoomlist();
 $roompath = $roomlist[$room]['path'];
 
 $dir = $config['roomSavepath'];
