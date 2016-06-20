@@ -49,6 +49,7 @@ header{
 
 .notice{
     margin: 0 1em;
+    font-weight: bold;
 }
 
 .chats{

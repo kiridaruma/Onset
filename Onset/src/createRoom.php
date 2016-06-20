@@ -60,4 +60,4 @@ try{
         echo Onset::errorJson("部屋を立てられませんでした");
 }
 
-header("Location: ../index.php");
+echo Onset::okJson('ok');

@@ -8,7 +8,7 @@ $pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
 $room = isset($_POST['room']) || $_POST['room'] != 0 ? $_POST['room'] : FALSE;
 
 if(!$nick || !$pass || !$room){
-    echo Onset::errorJson("名前かパスワードか部屋名が空欄です");
+    echo Onset::errorJson("空欄があります");
     die();
 }
 
@@ -38,4 +38,4 @@ $_SESSION['onset_nick'] = $nick;
 $_SESSION['onset_room'] = $roompath;
 $_SESSION['onset_id']   = dechex($id);
 
-header("Location: ../Onset.php");
+echo Onset::okJson('認証OK');

@@ -1,5 +1,7 @@
 <?php
 
+//ini_set('display_errors', 0);
+
 require_once('config.php');
 require_once('core.php');
 
@@ -13,18 +15,18 @@ if(!Onset::isValidAccess($_POST['rand'])) {
 $room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
 $pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
 
-if(!$room || !pass){
+if(!$room || !$pass){
     echo Onset::errorJson("ルーム名かパスワードがセットされていません");
     die();
 }
-
-$roomlist = Onset::getRoomlist();
-$roompath = $roomlist[$room]['path'];
 
 if(!isset($roomlist[$room])) {
     echo Onset::errorJson("部屋が存在しません");
     die();
 }
+
+$roomlist = Onset::getRoomlist();
+$roompath = $roomlist[$room]['path'];
 
 $dir = $config['roomSavepath'];
 
@@ -51,4 +53,4 @@ try{
     echo Onset::errorJson("部屋を消せませんでした");
 }
 
-header("Location: ../index.php");
+echo Onset::okJson('ok');

@@ -17,17 +17,12 @@ $dir = $config['roomSavepath'].$room;
 
 if($time < filemtime($dir."/xxlogxx.txt") * 1000) {
     $fp = fopen($dir."/xxlogxx.txt", 'r');
-    $eof = FALSE;
-
-    while(!$eof){
+    do{
         $line = fgets($fp);
         if($line !== FALSE) {
             echo $line;
-        } else {
-            $eof = TRUE;
         }
-    }
-
+    }while($line !== FALSE);
     fclose($fp);
 } else {
     echo "none";

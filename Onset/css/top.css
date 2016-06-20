@@ -58,9 +58,14 @@ a{
 }
 
 #input{
-    padding: 1em 0;
+    padding: 1em;
 }
 
 hr{
     margin: 1em;
+}
+
+.notice{
+    margin: 0 1em;
+    font-weight: bold;
 }

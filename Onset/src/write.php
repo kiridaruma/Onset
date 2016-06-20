@@ -31,7 +31,7 @@ if($config['maxText'] <= $text){
 //var_dump($text);
 
 //ダイス処理
-$diceRes = Onset::diceroll($text);
+$diceRes = Onset::diceroll($text, $sys);
 
 //var_dump($nick);
 //var_dump($text);
@@ -50,3 +50,5 @@ $line = "<div class=\"chat\"><b>{$nick}</b>({$_SESSION['onset_id']})<br>\n{$text
 $line = $line.file_get_contents("{$dir}/xxlogxx.txt");
 file_put_contents("{$dir}/xxlogxx.txt", $line, LOCK_EX);
 $_SESSION['onset_nick'] = $nick;
+
+echo Onset::okJson('ok');

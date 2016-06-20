@@ -3,22 +3,13 @@ require_once(dirname(__FILE__).'/config.php');
 
 
 class Onset{
-    
-    
-    /*
-     * isIllegalAccess
-     */
     static function isValidAccess($randKey) {
-        session_start();
         if($randKey != $_SESSION['onset_rand']) {
             return false;
         }
         return true;
     }
     
-    /*
-     * getRoomlist
-     */
     static function getRoomlist() {
         global $config;
         $dir = $config['roomSavepath'];
@@ -31,9 +22,7 @@ class Onset{
             "status" => 1,
             "data" => $data
         ];
-        
         return json_encode($json);
-        
     }
     
     
@@ -45,7 +34,7 @@ class Onset{
         return json_encode($json);
     }
     
-    static function diceroll($text){
+    static function diceroll($text, $sys){
         global $config;
         $url = $config['bcdiceURL'];
         
