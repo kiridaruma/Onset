@@ -56,6 +56,14 @@ class Onset{
         return str_replace('onset: ', '', $ret);
     }
     
+    static function checkBcdice(){
+        global $config;
+        $url = $config['bcdiceURL'];
+        $s = $config['enableSSL'] ? 's' : '';
+        file_get_contents("http{$s}://{$url}?list=1");
+        return strpos($http_response_header[0], '200') !== FALSE;
+    }
+
     static function getSystemList(){
         global $config;
         $url = $config['bcdiceURL'];
