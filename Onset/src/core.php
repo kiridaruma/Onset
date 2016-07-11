@@ -16,6 +16,12 @@ class Onset{
         return unserialize(file_get_contents($dir.'roomlist'));
     }
     
+    static function setRoomlist($roomlist){
+        global $config;
+        $dir = $config['roomSavepath'];
+        $ret = file_put_contents($dir.'roomlist', serialize($roomlist), LOCK_EX);
+        return $ret !== FALSE;
+    }
     
     static function okJson($data){
         $json = [
@@ -56,6 +62,12 @@ class Onset{
         $s = '';
         if($config['enableSSL']){$s = 's';}
         return split("\n", file_get_contents("http{$s}://{$url}?list=1"));
+    }
+
+    static function checkPermition(){
+        global $config;
+        $dir = $config['roomSavepath'];
+        return is_writable($dir) && is_readable($dir);
     }
     
 }

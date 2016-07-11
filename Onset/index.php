@@ -28,6 +28,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
     <div class="header">
         <h1>Onset!</h1>
         <article><?=$welcomeMessage?></article>
+        <?= Onset::checkPermition() ? "" : "<b>部屋データ書き込みに問題があります</b>" ?>
     </div>
     
     <hr />
