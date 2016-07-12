@@ -1,3 +1,7 @@
+window.addEventListener('load', function(){
+    $.get('src/delLeftRoom.php');
+}, false);
+
 function toggle(){
     $(".edit").slideToggle('fast');
     $(".join").slideToggle('fast');

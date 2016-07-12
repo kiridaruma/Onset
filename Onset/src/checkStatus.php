@@ -3,17 +3,15 @@ require_once('core.php');
 require_once('config.php');
 header('Content-Type: text/plain');
 
-$coreStatusArr = [];
-$coreStatus = true;
-foreach (scandir('./') as $key => $val) {
+$coreStatusArr = array();
+foreach (scandir('./') as $val) {
     if($val == '.' || $val == '..') continue;
-    $coreStatusArr[$key] = is_readable($val) && is_executable($val);
+    $coreStatusArr[$val] = is_readable($val);
 }
 
 foreach ($coreStatusArr as $key => $val) {
-    echo $val ? "" : function(){$key."にアクセスできません\n"; $coreStatus = false;};
+    echo $val ? "" : $key."にアクセスできません\n";
 }
-echo $coreStatus ? "コア機能は正常です\n" : "";
 
 $url = $config['bcdiceURL'];
 $s = $config['enableSSL'] ? 's' : '';
