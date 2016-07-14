@@ -13,7 +13,8 @@ class Onset{
     static function getRoomlist() {
         global $config;
         $dir = $config['roomSavepath'];
-        return unserialize(file_get_contents($dir.'roomlist'));
+        $text = file_get_contents($dir.'roomlist');
+        return unserialize(rtrim($text));
     }
     
     static function setRoomlist($roomlist){

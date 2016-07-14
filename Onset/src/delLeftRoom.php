@@ -4,11 +4,12 @@ require_once('core.php');
 
 $dir = $config['roomSavepath'];
 $limitLeftTime = $config['roomDelTime'];
+$roomlist = Onset::getRoomlist();
+$i = 0;
 
-foreach(scandir($dir) as $val){
-    if($val == '.' || $val == '..') continue;
-    $leftTime = filemtime($val);
-    $roompath = $val;
+foreach($roomlist as $room => $data){
+    $roompath = $data['path'];
+    $leftTime = filemtime($dir.$roompath);
     
     if(time() - $leftTime > $limitLeftTime){
         try{
@@ -27,8 +28,9 @@ foreach(scandir($dir) as $val){
             unset($roomlist[$room]);
             Onset::setRoomlist($roomlist) ? "" : function(){throw new Exception();};
         } catch(Exception $e) {
-            echo Onset::errorJson('error');
+            echo Onset::errorJson('部屋自動削除の際にエラーが起こりました');
         }
+        $i++;
     }
 }
 
