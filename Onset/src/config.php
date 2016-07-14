@@ -53,4 +53,4 @@ $config["maxNick"] = 20;
  *秒数で指定してください
  *デフォルトでは10日で設定しています(60秒×60分×24時間×10日)
  */
-$config["roomDelTime"] = 60;
+$config["roomDelTime"] = 60 * 60 * 24 * 10;
