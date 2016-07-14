@@ -37,8 +37,8 @@ if(count($roomlist) >= $config["roomLimit"]){
 $dir = $config['roomSavepath'];
 $hash = password_hash($pass, PASSWORD_DEFAULT);
 unset($pass);			//念の為、平文のパスワードを削除
-try{
 
+try{
     $uuid = uniqid("", true);
     mkdir($dir.$uuid) ? "" : function(){throw new Exception();};
     touch("{$dir}{$uuid}/pass.hash") ? "" : function(){throw new Exception();};
@@ -54,7 +54,7 @@ try{
 
     $roomlist[$room]["path"] = $uuid;
 
-    file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
+    Onset::setRoomlist($roomlist) ? "" : function(){throw new Exception();};
 
 } catch(Exception $e) {
         echo Onset::errorJson("部屋を立てられませんでした");

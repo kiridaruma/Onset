@@ -13,9 +13,16 @@ class Onset{
     static function getRoomlist() {
         global $config;
         $dir = $config['roomSavepath'];
-        return unserialize(file_get_contents($dir.'roomlist'));
+        $text = file_get_contents($dir.'roomlist');
+        return unserialize(rtrim($text));
     }
     
+    static function setRoomlist($roomlist){
+        global $config;
+        $dir = $config['roomSavepath'];
+        $ret = file_put_contents($dir.'roomlist', serialize($roomlist), LOCK_EX);
+        return $ret !== FALSE;
+    }
     
     static function okJson($data){
         $json = [
@@ -48,14 +55,6 @@ class Onset{
             $ret = "";
         }
         return str_replace('onset: ', '', $ret);
-    }
-    
-    static function getSystemList(){
-        global $config;
-        $url = $config['bcdiceURL'];
-        $s = '';
-        if($config['enableSSL']){$s = 's';}
-        return split("\n", file_get_contents("http{$s}://{$url}?list=1"));
     }
     
 }

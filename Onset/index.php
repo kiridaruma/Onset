@@ -3,7 +3,11 @@ require_once('src/config.php');
 require_once('src/core.php');
 
 $dir = $config['roomSavepath'];
-$roomlist = Onset::getRoomlist();
+$roomlist = [];
+foreach(Onset::getRoomlist() as $room => $data){
+    if(time() - filemtime($dir.$data['path']) > $config['roomDelTime']) continue;
+    $roomlist[$room] = $data;
+}
 
 session_start();
 $_SESSION['onset_rand'] = $rand = mt_rand();

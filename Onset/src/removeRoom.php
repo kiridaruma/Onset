@@ -39,17 +39,19 @@ if(!password_verify($pass, $hash) && $config['pass'] != $pass){
 
 try{
     foreach(scandir("{$dir}{$roompath}/connect/") as $value){
-        if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/connect/{$value}") ? "" : function(){throw new Exception();};}
+        if($value == "." || $value == "..") continue;
+        unlink("{$dir}{$roompath}/connect/{$value}") ? "" : function(){throw new Exception();};
     }
     rmdir("{$dir}{$roompath}/connect/") ? "" : function(){throw new Exception();};
 
     foreach(scandir($dir.$roompath) as $value){
-        if($value != "." || $value != ".."){unlink("{$dir}{$roompath}/{$value}") ? "" : function(){throw new Exception();};}
+        if($value == "." || $value == "..") continue;
+        unlink("{$dir}{$roompath}/{$value}") ? "" : function(){throw new Exception();};
     }
     rmdir($dir.$roompath) ? "" : function(){throw new Exception();};
 
     unset($roomlist[$room]);
-    file_put_contents($dir."roomlist", serialize($roomlist)) ? "" : function(){throw new Exception();};
+    Onset::setRoomlist($roomlist) ? "" : function(){throw new Exception();};
 } catch(Exception $e) {
     echo Onset::errorJson("部屋を消せませんでした");
 }
