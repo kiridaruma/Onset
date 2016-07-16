@@ -1,63 +1,63 @@
 <?php
-
 require_once('config.php');
 require_once('core.php');
 
 session_start();
 
-if(!Onset::isValidAccess($_POST['rand'])) {
-    echo Onset::errorJson('不正なアクセス');
-    die();
-}
+$room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : false;
+$pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : false;
 
-$room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : FALSE;
-$pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : FALSE;
+// TODO: すべて置き換え可能
+try {
+    // アクセスのチェック
+    if(!Onset::isValidAccess($_POST['rand'])) throw new Exception('不正なアクセス。');
 
-if(!$room || !$pass){
-    echo Onset::errorJson("部屋名かパスワードが空です");
-    die();
-}
+    // 部屋かパスワードの指定チェック
+    if(!$room || !$pass) throw new Exception('部屋名かパスワードが空です。');
+    // 部屋名の長さチェック
+    if($room >= $config['maxRoomName']) throw new Exception('部屋名が長すぎます。');
 
-if($room >= $config['maxRoomName']){
-    echo Onset::errorJson("部屋名が長すぎます");
-}
+    // TODO: htmlspecialchars()のラッパー作成
+    $room     = htmlspecialchars($room, ENT_QUOTES);
+    $roomlist = Onset::getRoomlist();
 
-$room = htmlspecialchars($room, ENT_QUOTES);
-$roomlist = Onset::getRoomlist();
+    // 同一部屋存在のチェック
+    if(isset($roomlist[$room])) throw new Exception('同名の部屋がすでに存在しています。');
 
-if(isset($roomlist[$room])) {
-    echo Onset::errorJson("同名の部屋がすでに存在しています");
-    die();
-}
+    // 部屋数制限のチェック
+    if(count($roomlist) >= $config['roomLimit']) throw new Exception('部屋数制限いっぱいです。');
 
-if(count($roomlist) >= $config["roomLimit"]){
-    echo Onset::errorJson("部屋数制限いっぱいです");
-    die();
-}
-$dir = $config['roomSavepath'];
-$hash = password_hash($pass, PASSWORD_DEFAULT);
-unset($pass);			//念の為、平文のパスワードを削除
+    // 部屋作成処理開始
+    // TODO: uniqidのラッパー
+    $uuid = uniqid('', true);
 
-try{
-    $uuid = uniqid("", true);
-    mkdir($dir.$uuid) ? "" : function(){throw new Exception();};
-    touch("{$dir}{$uuid}/pass.hash") ? "" : function(){throw new Exception();};
-    touch("{$dir}{$uuid}/xxlogxx.txt") ? "" : function(){throw new Exception();};
-    mkdir("{$dir}{$uuid}/connect") ? "" : function(){throw new Exception();};
+    // $dir は部屋ディレクトリの宛先
+    $_dir = $dir.$uuid;
 
-    chmod($dir.$uuid, 0777) ? "" : function(){throw new Exception();};
-    chmod("{$dir}{$uuid}/pass.hash", 0666) ? "" : function(){throw new Exception();};
-    chmod("{$dir}{$uuid}/xxlogxx.txt", 0666) ? "" : function(){throw new Exception();};
-    chmod("{$dir}{$uuid}/connect/", 0777) ? "" : function(){throw new Exception();};
+    // 部屋ディレクトリ作成
+    if(!mkdir($_dir)) throw new Exception('部屋ディレクトリ作成に失敗しました。');
 
-    file_put_contents("{$dir}{$uuid}/pass.hash", $hash) ? "" : function(){throw new Exception();};
+    // 接続ディレクトリ作成
+    if(!mkdir($_dir.'/connect')) throw new Exception('接続ディレクトリ作成に失敗しました。');
+
+    // 各種ファイル作成
+    if(!touch($_dir.'/pass.hash'))    throw new Exception('パスワードハッシュの生成に失敗しました。');
+    if(!touch($_dir.'/xxlogxx.txt')) throw new Exception('ログインハッシュの生成に失敗しました。');
+
+    // "chmod b111000000\n"
+    if(!chmod($_dir,                0777)) throw new Exception('パーミッションの変更に失敗しました。');
+    if(!chmod($_dir.'/connect/',    0777)) throw new Exception('パーミッションの変更に失敗しました。');
+    if(!chmod($_dir.'/pass.hash',   0666)) throw new Exception('パーミッションの変更に失敗しました。');
+    if(!chmod($_dir.'/xxlogxx.txt', 0666)) throw new Exception('パーミッションの変更に失敗しました。');
+
+    if(!file_put_contents($_dir.'/pass.hash', $hash)) throw new Exception('パスワードハッシュのデータ挿入に失敗しました。');
 
     $roomlist[$room]["path"] = $uuid;
 
-    Onset::setRoomlist($roomlist) ? "" : function(){throw new Exception();};
+    if(!Onset::setRoomlist($roomlist)) throw new Exception('部屋一覧の処理に失敗しました。');
 
 } catch(Exception $e) {
-        echo Onset::errorJson("部屋を立てられませんでした");
+    echo Onset::jsonStatus($e->getMessage(), -1);
 }
 
-echo Onset::okJson('ok');
+echo Onset::jsonStatus('ok');
