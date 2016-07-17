@@ -32,7 +32,7 @@ try {
     $uuid = uniqid('', true);
 
     // $dir は部屋ディレクトリの宛先
-    $_dir = $dir.$uuid;
+    $_dir = $config['roomSavepath'].$uuid;
 
     // 部屋ディレクトリ作成
     if(!mkdir($_dir)) throw new Exception('部屋ディレクトリ作成に失敗しました。');
@@ -41,7 +41,7 @@ try {
     if(!mkdir($_dir.'/connect')) throw new Exception('接続ディレクトリ作成に失敗しました。');
 
     // 各種ファイル作成
-    if(!touch($_dir.'/pass.hash'))    throw new Exception('パスワードハッシュの生成に失敗しました。');
+    if(!touch($_dir.'/pass.hash'))   throw new Exception('パスワードハッシュの生成に失敗しました。');
     if(!touch($_dir.'/xxlogxx.txt')) throw new Exception('ログインハッシュの生成に失敗しました。');
 
     // "chmod b111000000\n"
@@ -49,6 +49,9 @@ try {
     if(!chmod($_dir.'/connect/',    0777)) throw new Exception('パーミッションの変更に失敗しました。');
     if(!chmod($_dir.'/pass.hash',   0666)) throw new Exception('パーミッションの変更に失敗しました。');
     if(!chmod($_dir.'/xxlogxx.txt', 0666)) throw new Exception('パーミッションの変更に失敗しました。');
+
+    $hash = password_hash($pass, PASSWORD_DEFAULT);
+    unset($pass);
 
     if(!file_put_contents($_dir.'/pass.hash', $hash)) throw new Exception('パスワードハッシュのデータ挿入に失敗しました。');
 
@@ -58,6 +61,7 @@ try {
 
 } catch(Exception $e) {
     echo Onset::jsonStatus($e->getMessage(), -1);
+    die();
 }
 
 echo Onset::jsonStatus('ok');

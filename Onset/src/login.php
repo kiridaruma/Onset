@@ -23,6 +23,7 @@ try {
 
 } catch (Exception $e) {
     echo Onset::jsonStatus($e->getMessage(), -1);
+    die();
 }
 
 $id = ip2long($_SERVER['REMOTE_ADDR']) + mt_rand();

@@ -33,6 +33,7 @@ foreach ($roomlist as $room => $data) {
             if(!Onset::setRoomlist($roomlist)) throw new Exception();
         } catch (Exception $e) {
             echo Onset::jsonStatus('部屋自動削除の際にエラーが起こりました', -1);
+            die();
         }
         $i++;
     }

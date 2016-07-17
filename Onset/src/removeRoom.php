@@ -22,12 +22,12 @@ try {
 
     $roompath = $roomlist[$room]['path'];
     $dir      = $config['roomSavepath'];
-    $hash     = file_get_contents($dir.$roompath.'/.pass.hash');
-
     $_dir     = $dir.$roompath;
+    $hash     = file_get_contents($_dir.'/pass.hash');
+
 
     // パスワードチェック
-    if (!password_verify($_dir) && $pass != $config['pass']) throw new Exception('パスワードを間違えています');
+    if (!password_verify($pass, $hash) && $pass != $config['pass']) throw new Exception('パスワードを間違えています');
 
     // 削除処理開始
     foreach (scandir($_dir.'/connect/') as $k) {
@@ -39,7 +39,7 @@ try {
 
     foreach (scandir($_dir) as $k) {
         if ($k == '.' || $k == '..') continue;
-        if (!unlink($_dir.$k)) throw new Exception('部屋ディレクトリの削除に失敗。');
+        if (!unlink($_dir.'/'.$k)) throw new Exception('部屋ディレクトリの削除に失敗。');
     }
 
     if (!rmdir($_dir)) throw new Exception('部屋ディレクトリの削除に失敗。');
@@ -49,6 +49,7 @@ try {
     if (!Onset::setRoomlist($roomlist)) throw new Exception('部屋リストからの削除に失敗');
 } catch (Exception $e) {
     echo Onset::jsonStatus($e->getMessage(), -1);
+    die();
 }
 
 echo Onset::jsonStatus('ok');

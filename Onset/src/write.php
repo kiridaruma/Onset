@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/core.php');
+require_once('core.php');
 
 session_start();
 
@@ -15,26 +15,28 @@ try {
 
     $_dir = $config['roomSavepath'].$room;
 
-    if ($config['maxNick'] <= $nick) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
-    if ($config['maxText'] <= $text) throw new Exception('テキストが長すぎます ('. mb_strlen($text) .')');
+    if ($config['maxNick'] <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
+    if ($config['maxText'] <= mb_strlen($text)) throw new Exception('テキストが長すぎます ('. mb_strlen($text) .')');
 
     //ダイス処理
     $diceRes = Onset::diceroll($text, $sys);
 
     // TODO: htmlspecialcharsのラッパ
-    $nick = htmlspecialchars($nick, ENT_QUOTES);
-    $text = htmlspecialchars($text, ENT_QUOTES);
+    $nick    = htmlspecialchars($nick, ENT_QUOTES);
+    $text    = htmlspecialchars($text, ENT_QUOTES);
     $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
 
     $text = nl2br($text);
 
     $line = "<div class=\"chat\"><b>{$nick}</b>({$_SESSION['onset_id']})<br>\n{$text}<br>\n<i>{$diceRes}</i></div>\n";
 
-    $line = $line.file_get_contents("{$dir}/xxlogxx.txt");
-    file_put_contents("{$dir}/xxlogxx.txt", $line, LOCK_EX);
+    $line = $line . file_get_contents($_dir.'/xxlogxx.txt');
+    file_put_contents($_dir.'/xxlogxx.txt', $line, LOCK_EX);
     $_SESSION['onset_nick'] = $nick;
+
 } catch (Exception $e) {
     echo Onset::jsonStatus($e->getMessage(), -1);
+    die();
 }
 
 echo Onset::jsonStatus('ok');
