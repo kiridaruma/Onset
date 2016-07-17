@@ -2,7 +2,7 @@
 require_once('config.php');
 require_once('core.php');
 
-$nick = isset($_POST['nick']) || $_POST['nick'] != 0 ? htmlspecialchars($_POST['nick'], ENT_QUOTES) : FALSE;
+$nick = isset($_POST['nick']) || $_POST['nick'] != 0 ? Onset::h($_POST['nick'], ENT_QUOTES) : FALSE;
 $pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
 $room = isset($_POST['room']) || $_POST['room'] != 0 ? $_POST['room'] : FALSE;
 
