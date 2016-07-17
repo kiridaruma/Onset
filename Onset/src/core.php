@@ -1,7 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/config.php');
 
-
 class Onset
 {
     public static function isValidAccess($randKey)
@@ -51,5 +50,15 @@ class Onset
             $ret = "";
         }
         return str_replace('onset: ', '', $ret);
+    }
+
+    public function h($context)
+    {
+        return htmlspecialchars($context, ENT_QUOTES);
+    }
+
+    public function uniqId()
+    {
+        return uniqid('', true);
     }
 }

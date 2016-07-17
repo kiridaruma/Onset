@@ -3,8 +3,8 @@ require_once('config.php');
 
 session_start();
 
-$room = isset($_SESSION['onset_room']) 	&& $_SESSION['onset_room']	!= NULL ? $_SESSION['onset_room'] : FALSE;
-$id = isset($_SESSION['onset_id']) && $_SESSION['onset_id'] != NULL ? $_SESSION['onset_id'] : FALSE;
+$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : false;
+$id   = isset($_SESSION['onset_id'])   && $_SESSION['onset_id']   != NULL ? $_SESSION['onset_id']   : false;
 
 if(!$room || !$id){
     echo "不正なアクセス";
