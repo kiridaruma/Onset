@@ -7,31 +7,36 @@ $limitLeftTime = $config['roomDelTime'];
 $roomlist = Onset::getRoomlist();
 $i = 0;
 
-foreach($roomlist as $room => $data){
+foreach ($roomlist as $room => $data) {
     $roompath = $data['path'];
     $leftTime = filemtime($dir.$roompath);
-    
-    if(time() - $leftTime > $limitLeftTime){
-        try{
-            foreach(scandir($dir.$roompath."/connect/") as $value){
-                if($value == "." || $value == "..") continue;
-                unlink("{$dir}{$roompath}/connect/{$value}") ? "" : function(){throw new Exception();};
-            }
-            rmdir("{$dir}{$roompath}/connect/") ? "" : function(){throw new Exception();};
 
-            foreach(scandir($dir.$roompath) as $value){
-                if($value == "." || $value == "..") continue;
-                unlink("{$dir}{$roompath}/{$value}") ? "" : function(){throw new Exception();};
+    $_dir     = $dir.$roompath;
+
+    if (time() - $leftTime > $limitLeftTime) {
+        try {
+            foreach (scandir($_dir.'/connect/') as $k) {
+                if ($k == "." || $k == "..") continue;
+                if (!unlink($_dir.'/connect/'.$k)) throw new Exception();
             }
-            rmdir($dir.$roompath) ? "" : function(){throw new Exception();};
+
+            if(!rmdir($_dir.'/connect/')) throw new Exception();
+
+            foreach (scandir($_dir) as $k) {
+                if ($k == "." || $k == "..") continue;
+                if (!unlink($_dir.$k)) throw new Exception();
+            }
+
+            if (!rmdir($dir.$roompath)) throw new Exception();
 
             unset($roomlist[$room]);
-            Onset::setRoomlist($roomlist) ? "" : function(){throw new Exception();};
-        } catch(Exception $e) {
-            echo Onset::errorJson('部屋自動削除の際にエラーが起こりました');
+            if(!Onset::setRoomlist($roomlist)) throw new Exception();
+        } catch (Exception $e) {
+            echo Onset::jsonStatus('部屋自動削除の際にエラーが起こりました', -1);
+            die();
         }
         $i++;
     }
 }
 
-echo Onset::okJson('ok');
+echo Onset::jsonStatus('ok');
