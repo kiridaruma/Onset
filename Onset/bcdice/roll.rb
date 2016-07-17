@@ -8,7 +8,6 @@ require 'bcdiceCore.rb'
 require 'configBcDice.rb'
 
 class OnsetBCDiceMaker < BCDiceMaker
-  
   def newBcDice
     bcdice = OnsetBCDice.new(self, @cardTrader, @diceBot, @counterInfos, @tableFileData)
     return bcdice
@@ -16,7 +15,6 @@ class OnsetBCDiceMaker < BCDiceMaker
 end
 
 class OnsetBCDice < BCDice
-  
   def setNick(nick)
     @nick_e = nick
   end
@@ -49,6 +47,6 @@ bcdice = bcmaker.newBcDice()
 bcdice.setGameByTitle(params['sys'][0])
 bcdice.setMessage(params['text'][0])
 bcdice.setNick('onset')
-hoge, foo = bcdice.dice_command
+result = bcdice.dice_command
 
-puts hoge
+puts result
