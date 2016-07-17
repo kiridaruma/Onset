@@ -18,10 +18,8 @@ try {
     if ($config['maxNick'] <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
     if ($config['maxText'] <= mb_strlen($text)) throw new Exception('テキストが長すぎます ('. mb_strlen($text) .')');
 
-    //ダイス処理
     $diceRes = Onset::diceroll($text, $sys);
 
-    // TODO: htmlspecialcharsのラッパ
     $nick    = htmlspecialchars($nick, ENT_QUOTES);
     $text    = htmlspecialchars($text, ENT_QUOTES);
     $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
