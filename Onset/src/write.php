@@ -3,10 +3,10 @@ require_once('core.php');
 
 session_start();
 
-$nick = isset($_POST['nick']) && $_POST['nick'] != NULL ? trim($_POST['nick']) : FALSE;
-$text = isset($_POST['text']) && $_POST['text'] != NULL ? trim($_POST['text']) : FALSE;
-$sys  = isset($_POST['sys'])  && $_POST['sys']  != NULL ? trim($_POST['sys'])  : FALSE;
-$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
+$nick = isset($_POST['nick']) && $_POST['nick'] != NULL ? trim($_POST['nick']) : false;
+$text = isset($_POST['text']) && $_POST['text'] != NULL ? trim($_POST['text']) : false;
+$sys  = isset($_POST['sys'])  && $_POST['sys']  != NULL ? trim($_POST['sys'])  : false;
+$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : false;
 
 try {
     if (!$text || !$nick || !$room || !$sys) throw new Exception('不正なアクセス:invalid_access');
@@ -21,10 +21,10 @@ try {
     //ダイス処理
     $diceRes = Onset::diceroll($text, $sys);
 
-    // TODO: htmlspecialcharsのラッパ
-    $nick    = htmlspecialchars($nick, ENT_QUOTES);
-    $text    = htmlspecialchars($text, ENT_QUOTES);
-    $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
+    // エスケープ処理
+    $nick    = Onset::h($nick);
+    $text    = Onset::h($text);
+    $diceRes = Onset::h($diceRes);
 
     $text = nl2br($text);
 

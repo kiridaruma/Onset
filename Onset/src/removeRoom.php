@@ -25,7 +25,6 @@ try {
     $_dir     = $dir.$roompath;
     $hash     = file_get_contents($_dir.'/pass.hash');
 
-
     // パスワードチェック
     if (!password_verify($pass, $hash) && $pass != $config['pass']) throw new Exception('パスワードを間違えています');
 
