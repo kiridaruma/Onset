@@ -11,7 +11,7 @@ try {
     $room = isset($_POST['room']) && $_POST['room'] !== "" ? $_POST['room'] : false;
     $pass = isset($_POST['pass']) && $_POST['pass'] !== "" ? $_POST['pass'] : false;
 
-    if ($room === false || !$pass === false) throw new Exception('ルーム名かパスワードがセットされていません');
+    if ($room === false || $pass === false) throw new Exception('ルーム名かパスワードがセットされていません');
 
     $roomlist = Onset::getRoomlist();
 
