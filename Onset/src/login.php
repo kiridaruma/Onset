@@ -7,7 +7,7 @@ $pass = isset($_POST['pass']) || $_POST['pass'] !== '' ? $_POST['pass'] : FALSE;
 $room = isset($_POST['room']) || $_POST['room'] !== '' ? $_POST['room'] : FALSE;
 
 try {
-    if(!$nick === false || !$pass === false || !$room === false) throw new Exception('空欄があります');
+    if($nick === false || $pass === false || $room === false) throw new Exception('空欄があります');
     if($config['maxNick'] <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
 
     $roomlist = Onset::getRoomlist();
