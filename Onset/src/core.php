@@ -1,7 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/config.php');
 
-
 class Onset
 {
     public static function isValidAccess($randKey)
@@ -51,5 +50,59 @@ class Onset
             $ret = "";
         }
         return str_replace('onset: ', '', $ret);
+    }
+}
+
+/**
+ * Onset logger
+ */
+class Logger
+{
+    /**
+     * @var DEBUG  デバッグ
+     * @var INFO   情報
+     * @var WARN   警告
+     * @var DANGER 異常
+     */
+    const DEBUG  = 'Debug       ';
+    const INFO   = 'Information ';
+    const WARN   = 'Warning     ';
+    const DANGER = 'Danger      ';
+
+    /**
+     * Logging function
+     * ログを$config['saveLog']のファイルに記録します。
+     *
+     * $level にはself::DEBUG, self::INFO, self::WARN, self::DANGER などが入ります。
+     *
+     * e.g. Logger::log('Super error!', Logger::DANGER);
+     *
+     * @param string $log   text
+     * @param string $level Logging level
+     *
+     * @return void
+     */
+    public static function log($log, $level = self::INFO)
+    {
+        global $config;
+
+        $file = $config['saveLog'];
+
+        $format = date('m/d H:i:s ')."%s: %s\n";
+
+        switch ($level) {
+        case self::DEBUG:
+            file_put_contents($file, sprintf($format, $level, $log), FILE_APPEND);
+            break;
+        case self::INFO:
+            file_put_contents($file, sprintf($format, $level, $log), FILE_APPEND);
+            break;
+        case self::WARN:
+            file_put_contents($file, sprintf($format, $level, $log), FILE_APPEND);
+            break;
+        case self::DANGER:
+            file_put_contents($file, sprintf($format, $level, $log), FILE_APPEND);
+            break;
+        }
     }
 }
