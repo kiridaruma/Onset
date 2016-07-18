@@ -7,7 +7,7 @@ session_start();
 $time = isset($_POST['time'])          && $_POST['time']          !== '' ? $_POST['time']          : false;
 $room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] !== '' ? $_SESSION['onset_room'] : false;
 
-if (!$time || !$room) {
+if ($time === false || $room === false) {
     echo Onset::jsonStatus("不正なアクセス", -1);
     die();
 }
