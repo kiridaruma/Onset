@@ -4,14 +4,14 @@ require_once('core.php');
 
 session_start();
 
-$room = isset($_POST['room']) && $_POST['room'] != "" ? $_POST['room'] : false;
-$pass = isset($_POST['pass']) && $_POST['pass'] != "" ? $_POST['pass'] : false;
+$room = isset($_POST['room']) && $_POST['room'] !== "" ? $_POST['room'] : false;
+$pass = isset($_POST['pass']) && $_POST['pass'] !== "" ? $_POST['pass'] : false;
 
 try {
 
     if(!Onset::isValidAccess($_POST['rand'])) throw new Exception('不正なアクセス。');
 
-    if(!$room || !$pass) throw new Exception('部屋名かパスワードが空です。');
+    if($room === false || $pass === false) throw new Exception('部屋名かパスワードが空です。');
 
     if(mb_strlen($room) >= $config['maxRoomName']) throw new Exception('部屋名が長すぎます。');
 

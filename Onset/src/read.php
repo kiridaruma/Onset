@@ -4,8 +4,8 @@ require_once('config.php');
 
 session_start();
 
-$time = isset($_POST['time'])          && $_POST['time']          != NULL ? $_POST['time']          : false;
-$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : false;
+$time = isset($_POST['time'])          && $_POST['time']          !== '' ? $_POST['time']          : false;
+$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] !== '' ? $_SESSION['onset_room'] : false;
 
 if (!$time || !$room) {
     echo Onset::jsonStatus("不正なアクセス", -1);

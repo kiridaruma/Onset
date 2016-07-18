@@ -2,12 +2,12 @@
 require_once('config.php');
 require_once('core.php');
 
-$nick = isset($_POST['nick']) || $_POST['nick'] != 0 ? htmlspecialchars($_POST['nick'], ENT_QUOTES) : FALSE;
-$pass = isset($_POST['pass']) || $_POST['pass'] != 0 ? $_POST['pass'] : FALSE;
-$room = isset($_POST['room']) || $_POST['room'] != 0 ? $_POST['room'] : FALSE;
+$nick = isset($_POST['nick']) || $_POST['nick'] !== '' ? htmlspecialchars($_POST['nick'], ENT_QUOTES) : FALSE;
+$pass = isset($_POST['pass']) || $_POST['pass'] !== '' ? $_POST['pass'] : FALSE;
+$room = isset($_POST['room']) || $_POST['room'] !== '' ? $_POST['room'] : FALSE;
 
 try {
-    if(!$nick || !$pass || !$room) throw new Exception('空欄があります');
+    if(!$nick === false || !$pass === false || !$room === false) throw new Exception('空欄があります');
     if($config['maxNick'] <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
 
     $roomlist = Onset::getRoomlist();

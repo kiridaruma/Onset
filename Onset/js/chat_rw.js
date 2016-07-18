@@ -30,7 +30,7 @@ function send_chat(){
     var text = $("#text").val().trim();
     var sys = $("#sys").val().trim();
 
-    if(nick == "" || text == ""){
+    if(nick === "" || text === ""){
         $(".notice").html("<b>名前と本文を入力してください</b>");
         return 0;
     }

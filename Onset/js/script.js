@@ -13,7 +13,7 @@ function enterRoom(){
     var pass = enter.find("#pass").val();
     var room = enter.find("input[name='room']:checked").val();
     
-    if(nick == '' || pass == '' || room == undefined){
+    if(nick === '' || pass === '' || room === undefined){
         $('#enterNotice').text('空欄があります');
         return;
     }
@@ -47,7 +47,7 @@ function createRoom(){
     var pass = create.find("#pass").val();
     var room = create.find("#room").val();
     
-    if(rand == '' || pass == '' || room == ''){
+    if(rand === '' || pass === '' || room === ''){
         $('#createNotice').text('空欄があります');
         return;
     }
@@ -81,7 +81,7 @@ function removeRoom(){
     var pass = enter.find("#pass").val();
     var room = enter.find("input[name='room']:checked").val();
     
-    if(rand == '' || pass == '' || room == undefined){
+    if(rand === '' || pass === '' || room === undefined){
         $('#removeNotice').text('空欄があります');
         return;
     }

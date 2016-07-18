@@ -3,13 +3,13 @@ require_once('core.php');
 
 session_start();
 
-$nick = isset($_POST['nick']) && $_POST['nick'] != NULL ? trim($_POST['nick']) : FALSE;
-$text = isset($_POST['text']) && $_POST['text'] != NULL ? trim($_POST['text']) : FALSE;
-$sys  = isset($_POST['sys'])  && $_POST['sys']  != NULL ? trim($_POST['sys'])  : FALSE;
-$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] != NULL ? $_SESSION['onset_room'] : FALSE;
+$nick = isset($_POST['nick']) && $_POST['nick'] !== '' ? trim($_POST['nick']) : FALSE;
+$text = isset($_POST['text']) && $_POST['text'] !== '' ? trim($_POST['text']) : FALSE;
+$sys  = isset($_POST['sys'])  && $_POST['sys']  !== '' ? trim($_POST['sys'])  : FALSE;
+$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] !== '' ? $_SESSION['onset_room'] : FALSE;
 
 try {
-    if (!$text || !$nick || !$room || !$sys) throw new Exception('不正なアクセス:invalid_access');
+    if ($text === false || $nick === false || $room === false || $sys === false) throw new Exception('不正なアクセス:invalid_access');
 
     require_once('config.php');
 
