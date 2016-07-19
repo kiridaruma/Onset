@@ -8,7 +8,7 @@ try {
 
     if (!Onset::isValidAccess($_POST['rand'])) throw new Exception('不正なアクセス。');
 
-    $room = isset($_POST['room']) && $_POST['room'] !== "" ? $_POST['room'] : false;
+    $room = isset($_POST['room']) && $_POST['room'] !== "" ? htmlspecialchars($_POST['room'], ENT_QUOTES) : false;
     $pass = isset($_POST['pass']) && $_POST['pass'] !== "" ? $_POST['pass'] : false;
 
     if ($room === false || $pass === false) throw new Exception('ルーム名かパスワードがセットされていません');

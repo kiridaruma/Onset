@@ -4,7 +4,7 @@ require_once('core.php');
 
 $nick = isset($_POST['nick']) || $_POST['nick'] !== '' ? htmlspecialchars($_POST['nick'], ENT_QUOTES) : FALSE;
 $pass = isset($_POST['pass']) || $_POST['pass'] !== '' ? $_POST['pass'] : FALSE;
-$room = isset($_POST['room']) || $_POST['room'] !== '' ? $_POST['room'] : FALSE;
+$room = isset($_POST['room']) || $_POST['room'] !== '' ? htmlspecialchars($_POST['room'], ENT_QUOTES) : FALSE;
 
 try {
     if($nick === false || $pass === false || $room === false) throw new Exception('空欄があります');
