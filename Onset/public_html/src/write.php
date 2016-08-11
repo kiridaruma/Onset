@@ -1,5 +1,6 @@
 <?php
 require_once('core.php');
+header('content-type: application/json; charset=utf-8');
 
 session_start();
 

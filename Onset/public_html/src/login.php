@@ -1,5 +1,6 @@
 <?php
 require_once('core.php');
+header('content-type: application/json; charset=utf-8');
 
 $nick = isset($_POST['nick']) || $_POST['nick'] !== '' ? htmlspecialchars($_POST['nick'], ENT_QUOTES) : FALSE;
 $pass = isset($_POST['pass']) || $_POST['pass'] !== '' ? $_POST['pass'] : FALSE;
