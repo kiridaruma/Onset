@@ -1,5 +1,4 @@
 <?php
-require_once('config.php');
 require_once('core.php');
 
 $nick = isset($_POST['nick']) || $_POST['nick'] !== '' ? htmlspecialchars($_POST['nick'], ENT_QUOTES) : FALSE;
