@@ -13,10 +13,10 @@ try {
 
     require_once('config.php');
 
-    $_dir = $config['roomSavepath'].$room;
+    $_dir = config::roomSavepath.$room;
 
-    if ($config['maxNick'] <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
-    if ($config['maxText'] <= mb_strlen($text)) throw new Exception('テキストが長すぎます ('. mb_strlen($text) .')');
+    if (config::maxNick <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
+    if (config::maxText <= mb_strlen($text)) throw new Exception('テキストが長すぎます ('. mb_strlen($text) .')');
 
     $diceRes = Onset::diceroll($text, $sys);
 

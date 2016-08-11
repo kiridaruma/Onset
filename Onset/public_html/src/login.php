@@ -8,18 +8,18 @@ $room = isset($_POST['room']) || $_POST['room'] !== '' ? htmlspecialchars($_POST
 
 try {
     if($nick === false || $pass === false || $room === false) throw new Exception('空欄があります');
-    if($config['maxNick'] <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
+    if(config::maxNick <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
 
     $roomlist = Onset::getRoomlist();
 
     if(!isset($roomlist[$room])) throw new Exception('存在しない部屋です');
 
     $roompath = $roomlist[$room]['path'];
-    $dir      = $config['roomSavepath'];
+    $dir      = config::roomSavepath;
     $_dir     = $dir.$roompath;
     $hash     = file_get_contents($_dir.'/pass.hash');
 
-    if(!password_verify($pass, $hash) && $config['pass'] != $pass) throw new Exception('パスワードが間違っています');
+    if(!password_verify($pass, $hash) && config::pass != $pass) throw new Exception('パスワードが間違っています');
 
 
 } catch (Exception $e) {

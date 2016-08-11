@@ -11,16 +11,14 @@ class Onset
 
     public static function getRoomlist()
     {
-        global $config;
-        $dir = $config['roomSavepath'];
+        $dir = config::roomSavepath;
         $text = file_get_contents($dir.'roomlist');
         return unserialize(rtrim($text));
     }
 
     public static function setRoomlist($roomlist)
     {
-        global $config;
-        $dir = $config['roomSavepath'];
+        $dir = config::roomSavepath;
         $ret = file_put_contents($dir.'roomlist', serialize($roomlist), LOCK_EX);
         return $ret !== FALSE;
     }
@@ -37,14 +35,13 @@ class Onset
 
     public static function diceroll($text, $sys)
     {
-        global $config;
-        $url = $config['bcdiceURL'];
+        $url = config::bcdiceURL;
 
         $encordedText = urlencode($text);
         $encordedSys  = urlencode($sys);
 
         $s = "";
-        if($config["enableSSL"]) $s = 's';
+        if(config::enableSSL) $s = 's';
         $ret = file_get_contents("http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}");
         if(trim($ret) == '1' || trim($ret) == 'error'){
             $ret = "";

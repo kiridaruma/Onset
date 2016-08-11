@@ -12,7 +12,7 @@ if ($time === false || $room === false) {
     die();
 }
 
-$_dir = $config['roomSavepath'].$room;
+$_dir = config::roomSavepath.$room;
 
 if ($time < filemtime($_dir."/xxlogxx.txt") * 1000) {
     $fp = fopen($_dir."/xxlogxx.txt", 'r');

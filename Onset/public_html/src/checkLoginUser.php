@@ -1,5 +1,5 @@
 <?php
-require_once('config.php');
+require_once('core.php');
 
 session_start();
 
@@ -11,7 +11,7 @@ if(!$room || !$id){
     die();
 }
 
-$dir = $config['roomSavepath'].$room."/connect/";
+$dir = config::roomSavepath.$room."/connect/";
 $arr = scandir($dir);
 
 if($_POST['lock'] === 'unlock') {

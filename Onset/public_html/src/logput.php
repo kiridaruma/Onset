@@ -8,7 +8,7 @@ if(!isset($_SESSION['onset_room'])){
     echo "不正なアクセスです";
     die();
 }
-$dir = $config['roomSavepath'];
+$dir = config::roomSavepath;
 $logdir = $dir.$_SESSION['onset_room']."/xxlogxx.txt";
 $text = htmlspecialchars_decode(strip_tags(file_get_contents($logdir)));
 

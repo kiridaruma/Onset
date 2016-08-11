@@ -18,11 +18,11 @@ try {
     if (!isset($roomlist[$room])) throw new Exception('部屋が存在しません');
 
     $roompath = $roomlist[$room]['path'];
-    $dir      = $config['roomSavepath'];
+    $dir      = config::roomSavepath;
     $_dir     = $dir.$roompath;
     $hash     = file_get_contents($_dir.'/pass.hash');
 
-    if (!password_verify($pass, $hash) && $pass != $config['pass']) throw new Exception('パスワードを間違えています');
+    if (!password_verify($pass, $hash) && $pass != config::pass) throw new Exception('パスワードを間違えています');
 
     foreach (scandir($_dir.'/connect/') as $k) {
         if ($k == '.' || $k == '..') continue;
