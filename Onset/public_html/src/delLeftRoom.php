@@ -2,9 +2,10 @@
 // TODO: 変数の統一
 require_once 'core.php';
 
+$dir           = Config::roomSavepath;
 $limitLeftTime = Config::roomDelTime;
+$roomList      = Onset::getRoomlist();
 
-$roomList = Onset::getRoomlist();
 $i = 0;
 
 foreach ($roomList as $room => $data) {

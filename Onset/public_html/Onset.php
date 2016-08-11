@@ -6,7 +6,7 @@ if(!isset($_SESSION['onset_roomid'])){
     die();
 }
 
-require_once('src/config.php');
+require_once 'src/config.php';
 $url = Config::bcdiceURL;
 $s = Config::enableSSL ? 's' : '';
 $sysList = explode("\n", file_get_contents("http{$s}://{$url}?list=1"));
