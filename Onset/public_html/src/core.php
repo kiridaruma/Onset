@@ -34,12 +34,12 @@ class Onset
         return json_encode($json);
     }
 
-    public static function diceroll($text, $sys)
+    public static function diceRoll($chatContent, $diceSystem)
     {
         $url = config::bcdiceURL;
 
-        $encordedText = urlencode($text);
-        $encordedSys  = urlencode($sys);
+        $encordedText = urlencode($chatContent);
+        $encordedSys  = urlencode($diceSystem);
 
         $s = "";
         if(config::enableSSL) $s = 's';
@@ -101,6 +101,8 @@ class Logger
         case self::DANGER:
             file_put_contents($file, sprintf($format, $level, $log), FILE_APPEND);
             break;
+        default:
+            file_put_contents($file, sprintf($format, self::INFO, $log), FILE_APPEND);
         }
     }
 }

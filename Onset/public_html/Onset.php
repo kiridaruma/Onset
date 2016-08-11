@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['onset_room'])){
+if(!isset($_SESSION['onset_roomid'])){
     header("Location: index.php");
     die();
 }
 
-require_once('src/config.php');
-$url = config::bcdiceURL;
-$s = config::enableSSL ? 's' : '';
+require_once 'src/config.php';
+$url = Config::bcdiceURL;
+$s = Config::enableSSL ? 's' : '';
 $sysList = explode("\n", file_get_contents("http{$s}://{$url}?list=1"));
 ?>
 
@@ -32,7 +32,7 @@ $sysList = explode("\n", file_get_contents("http{$s}://{$url}?list=1"));
     </header>
     <div class="contents">
     <div class="form">
-        <input type="text" id="nick" value=<?= $_SESSION['onset_nick'] ?>>(<?= $_SESSION['onset_id'] ?>)
+        <input type="text" id="nick" value=<?= $_SESSION['onset_playername'] ?>>(<?= $_SESSION['onset_playerid'] ?>)
         <select id="sys">
         <option value="None" selected>指定なし</option>
 <?php foreach($sysList as $value): ?>

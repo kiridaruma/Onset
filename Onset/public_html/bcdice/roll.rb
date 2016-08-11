@@ -8,7 +8,7 @@ require 'bcdiceCore.rb'
 require 'configBcDice.rb'
 
 class OnsetBCDiceMaker < BCDiceMaker
-  
+
   def newBcDice
     bcdice = OnsetBCDice.new(self, @cardTrader, @diceBot, @counterInfos, @tableFileData)
     return bcdice
@@ -16,7 +16,7 @@ class OnsetBCDiceMaker < BCDiceMaker
 end
 
 class OnsetBCDice < BCDice
-  
+
   def setNick(nick)
     @nick_e = nick
   end

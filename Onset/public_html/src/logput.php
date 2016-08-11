@@ -1,15 +1,16 @@
 <?php
-require_once('core.php');
+require_once 'core.php';
 
 session_start();
 
-if(!isset($_SESSION['onset_room'])){
+if(!isset($_SESSION['onset_roomid'])){
     echo "不正なアクセスです";
     die();
 }
-$dir = config::roomSavepath;
-$logdir = $dir.$_SESSION['onset_room']."/xxlogxx.txt";
-$text = htmlspecialchars_decode(strip_tags(file_get_contents($logdir)));
+
+$dir = Config::roomSavepath;
+$chatLog = $dir.$_SESSION['onset_roomid']."/xxlogxx.txt";
+$text    = htmlspecialchars_decode(strip_tags(file_get_contents($chatLog)));
 
 header("Content-type: text/plain");
 echo $text;

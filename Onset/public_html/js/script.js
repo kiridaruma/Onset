@@ -8,24 +8,25 @@ function toggle(){
 }
 
 function enterRoom(){
-    var enter = $("#enter");
-    var nick = enter.find("#nick").val();
-    var pass = enter.find("#pass").val();
-    var room = enter.find("input[name='room']:checked").val();
-    
-    if(nick === '' || pass === '' || room === undefined){
+    var enter      = $("#enter");
+    var playerName = enter.find("#nick").val();
+    var roomName   = enter.find("input[name='room']:checked").val();
+    var roomPw     = enter.find("#pass").val();
+
+    if(playerName === '' || roomName === undefined || roomPw === ''){
         $('#enterNotice').text('空欄があります');
         return;
     }
+
     $('#enterNotice').text('処理中...');
-    
+
     $.ajax({
         url:"src/login.php",
         type:"POST",
         data:{
-            "nick":nick,
-            "pass":pass,
-            "room":room
+            "playerName": playerName,
+            "roomName"  : roomName,
+            "roomPw"    : roomPw
         },
         dataType:"json",
         beforeSend: function(xhr) {
@@ -43,23 +44,23 @@ function enterRoom(){
 }
 
 function createRoom(){
-    var create = $("#create");
-    var pass = create.find("#pass").val();
-    var room = create.find("#room").val();
-    
-    if(rand === '' || pass === '' || room === ''){
+    var create   = $("#create");
+    var roomName = create.find("#room").val();
+    var roomPw   = create.find("#pass").val();
+
+    if(rand === '' || roomName === '' || roomPw === ''){
         $('#createNotice').text('空欄があります');
         return;
     }
     $('#createNotice').text('処理中...');
-    
+
     $.ajax({
         url:"src/createRoom.php",
         type:"POST",
         data:{
-            "rand":rand,
-            "pass":pass,
-            "room":room
+            "roomName" : roomName,
+            "roomPw"   : roomPw,
+            "rand"     : rand
         },
         dataType:"json",
         beforeSend: function(xhr) {
@@ -77,23 +78,23 @@ function createRoom(){
 }
 
 function removeRoom(){
-    var enter = $("#remove");
-    var pass = enter.find("#pass").val();
-    var room = enter.find("input[name='room']:checked").val();
-    
-    if(rand === '' || pass === '' || room === undefined){
+    var enter    = $("#remove");
+    var roomPw   = enter.find("#pass").val();
+    var roomName = enter.find("input[name='room']:checked").val();
+
+    if(rand === '' || roomName === undefined || roomPw === ''){
         $('#removeNotice').text('空欄があります');
         return;
     }
     $('#removeNotice').text('処理中...');
-    
+
     $.ajax({
         url:"src/removeRoom.php",
         type:"POST",
         data:{
-            "rand":rand,
-            "pass":pass,
-            "room":room
+            "roomName":roomName,
+            "roomPw":roomPw,
+            "rand":rand
         },
         dataType:"json",
         beforeSend: function(xhr) {

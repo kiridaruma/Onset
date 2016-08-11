@@ -1,7 +1,6 @@
 var finaltime = 1;
 
 function get_log(){
-    
     $.ajax({
         url: "src/read.php",
         type: "POST",
@@ -25,24 +24,24 @@ function get_log(){
 
 
 function send_chat(){
-    
-    var nick = $("#nick").val().trim();
-    var text = $("#text").val().trim();
-    var sys = $("#sys").val().trim();
+    var playerName  = $("#nick").val().trim();
+    var chatContent = $("#text").val().trim();
+    var diceSystem  = $("#sys").val().trim();
 
-    if(nick === "" || text === ""){
+    if(playerName === "" || chatContent === ""){
         $(".notice").html("<b>名前と本文を入力してください</b>");
         return 0;
     }
+
     $("#onsetNotice").text('送信中...');
-    
+
     $.ajax({
         url: "src/write.php",
         type: "POST",
         data: {
-            "nick": nick,
-            "text": text,
-            "sys": sys
+            "playerName" : playerName,
+            "chatContent": chatContent,
+            "diceSystem" : diceSystem
         },
         dataType:"json",
         beforeSend: function(xhr) {

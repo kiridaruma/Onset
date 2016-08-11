@@ -1,11 +1,11 @@
 <?php
-require_once('src/core.php');
+require_once 'src/core.php';
 
-$dir = config::roomSavepath;
-$roomlist = [];
+$dir = Config::roomSavepath;
+$roomList = [];
 foreach(Onset::getRoomlist() as $room => $data){
-    if(time() - filemtime($dir.$data['path']) > config::roomDelTime) continue;
-    $roomlist[$room] = $data;
+    if(time() - filemtime($dir.$data['path']) > Config::roomDelTime) continue;
+    $roomList[$room] = $data;
 }
 
 session_start();
@@ -32,9 +32,9 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
         <h1>Onset!</h1>
         <article><?=$welcomeMessage?></article>
     </div>
-    
+
     <hr />
-    
+
     <div class="join">
         <a id="toggle" onclick="toggle()">部屋の作成/削除</a>
         <form class="form" id="enter">
@@ -47,7 +47,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 
             <div class="list">
                 <p>部屋一覧</p>
-                <?php foreach($roomlist as $key => $value) : ?>
+                <?php foreach($roomList as $key => $value) : ?>
                     <label class="room">
                         <input type="radio" name="room" value="<?=$key?>"><?=$key?>
                     </label>
@@ -57,7 +57,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
     </div>
 
     <div class="edit">
-        
+
         <a onclick="toggle()" id="toggle">閉じる</a>
 
         <h2>作成</h2>
@@ -79,7 +79,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
             <span id="removeNotice" class="notice"></span>
         <div class="list">
                 <p>部屋一覧</p>
-                <?php foreach($roomlist as $key => $value) : ?>
+                <?php foreach($roomList as $key => $value) : ?>
                     <label class="room">
                         <input type="radio" name="room" value="<?=$key?>"><?=$key?>
                     </label>

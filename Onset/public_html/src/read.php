@@ -1,20 +1,20 @@
 <?php
-require_once('core.php');
+require_once 'core.php';
 
 session_start();
 
-$time = isset($_POST['time'])          && $_POST['time']          !== '' ? $_POST['time']          : false;
-$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] !== '' ? $_SESSION['onset_room'] : false;
+$time   = isset($_POST['time'])            && $_POST['time']            !== '' ? $_POST['time']          : false;
+$roomId = isset($_SESSION['onset_roomid']) && $_SESSION['onset_roomid'] !== '' ? $_SESSION['onset_roomid'] : false;
 
-if ($time === false || $room === false) {
+if ($time === false || $roomId === false) {
     echo Onset::jsonStatus("不正なアクセス", -1);
     die();
 }
 
-$_dir = config::roomSavepath.$room;
+$roomDir = Config::roomSavepath.$roomId;
 
-if ($time < filemtime($_dir."/xxlogxx.txt") * 1000) {
-    $fp = fopen($_dir."/xxlogxx.txt", 'r');
+if ($time < filemtime($roomDir."/xxlogxx.txt") * 1000) {
+    $fp = fopen($roomDir."/xxlogxx.txt", 'r');
 
     do {
         $line = fgets($fp);
@@ -26,7 +26,7 @@ if ($time < filemtime($_dir."/xxlogxx.txt") * 1000) {
     echo "none";
 }
 
-$tmp = $_dir."/connect/".$_SESSION['onset_id'];
-file_put_contents($tmp, time()."\n".$_SESSION['onset_nick'], LOCK_EX);
+$tmp = $roomDir."/connect/".$_SESSION['onset_playerid'];
+file_put_contents($tmp, time()."\n".$_SESSION['onset_playername'], LOCK_EX);
 
 clearstatcache();

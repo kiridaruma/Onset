@@ -1,45 +1,44 @@
 <?php
-require_once('core.php');
+require_once 'core.php';
 
 session_start();
 
 try {
-
     if (!Onset::isValidAccess($_POST['rand'])) throw new Exception('不正なアクセス。');
 
-    $room = isset($_POST['room']) && $_POST['room'] !== "" ? htmlspecialchars($_POST['room'], ENT_QUOTES) : false;
-    $pass = isset($_POST['pass']) && $_POST['pass'] !== "" ? $_POST['pass'] : false;
+    $roomName = isset($_POST['roomName']) && $_POST['roomName'] !== "" ? htmlspecialchars($_POST['roomName'], ENT_QUOTES) : false;
+    $roomPw   = isset($_POST['roomPw'])   && $_POST['roomPw']   !== "" ? $_POST['roomPw']                                 : false;
 
-    if ($room === false || $pass === false) throw new Exception('ルーム名かパスワードがセットされていません');
+    if ($roomName === false || $roomPw === false) throw new Exception('ルーム名かパスワードがセットされていません');
 
-    $roomlist = Onset::getRoomlist();
+    $roomList = Onset::getroomList();
 
-    if (!isset($roomlist[$room])) throw new Exception('部屋が存在しません');
+    if (!isset($roomList[$roomName])) throw new Exception('部屋が存在しません');
 
-    $roompath = $roomlist[$room]['path'];
-    $dir      = config::roomSavepath;
-    $_dir     = $dir.$roompath;
-    $hash     = file_get_contents($_dir.'/pass.hash');
+    $dir      = Config::roomSavepath;
+    $roomId   = $roomList[$roomName]['path'];
+    $roomDir  = $dir.$roomId;
+    $passHash = file_get_contents($roomDir.'/pass.hash');
 
-    if (!password_verify($pass, $hash) && $pass != config::pass) throw new Exception('パスワードを間違えています');
+    if (!password_verify($roomPw, $passHash) && $roomPw != Config::pass) throw new Exception('パスワードを間違えています');
 
-    foreach (scandir($_dir.'/connect/') as $k) {
+    foreach (scandir($roomDir.'/connect/') as $k) {
         if ($k == '.' || $k == '..') continue;
-        if (!unlink($_dir.'/connect/'.$k)) throw new Exception('接続ディレクトリの削除に失敗。');
+        if (!unlink($roomDir.'/connect/'.$k)) throw new Exception('接続ディレクトリの削除に失敗。');
     }
 
-    if (!rmdir($_dir.'/connect/')) throw new Exception('接続ディレクトリの削除に失敗。');
+    if (!rmdir($roomDir.'/connect/')) throw new Exception('接続ディレクトリの削除に失敗。');
 
-    foreach (scandir($_dir) as $k) {
+    foreach (scandir($roomDir) as $k) {
         if ($k == '.' || $k == '..') continue;
-        if (!unlink($_dir.'/'.$k)) throw new Exception('部屋ディレクトリの削除に失敗。');
+        if (!unlink($roomDir.'/'.$k)) throw new Exception('部屋ディレクトリの削除に失敗。');
     }
 
-    if (!rmdir($_dir)) throw new Exception('部屋ディレクトリの削除に失敗。');
+    if (!rmdir($roomDir)) throw new Exception('部屋ディレクトリの削除に失敗。');
 
-    unset($roomlist[$room]);
+    unset($roomList[$roomName]);
 
-    if (!Onset::setRoomlist($roomlist)) throw new Exception('部屋リストからの削除に失敗');
+    if (!Onset::setRoomList($roomList)) throw new Exception('部屋リストからの削除に失敗');
 } catch (Exception $e) {
     echo Onset::jsonStatus($e->getMessage(), -1);
     die();
