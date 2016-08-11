@@ -25,6 +25,7 @@ class Onset
 
     public static function jsonStatus($message, $status = 1)
     {
+        header('content-type: application/json; charset=utf-8');
         $json = [
             "status"  => $status,
             "message" => $message

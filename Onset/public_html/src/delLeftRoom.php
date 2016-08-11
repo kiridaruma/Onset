@@ -1,6 +1,5 @@
 <?php
 require_once('core.php');
-header('content-type: application/json; charset=utf-8');
 
 $dir = config::roomSavepath;
 $limitLeftTime = config::roomDelTime;
