@@ -61,4 +61,9 @@ class Config
      * ログファイル
      */
     const saveLog = __DIR__ . '/../log.txt';
+
+    /*
+     * タイムゾーン
+     */
+    const Timezone = 'Asia/Tokyo';
 }
