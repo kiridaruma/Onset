@@ -11,16 +11,22 @@ class Onset
 
     public static function getRoomlist()
     {
-        $dir = config::roomSavepath;
+        $dir = Config::roomSavepath;
         $text = file_get_contents($dir.'roomlist');
         return unserialize(rtrim($text));
     }
 
     public static function setRoomlist($roomlist)
     {
-        $dir = config::roomSavepath;
+        $dir = Config::roomSavepath;
         $ret = file_put_contents($dir.'roomlist', serialize($roomlist), LOCK_EX);
         return $ret !== FALSE;
+    }
+
+    public static function getChatLogs($roomId, $isDecode = true)
+    {
+        $dir  = Config::roomSavepath;
+        return json_decode(file_get_contents($dir.$roomId.'/chatLogs.json'), $isDecode);
     }
 
     public static function jsonStatus($message, $status = 1)

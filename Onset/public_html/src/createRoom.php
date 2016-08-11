@@ -29,12 +29,18 @@ try {
     if(!mkdir($roomDir.'/connect')) throw new Exception('接続ディレクトリ作成に失敗しました。');
 
     if(!touch($roomDir.'/pass.hash'))   throw new Exception('パスワードハッシュの生成に失敗しました。');
-    if(!touch($roomDir.'/xxlogxx.txt')) throw new Exception('ログインハッシュの生成に失敗しました。');
+    if(!touch($roomDir.'/xxlogxx.txt')) throw new Exception('チャットログのの生成に失敗しました。');
 
-    if(!chmod($roomDir,                0777)) throw new Exception('パーミッションの変更に失敗しました。');
-    if(!chmod($roomDir.'/connect/',    0777)) throw new Exception('パーミッションの変更に失敗しました。');
-    if(!chmod($roomDir.'/pass.hash',   0666)) throw new Exception('パーミッションの変更に失敗しました。');
-    if(!chmod($roomDir.'/xxlogxx.txt', 0666)) throw new Exception('パーミッションの変更に失敗しました。');
+    // json
+    if(!touch($roomDir.'/chatLogs.json')) throw new Exception('チャットログの生成に失敗しました。');
+
+    if(!chmod($roomDir,                 0777)) throw new Exception('パーミッションの変更に失敗しました。');
+    if(!chmod($roomDir.'/connect/',     0777)) throw new Exception('パーミッションの変更に失敗しました。');
+    if(!chmod($roomDir.'/pass.hash',    0666)) throw new Exception('パーミッションの変更に失敗しました。');
+    if(!chmod($roomDir.'/xxlogxx.txt',  0666)) throw new Exception('パーミッションの変更に失敗しました。');
+
+    //json
+    if(!chmod($roomDir.'/chatLogs.json', 0666)) throw new Exception('パーミッションの変更に失敗しました。');
 
     $hash = password_hash($roomPw, PASSWORD_DEFAULT);
     unset($roomPw);
