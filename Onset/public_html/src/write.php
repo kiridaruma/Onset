@@ -1,5 +1,5 @@
 <?php
-require_once('core.php');
+require_once 'core.php';
 
 session_start();
 
@@ -17,10 +17,10 @@ try {
 
     require_once('config.php');
 
-    $roomDir = $config['roomSavepath'].$roomId;
+    if (config::maxNick <= mb_strlen($playerName)) throw new Exception('名前が長すぎます ('. mb_strlen($playerName) .')');
+    if (config::maxText <= mb_strlen($chatContent)) throw new Exception('テキストが長すぎます ('. mb_strlen($chatContent) .')');
 
-    if ($config['maxNick'] <= mb_strlen($playerName)) throw new Exception('名前が長すぎます ('. mb_strlen($playerName) .')');
-    if ($config['maxText'] <= mb_strlen($chatContent)) throw new Exception('テキストが長すぎます ('. mb_strlen($chatContent) .')');
+    $roomDir = config::roomSavepath.$roomId;
 
     $diceRes = Onset::diceRoll($chatContent, $diceSystem);
 

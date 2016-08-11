@@ -11,18 +11,18 @@ try {
 
     if($roomName === false || $roomPw === false) throw new Exception('部屋名かパスワードが空です。');
 
-    if(mb_strlen($roomName) >= $config['maxRoomName']) throw new Exception('部屋名が長すぎます。');
+    if(mb_strlen($roomName) >= config::maxRoomName) throw new Exception('部屋名が長すぎます。');
 
     $roomName = htmlspecialchars($roomName, ENT_QUOTES);
     $roomList = Onset::getRoomlist();
 
     if(isset($roomList[$roomName])) throw new Exception('同名の部屋がすでに存在しています。');
 
-    if(count($roomList) >= $config['roomLimit']) throw new Exception('部屋数制限いっぱいです。');
+    if(count($roomList) >= config::roomLimit) throw new Exception('部屋数制限いっぱいです。');
 
     $roomId = uniqid('', true);
 
-    $roomDir = $config['roomSavepath'].$roomId;
+    $roomDir = config::roomSavepath.$uuid;
 
     if(!mkdir($roomDir)) throw new Exception('部屋ディレクトリ作成に失敗しました。');
 

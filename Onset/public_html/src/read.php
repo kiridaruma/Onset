@@ -11,7 +11,7 @@ if ($time === false || $roomId === false) {
     die();
 }
 
-$roomDir = $config['roomSavepath'].$roomId;
+$roomDir = config::roomSavepath.$roomId;
 
 if ($time < filemtime($roomDir."/xxlogxx.txt") * 1000) {
     $fp = fopen($roomDir."/xxlogxx.txt", 'r');

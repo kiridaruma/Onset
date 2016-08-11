@@ -11,8 +11,8 @@ if(!$roomId || !$playerId){
     die();
 }
 
-$roomDir = $config['roomSavepath'].$roomId."/connect/";
-$arr = scandir($roomDir);
+$roomDir = config::roomSavepath.$room."/connect/";
+$loginUserList = scandir($roomDir);
 
 if($_POST['lock'] === 'unlock') {
     file_put_contents($roomDir.$playerId, time()."\n".$_SESSION['onset_playername']);
@@ -21,17 +21,17 @@ if($_POST['lock'] === 'unlock') {
 
 file_put_contents($roomDir.$roomId, time()."\n".$_SESSION['onset_playername']."\nlocked");
 
-foreach($arr as $value) {
-    if($value == "." || $value == "..") continue;
+foreach($loginUserList as $playerId) {
+    if($playerId == "." || $playerId == "..") continue;
 
-    list($time, $nick, $isLock) = explode("\n", file_get_contents($roomDir.$value));
+    list($time, $playerName, $isLock) = explode("\n", file_get_contents($roomDir.$value));
 
     if($time + 5 < time() && $isLock !== 'locked') {
         unlink($roomDir.$value);
         continue;
     }
 
-    $ret .= $nick.'#'.$value."\n";
+    $ret .= $playerName.'#'.$playerId."\n";
 
     $num++;
 }

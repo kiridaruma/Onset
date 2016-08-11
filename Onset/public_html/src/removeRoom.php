@@ -15,12 +15,12 @@ try {
 
     if (!isset($roomList[$roomName])) throw new Exception('部屋が存在しません');
 
-    $dir      = $config['roomSavepath'];
+    $dir      = config::roomSavepath;
     $roomId   = $roomList[$roomName]['path'];
     $roomDir  = $dir.$roomId;
     $passHash = file_get_contents($roomDir.'/pass.hash');
 
-    if (!password_verify($roomPw, $passHash) && $roomPw != $config['pass']) throw new Exception('パスワードを間違えています');
+    if (!password_verify($roomPw, $passHash) && $roomPw != config::pass) throw new Exception('パスワードを間違えています');
 
     foreach (scandir($roomDir.'/connect/') as $k) {
         if ($k == '.' || $k == '..') continue;

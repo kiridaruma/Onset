@@ -1,13 +1,13 @@
 <?php
+// TODO: 変数の統一
 require_once 'core.php';
 
-// TODO: 変数の統一
-$dir = $config['roomSavepath'];
-$limitLeftTime = $config['roomDelTime'];
-$roomlist = Onset::getRoomlist();
+$limitLeftTime = config::roomDelTime;
+
+$roomList = Onset::getRoomlist();
 $i = 0;
 
-foreach ($roomlist as $room => $data) {
+foreach ($roomList as $room => $data) {
     $roompath = $data['path'];
     $leftTime = filemtime($dir.$roompath);
 
