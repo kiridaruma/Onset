@@ -11,7 +11,7 @@ if(!$roomId || !$playerId){
     die();
 }
 
-$roomDir = config::roomSavepath.$roomId."/connect/";
+$roomDir = Config::roomSavepath.$roomId."/connect/";
 $loginUserList = scandir($roomDir);
 
 if($_POST['lock'] === 'unlock') {

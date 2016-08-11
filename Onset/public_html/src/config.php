@@ -4,8 +4,8 @@
  * マスターパスワードや管理設定はここから行えます
  */
 
-
-class config{
+class Config
+{
     /*
      * Onsetの管理パスワードです
      * 簡単なものに設定しないでください
@@ -23,14 +23,14 @@ class config{
      * ダイスボットへのパスを書いてください
      * デフォルトではindex.phpと同じ階層にあります
      */
-    const bcdiceURL = "trpg.moegi.mydns.jp/TRPG/Onset/public_html/bcdice/roll.rb";
+    const bcdiceURL = "localhost/Onset/bcdice/roll.rb";
 
     /*
      * SSLを有効にするか
      * URLの先頭についてる、httpsってやつです
      * わからない人はいじらないほうがいいと思います
      */
-    const enableSSL = true;
+    const enableSSL = false;
 
     /*
      * 最大部屋数

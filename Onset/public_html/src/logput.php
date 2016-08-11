@@ -8,7 +8,7 @@ if(!isset($_SESSION['onset_roomid'])){
     die();
 }
 
-$dir = config::roomSavepath;
+$dir = Config::roomSavepath;
 $chatLog = $dir.$_SESSION['onset_roomid']."/xxlogxx.txt";
 $text    = htmlspecialchars_decode(strip_tags(file_get_contents($chatLog)));
 

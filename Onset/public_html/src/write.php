@@ -17,10 +17,10 @@ try {
 
     require_once('config.php');
 
-    if (config::maxNick <= mb_strlen($playerName)) throw new Exception('名前が長すぎます ('. mb_strlen($playerName) .')');
-    if (config::maxText <= mb_strlen($chatContent)) throw new Exception('テキストが長すぎます ('. mb_strlen($chatContent) .')');
+    if (Config::maxNick <= mb_strlen($playerName)) throw new Exception('名前が長すぎます ('. mb_strlen($playerName) .')');
+    if (Config::maxText <= mb_strlen($chatContent)) throw new Exception('テキストが長すぎます ('. mb_strlen($chatContent) .')');
 
-    $roomDir = config::roomSavepath.$roomId;
+    $roomDir = Config::roomSavepath.$roomId;
 
     $diceRes = Onset::diceRoll($chatContent, $diceSystem);
 

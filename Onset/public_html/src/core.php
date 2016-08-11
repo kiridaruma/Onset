@@ -101,6 +101,8 @@ class Logger
         case self::DANGER:
             file_put_contents($file, sprintf($format, $level, $log), FILE_APPEND);
             break;
+        default:
+            file_put_contents($file, sprintf($format, self::INFO, $log), FILE_APPEND);
         }
     }
 }

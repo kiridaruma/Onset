@@ -2,7 +2,7 @@
 // TODO: 変数の統一
 require_once 'core.php';
 
-$limitLeftTime = config::roomDelTime;
+$limitLeftTime = Config::roomDelTime;
 
 $roomList = Onset::getRoomlist();
 $i = 0;

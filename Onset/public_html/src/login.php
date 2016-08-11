@@ -7,13 +7,13 @@ $roomPw     = isset($_POST['roomPw'])     || $_POST['roomPw']     !== '' ? $_POS
 
 try {
     if($playerName === false || $roomName === false || $roomPw === false) throw new Exception('空欄があります');
-    if(config::maxNick <= mb_strlen($playerName)) throw new Exception('名前が長すぎます ('. mb_strlen($playerName) .')');
+    if(Config::maxNick <= mb_strlen($playerName)) throw new Exception('名前が長すぎます ('. mb_strlen($playerName) .')');
 
     $roomList = Onset::getRoomlist();
 
     if(!isset($roomList[$roomName])) throw new Exception('存在しない部屋です');
 
-    $dir      = config::roomSavepath;
+    $dir      = Config::roomSavepath;
     $roomId   = $roomList[$roomName]['path'];
     $roomDir  = $dir.$roomId;
 
