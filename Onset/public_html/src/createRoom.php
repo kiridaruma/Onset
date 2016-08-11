@@ -3,8 +3,8 @@ require_once 'core.php';
 
 session_start();
 
-$roomName = isset($_POST['roomName']) && $_POST['roomName'] !== "" ? $_POST['roomName']   : false;
-$roomPw   = isset($_POST['roomPw'])   && $_POST['roomPw']   !== "" ? $_POST['roomPw'] : false;
+$roomName = isset($_POST['roomName']) && $_POST['roomName'] !== "" ? $_POST['roomName'] : false;
+$roomPw   = isset($_POST['roomPw'])   && $_POST['roomPw']   !== "" ? $_POST['roomPw']   : false;
 
 try {
     if(!Onset::isValidAccess($_POST['rand'])) throw new Exception('不正なアクセス。');
@@ -22,7 +22,7 @@ try {
 
     $roomId = uniqid('', true);
 
-    $roomDir = config::roomSavepath.$uuid;
+    $roomDir = config::roomSavepath.$roomId;
 
     if(!mkdir($roomDir)) throw new Exception('部屋ディレクトリ作成に失敗しました。');
 
