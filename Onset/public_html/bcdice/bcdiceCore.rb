@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby -Ku 
+#!/bin/ruby -Ku
 # -*- coding: utf-8 -*-
 
 require 'log'

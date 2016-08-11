@@ -1,10 +1,10 @@
 <?php
 require_once('src/core.php');
 
-$dir = config::roomSavepath;
+$dir = Config::roomSavepath;
 $roomList = [];
 foreach(Onset::getRoomlist() as $room => $data){
-    if(time() - filemtime($dir.$data['path']) > config::roomDelTime) continue;
+    if(time() - filemtime($dir.$data['path']) > Config::roomDelTime) continue;
     $roomList[$room] = $data;
 }
 
