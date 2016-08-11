@@ -14,21 +14,21 @@ $config['pass'] = "";
  * 部屋データを置くディレクトリへのパスです
  * カスタマイズする場合は良しなに...
  */
-$config['roomSavepath'] = __DIR__."/../../room/";
+$config['roomSavepath'] = __DIR__ . "/../../room/";
 
 /*
  * bcdiceへのURL
  * ダイスボットへのパスを書いてください
  * デフォルトではindex.phpと同じ階層にあります
  */
-$config['bcdiceURL'] = "localhost/Onset/bcdice/roll.rb";
+$config['bcdiceURL'] = "trpg.moegi.mydns.jp/TRPG/Onset/public_html/bcdice/roll.rb";
 
 /*
  * SSLを有効にするか
  * URLの先頭についてる、httpsってやつです
  * わからない人はいじらないほうがいいと思います
  */
-$config['enableSSL'] = false;
+$config['enableSSL'] = true;
 
 /*
  * 最大部屋数

@@ -1,7 +1,7 @@
 <?php
-require_once('config.php');
-require_once('core.php');
+require_once 'core.php';
 
+// TODO: 変数の統一
 $dir = $config['roomSavepath'];
 $limitLeftTime = $config['roomDelTime'];
 $roomlist = Onset::getRoomlist();

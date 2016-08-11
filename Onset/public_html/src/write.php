@@ -3,34 +3,36 @@ require_once('core.php');
 
 session_start();
 
-$nick = isset($_POST['nick']) && $_POST['nick'] !== '' ? trim($_POST['nick']) : FALSE;
-$text = isset($_POST['text']) && $_POST['text'] !== '' ? trim($_POST['text']) : FALSE;
-$sys  = isset($_POST['sys'])  && $_POST['sys']  !== '' ? trim($_POST['sys'])  : FALSE;
-$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] !== '' ? $_SESSION['onset_room'] : FALSE;
+$playerName  = isset($_POST['playerName'])      && $_POST['nick']            !== '' ? trim($_POST['playerName'])  : FALSE;
+$chatContent = isset($_POST['chatContent'])     && $_POST['chatContent']     !== '' ? trim($_POST['chatContent']) : FALSE;
+$diceSystem  = isset($_POST['diceSystem'])      && $_POST['diceSystem']      !== '' ? trim($_POST['diceSystem'])  : FALSE;
+$roomId      = isset($_SESSION['onset_roomid']) && $_SESSION['onset_roomid'] !== '' ? $_SESSION['onset_roomid']   : FALSE;
 
 try {
-    if ($text === false || $nick === false || $room === false || $sys === false) throw new Exception('不正なアクセス:invalid_access');
+    if ($playerName  === false
+    ||  $chatContent === false
+    ||  $diceSystem  === false
+    ||  $roomId      === false
+    ) throw new Exception('不正なアクセス:invalid_access');
 
     require_once('config.php');
 
-    $_dir = $config['roomSavepath'].$room;
+    $roomDir = $config['roomSavepath'].$roomId;
 
-    if ($config['maxNick'] <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
-    if ($config['maxText'] <= mb_strlen($text)) throw new Exception('テキストが長すぎます ('. mb_strlen($text) .')');
+    if ($config['maxNick'] <= mb_strlen($playerName)) throw new Exception('名前が長すぎます ('. mb_strlen($playerName) .')');
+    if ($config['maxText'] <= mb_strlen($chatContent)) throw new Exception('テキストが長すぎます ('. mb_strlen($chatContent) .')');
 
-    $diceRes = Onset::diceroll($text, $sys);
+    $diceRes = Onset::diceRoll($chatContent, $diceSystem);
 
-    $nick    = htmlspecialchars($nick, ENT_QUOTES);
-    $text    = htmlspecialchars($text, ENT_QUOTES);
-    $diceRes = htmlspecialchars($diceRes, ENT_QUOTES);
+    $diceRes     = htmlspecialchars($diceRes,     ENT_QUOTES);
+    $playerName  = htmlspecialchars($playerName,  ENT_QUOTES);
+    $chatContent = nl2br(htmlspecialchars($chatContent, ENT_QUOTES));
 
-    $text = nl2br($text);
+    $line = "<div class=\"chat\"><b>{$playerName}</b>({$_SESSION['onset_playerid']})<br>\n{$chatContent}<br>\n<i>{$diceRes}</i></div>\n";
 
-    $line = "<div class=\"chat\"><b>{$nick}</b>({$_SESSION['onset_id']})<br>\n{$text}<br>\n<i>{$diceRes}</i></div>\n";
-
-    $line = $line . file_get_contents($_dir.'/xxlogxx.txt');
-    file_put_contents($_dir.'/xxlogxx.txt', $line, LOCK_EX);
-    $_SESSION['onset_nick'] = $nick;
+    $line = $line . file_get_contents($roomDir.'/xxlogxx.txt');
+    file_put_contents($roomDir.'/xxlogxx.txt', $line, LOCK_EX);
+    $_SESSION['onset_nick'] = $playerName;
 
 } catch (Exception $e) {
     echo Onset::jsonStatus($e->getMessage(), -1);

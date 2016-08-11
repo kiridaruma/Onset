@@ -28,6 +28,7 @@ class Onset
 
     public static function jsonStatus($message, $status = 1)
     {
+        header('content-type: application/json; charset=utf-8');
         $json = [
             "status"  => $status,
             "message" => $message
@@ -36,13 +37,13 @@ class Onset
         return json_encode($json);
     }
 
-    public static function diceroll($text, $sys)
+    public static function diceRoll($chatContent, $diceSystem)
     {
         global $config;
         $url = $config['bcdiceURL'];
 
-        $encordedText = urlencode($text);
-        $encordedSys  = urlencode($sys);
+        $encordedText = urlencode($chatContent);
+        $encordedSys  = urlencode($diceSystem);
 
         $s = "";
         if($config["enableSSL"]) $s = 's';
