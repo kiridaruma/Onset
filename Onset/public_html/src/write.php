@@ -3,7 +3,7 @@ require_once 'core.php';
 
 session_start();
 
-$playerName  = isset($_POST['playerName'])      && $_POST['nick']            !== '' ? trim($_POST['playerName'])  : FALSE;
+$playerName  = isset($_POST['playerName'])      && $_POST['playerName']            !== '' ? trim($_POST['playerName'])  : FALSE;
 $chatContent = isset($_POST['chatContent'])     && $_POST['chatContent']     !== '' ? trim($_POST['chatContent']) : FALSE;
 $diceSystem  = isset($_POST['diceSystem'])      && $_POST['diceSystem']      !== '' ? trim($_POST['diceSystem'])  : FALSE;
 $roomId      = isset($_SESSION['onset_roomid']) && $_SESSION['onset_roomid'] !== '' ? $_SESSION['onset_roomid']   : FALSE;
