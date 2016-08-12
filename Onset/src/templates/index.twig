@@ -1,0 +1,69 @@
+{% extends 'base/base.twig' %}
+
+{% block head_extends %}
+    <script>rand = {{rand}};</script>
+{% endblock %}
+
+{% block body %}
+    <div class="contents">
+        <div class="header">
+            <h1>Onset!</h1>
+            <article>{% include 'base/welcome.twig' %}</article>
+        </div>
+
+        <hr />
+
+        <div class="join">
+            <a id="toggle" onclick="toggle()">部屋の作成/削除</a>
+            <form class="form" id="enter">
+                <div id="input">
+                    <input class="text" type="text" id="nick" name="nick" placeholder="名前"><br />
+                    <input class="text" type="password" id="pass" name="pass" placeholder="パスワード"><br />
+                    <input class="button" type="button" value="入室" onclick="enterRoom()"><br />
+                    <div id="enterNotice" class="notice"></div>
+                </div>
+
+                <div class="list">
+                    <p>部屋一覧</p>
+                    {% for key, value in roomlist %}
+                        <label class="room">
+                            <input type="radio" name="room" value="{{key}}">{{key}}
+                        </label>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+
+        <div class="edit">
+
+            <a onclick="toggle()" id="toggle">閉じる</a>
+
+            <h2>作成</h2>
+
+            <form id="create">
+                <input type="text" class="text" name="room" id="room" placeholder="部屋名"><br />
+                <input type="password" class="text" name="pass" id="pass" placeholder="パスワード"><br />
+                <input type="hidden" name="rand" value="{{rand}}">
+                <input type="button" class="button" value="作成" onclick="createRoom()"><br />
+                <span id="createNotice" class="notice"></span>
+            </form>
+
+            <h2>削除</h2>
+
+            <form id="remove">
+                <input type="password"  name="pass" class="text" id="pass" placeholder="パスワード"><br />
+                <input type="hidden"    name="rand" value="{{rand}}">
+                <input type="button" class="button" value="削除" onclick="removeRoom()"><br />
+                <span id="removeNotice" class="notice"></span>
+            <div class="list">
+                    <p>部屋一覧</p>
+                    {% for key, value in roomlist %}
+                        <label class="room">
+                            <input type="radio" name="room" value="{{key}}">{{key}}
+                        </label>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
