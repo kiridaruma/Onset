@@ -39,7 +39,7 @@ class OnsetController extends Controller
             return $this->view->render($response, 'onset.twig', [
                 'onset_playername'  =>  $_SESSION['onset_playername'],
                 'onset_playerid'    =>  $_SESSION['onset_playerid'],
-                'sysList'           =>  []
+                'diceSystemList'    =>  $this->onset->getDiceSystemList()
             ]);
         }
     }

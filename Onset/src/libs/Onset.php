@@ -56,15 +56,35 @@ class Onset
         $ret = '';
         try {
             $client = new Client();
-            $ret = $client->get($url);
+            $ret = $client->get($url)->getBody();
             if(trim($ret) == '1' || trim($ret) == 'error'){
                 $ret = "";
             }
         } catch (\Exception $e){
-            $this->logger->critical('diceroll', [$e->getMessage()]);
+            $this->logger->critical('diceroll', ['message' => $e->getMessage()]);
             $ret = '';
         }
         return str_replace('onset: ', '', $ret);
+    }
+
+    /**
+     * $diceSystemの取得
+     * @return array
+     */
+    public function getDiceSystemList()
+    {
+        $result = [];
+        $url    = $this->config['bcdiceURL'];
+        $s      = $this->config['enableSSL'] ? 's' : '';
+        $url    = "http{$s}://{$url}?list=1";
+        try {
+            $client = new Client();
+            $result = explode("\n", $client->get($url)->getBody());
+        } catch (\Exception $e){
+            $this->logger->critical('error_in_getDiceSystemList', ['message' => $e->getMessage()]);
+            $result = [];
+        }
+        return $result;
     }
 
     public function get($key)
