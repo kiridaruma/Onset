@@ -95,6 +95,10 @@ class Onset
     public function getChatLogs($roomId, $isDecode = true)
     {
         $dir  = $this->config['roomSavepath'];
-        return json_decode(file_get_contents($dir.$roomId.'/chatLogs.json'), $isDecode);
+        $data = '';
+        if (file_exists($dir.$roomId.'/chatLogs.json')) {
+            $data = file_get_contents($dir.$roomId.'/chatLogs.json');
+        }
+        return json_decode($data, $isDecode);
     }
 }

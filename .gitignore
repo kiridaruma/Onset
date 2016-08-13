@@ -1,1 +1,3 @@
 /vendor
+/Onset/room/*
+!/Onset/room/.gitkeep
