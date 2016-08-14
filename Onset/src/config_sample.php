@@ -64,5 +64,8 @@ return [
         'hostname'  =>  'onset.localhost',
         'port'      =>  80,
         'host_ip'   =>  '127.0.0.1'
-    ]
+    ],
+
+    'saveLog'   => __DIR__ . '/../logs/log.txt',
+    'timezone'  => 'Asia/Tokyo'
 ];

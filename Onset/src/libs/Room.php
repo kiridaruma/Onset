@@ -63,12 +63,16 @@ class Room
             } elseif (!touch($roomDir.'/pass.hash')) {
                 throw new RoomException('パスワードハッシュの生成に失敗しました。');
             } elseif (!touch($roomDir.'/xxlogxx.txt')) {
-                throw new RoomException('ログインハッシュの生成に失敗しました。');
+                throw new RoomException('チャットログの生成に失敗しました。');
+            } elseif (!touch($roomDir.'/chatLogs.json')) {
+                throw new RoomException('チャットログの生成に失敗しました。');
             } elseif (!chmod($roomDir,                 0777)) {
                 throw new RoomException('パーミッションの変更に失敗しました。');
             } elseif (!chmod($roomDir.'/connect/',     0777)) {
                 throw new RoomException('パーミッションの変更に失敗しました。');
             } elseif (!chmod($roomDir.'/pass.hash',    0666)) {
+                throw new RoomException('パーミッションの変更に失敗しました。');
+            } elseif (!chmod($roomDir.'/chatLogs.json',0666)) {
                 throw new RoomException('パーミッションの変更に失敗しました。');
             } elseif (!chmod($roomDir.'/xxlogxx.txt',  0666)) {
                 throw new RoomException('パーミッションの変更に失敗しました。');
@@ -324,19 +328,20 @@ class Room
 
     public function write($params)
     {
-        $result = [];
-        $params['roomId'] = $_SESSION['onset_roomid'];
+        $result             = [];
+        $params['roomId']   = $_SESSION['onset_roomid'];
         $factory = new Factory(new Translator('ja'));
         $validator = $factory->make($params, [
-            'playerName'    =>  'required|max:'.intval($this->config['maxNick']),
-            'roomId'        =>  'required',
-            'chatContent'   =>  'required|max:'.intval($this->config['maxText']),
-            'diceSystem'    =>  'required'
+            'playerName'        =>  'required|max:'.intval($this->config['maxNick']),
+            'roomId'            =>  'required',
+            'chatContent'       =>  'required|max:'.intval($this->config['maxText']),
+            'diceSystem'        =>  'required'
         ], self::getErrorMessages());
         try {
             if ($validator->fails()) {
                 throw new \Exception($validator->errors()->first());
             }
+            $_SESSION['onset_playername'] = $params['playerName'];
             $roomId         = $params['roomId'];
             $roomDir        = $this->config['roomSavepath'].$roomId;
             $playerName     = $params['playerName'];
@@ -362,7 +367,7 @@ class Room
             $chatContent = nl2br($chatContent);
             $diceRes     = htmlspecialchars($diceRes,     ENT_QUOTES);
             $playerName  = htmlspecialchars($playerName,  ENT_QUOTES);
-            $chatContent = nl2br(htmlspecialchars($chatContent, ENT_QUOTES));
+            $chatContent = htmlspecialchars($chatContent, ENT_QUOTES);
             $line = "<div class=\"chat\"><b>{$playerName}</b>({$_SESSION['onset_playerid']})<br>\n{$chatContent}<br>\n<i>{$diceRes}</i></div>\n";
             $line = $line . file_get_contents($roomDir.'/xxlogxx.txt');
             file_put_contents($roomDir.'/xxlogxx.txt', $line, LOCK_EX);
