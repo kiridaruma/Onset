@@ -28,7 +28,7 @@ class Onset
 
     public function getRoomlist()
     {
-        $dir = $this->config['roomSavepath'];
+        $dir = $this->config->roomSavepath;
         if (!file_exists("{$dir}roomlist")) {
             file_put_contents("{$dir}roomlist", 'a:0:{}');
         }
@@ -38,32 +38,32 @@ class Onset
 
     public function setRoomlist($roomList)
     {
-        $dir = $this->config['roomSavepath'];
+        $dir = $this->config->roomSavepath;
         $ret = file_put_contents("{$dir}roomlist", serialize($roomList), LOCK_EX);
         return $ret !== FALSE;
     }
 
     public function diceRoll($text, $diceSystem	)
     {
-        $url = $this->config['bcdiceURL'];
+        $url = $this->config->bcdiceURL;
 
         $encordedText = urlencode($text);
         $encordedSys  = urlencode($diceSystem);
 
         $s = "";
-        if($this->config["enableSSL"]) $s = 's';
+        if($this->config->enableSSL) $s = 's';
         $url = "http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}";
         $result = '';
         try {
             $client = new Client();
-            if ($this->config['localhost'] === true) {
+            if ($this->config->localhost === true) {
                 $resolve = [sprintf(
                     "%s:%d:%s",
-                    $this->config['resolve']['hostname'],
-                    $this->config['resolve']['port'],
-                    $this->config['resolve']['host_ip']
+                    $this->config->resolve->hostname,
+                    $this->config->resolve->port,
+                    $this->config->resolve->host_ip
                 )];
-                $url = "http{$s}://{$this->config['resolve']['hostname']}/bcdice/roll.rb?text={$encordedText}&sys={$encordedSys}";
+                $url = "http{$s}://{$this->config->resolve->hostname}/bcdice/roll.rb?text={$encordedText}&sys={$encordedSys}";
                 $result = $client->get($url, ['curl' => [CURLOPT_RESOLVE =>  $resolve]])
                         ->getBody();
             } else {
@@ -86,19 +86,19 @@ class Onset
     public function getDiceSystemList()
     {
         $result = [];
-        $url    = $this->config['bcdiceURL'];
-        $s      = $this->config['enableSSL'] ? 's' : '';
+        $url    = $this->config->bcdiceURL;
+        $s      = $this->config->enableSSL ? 's' : '';
         $url    = "http{$s}://{$url}?list=1";
         try {
             $client = new Client();
-            if ($this->config['localhost'] === true) {
+            if ($this->config->localhost === true) {
                 $resolve = [sprintf(
                     "%s:%d:%s",
-                    $this->config['resolve']['hostname'],
-                    $this->config['resolve']['port'],
-                    $this->config['resolve']['host_ip']
+                    $this->config->resolve->hostname,
+                    $this->config->resolve->port,
+                    $this->config->resolve->host_ip
                 )];
-                $url    = "http{$s}://{$this->config['resolve']['hostname']}/bcdice/roll.rb?list=1";
+                $url    = "http{$s}://{$this->config->resolve->hostname}/bcdice/roll.rb?list=1";
                 $result = explode(
                     "\n",
                     $client->get($url, ['curl' => [CURLOPT_RESOLVE =>  $resolve]])
@@ -110,7 +110,7 @@ class Onset
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             $this->logger->critical(
                 'Guzzle_error',
-                ['message' => $e->getMessage(), 'config'=> $this->config['resolve']]
+                ['message' => $e->getMessage(), 'config'=> print_r($this->config->resolve, true)]
             );
             $result = [];
         } catch (\Exception $e){
@@ -122,12 +122,12 @@ class Onset
 
     public function get($key)
     {
-        return $this->config[$key] ?? null;
+        return $this->config->{$key} ?? null;
     }
 
     public function getChatLogs($roomId, $isDecode = true)
     {
-        $dir  = $this->config['roomSavepath'];
+        $dir  = $this->config->roomSavepath;
         $data = '';
         if (file_exists($dir.$roomId.'/chatLogs.json')) {
             $data = file_get_contents($dir.$roomId.'/chatLogs.json');

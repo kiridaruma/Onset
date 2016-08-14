@@ -37,5 +37,7 @@ $container['logger'] = function ($c) {
 
 // Onset Config
 $container['config'] = function ($c) {
-    return require __DIR__ . '/config.php';
+    $config =  (object)(require __DIR__ . '/config.php');
+    $config->resolve = (object)($config->resolve);
+    return $config;
 };

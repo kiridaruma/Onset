@@ -36,8 +36,8 @@ class Room
         $factory = new Factory(new Translator('ja'));
         $validator = $factory->make($params, [
             'rand'      => 'required',
-            'roomPw'    => 'required|min:'.intval($this->config['minPassLength']),
-            'roomName'  => 'required|max:'.intval($this->config['maxRoomName'])
+            'roomPw'    => 'required|min:'.intval($this->config->minPassLength),
+            'roomName'  => 'required|max:'.intval($this->config->maxRoomName)
         ], self::getErrorMessages());
         try {
             $roomName = $params['roomName'];
@@ -49,12 +49,12 @@ class Room
                 throw new \Exception($validator->errors()->first());
             } elseif (isset($roomList[$roomName])) {
                 throw new \Exception('同名の部屋がすでに存在しています。');
-            } elseif (count($roomList) >= $this->config['roomLimit']) {
+            } elseif (count($roomList) >= $this->config->roomLimit) {
                 throw new \Exception('部屋数制限いっぱいです。');
             }
 
             $uuid = uniqid('', true);
-            $roomDir = rtrim($this->config['roomSavepath'],'/')."/{$uuid}";
+            $roomDir = rtrim($this->config->roomSavepath,'/')."/{$uuid}";
 
             if (!mkdir($roomDir)) {
                 throw new RoomException('部屋ディレクトリ作成に失敗しました。');
@@ -113,8 +113,8 @@ class Room
         $factory = new Factory(new Translator('ja'));
         $validator = $factory->make($params, [
             'rand'      => 'required',
-            'roomPw'    => 'required|min:'.intval($this->config['minPassLength']),
-            'roomName'  => 'required|max:'.intval($this->config['maxRoomName'])
+            'roomPw'    => 'required|min:'.intval($this->config->minPassLength),
+            'roomName'  => 'required|max:'.intval($this->config->maxRoomName)
         ], self::getErrorMessages());
         try {
             $roomName = $params['roomName'];
@@ -129,11 +129,11 @@ class Room
             }
 
             $roomId   = $roomList[$roomName]['path'];
-            $dir        = $this->config['roomSavepath'];
+            $dir        = $this->config->roomSavepath;
             $roomDir       = $dir.$roomId;
             $pass       = $params['roomPw'];
             $hash       = file_get_contents($roomDir.'/pass.hash');
-            if (!password_verify($pass, $hash) && $pass != $this->config['pass']) {
+            if (!password_verify($pass, $hash) && $pass != $this->config->pass) {
                 throw new \Exception('パスワードを間違えています');
             }
 
@@ -190,9 +190,9 @@ class Room
         $result = [];
         $factory = new Factory(new Translator('ja'));
         $validator = $factory->make($params, [
-            'playerName'    => 'required|max:'.intval($this->config['maxNick']),
-            'roomPw'        => 'required|min:'.intval($this->config['minPassLength']),
-            'roomName'      => 'required|max:'.intval($this->config['maxRoomName'])
+            'playerName'    => 'required|max:'.intval($this->config->maxNick),
+            'roomPw'        => 'required|min:'.intval($this->config->minPassLength),
+            'roomName'      => 'required|max:'.intval($this->config->maxRoomName)
         ], self::getErrorMessages());
         try {
             $roomName = $params['roomName'];
@@ -205,11 +205,11 @@ class Room
             }
 
             $roomId     = $roomList[$roomName]['path'];
-            $dir        = $this->config['roomSavepath'];
+            $dir        = $this->config->roomSavepath;
             $roomDir    = $dir.$roomId;
             $pass       = $params['roomPw'];
             $hash       = file_get_contents($roomDir.'/pass.hash');
-            if (!password_verify($pass, $hash) && $pass != $this->config['pass']) {
+            if (!password_verify($pass, $hash) && $pass != $this->config->pass) {
                 throw new \Exception('パスワードを間違えています');
             }
             $id = ip2long($_SERVER['REMOTE_ADDR']) + mt_rand();
@@ -229,8 +229,8 @@ class Room
     public function autoremove($params)
     {
         $result = ['status' => true];
-        $dir = $this->config['roomSavepath'];
-        $limitLeftTime = $this->config['roomDelTime'];
+        $dir = $this->config->roomSavepath;
+        $limitLeftTime = $this->config->roomDelTime;
         $roomList = $this->onset->getRoomlist();
         $i = 0;
 
@@ -297,7 +297,7 @@ class Room
             if ($validator->fails()) {
                 throw new \Exception($validator->errors()->first());
             }
-            $roomDir = $this->config['roomSavepath'].$roomId;
+            $roomDir = $this->config->roomSavepath . $roomId;
             $data = '';
             $time = $params['time'];
             if ($time < filemtime($roomDir."/xxlogxx.txt") * 1000) {
@@ -332,9 +332,9 @@ class Room
         $params['roomId']   = $_SESSION['onset_roomid'];
         $factory = new Factory(new Translator('ja'));
         $validator = $factory->make($params, [
-            'playerName'        =>  'required|max:'.intval($this->config['maxNick']),
+            'playerName'        =>  'required|max:'.intval($this->config->maxNick),
             'roomId'            =>  'required',
-            'chatContent'       =>  'required|max:'.intval($this->config['maxText']),
+            'chatContent'       =>  'required|max:'.intval($this->config->maxText),
             'diceSystem'        =>  'required'
         ], self::getErrorMessages());
         try {
@@ -343,7 +343,7 @@ class Room
             }
             $_SESSION['onset_playername'] = $params['playerName'];
             $roomId         = $params['roomId'];
-            $roomDir        = $this->config['roomSavepath'].$roomId;
+            $roomDir        = $this->config->roomSavepath . $roomId;
             $playerName     = $params['playerName'];
             $chatContent    = $params['chatContent'];
             $diceSystem     = $params['diceSystem'];
@@ -399,7 +399,7 @@ class Room
             }
             $roomId   = $_SESSION['onset_roomid'];
             $playerId = $_SESSION['onset_roomid'];
-            $roomDir = $this->config['roomSavepath'].$roomId."/connect/";
+            $roomDir = $this->config->roomSavepath . "{$roomId}/connect/";
             $loginUserList = scandir($roomDir);
             $params['lock'] = $params['lock'] ?? null;
             if($params['lock'] === 'unlock') {
@@ -441,7 +441,7 @@ class Room
      */
     public function getChatLog()
     {
-        $dir = $this->config['roomSavepath'];
+        $dir = $this->config->roomSavepath;
         $chatLog = $dir.$_SESSION['onset_roomid']."/xxlogxx.txt";
         $text = file_get_contents($chatLog);
         // $text    = htmlspecialchars_decode(strip_tags(file_get_contents($chatLog)));

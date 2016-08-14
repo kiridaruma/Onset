@@ -47,8 +47,8 @@ class OnsetController extends Controller
     public function status(Request $request, Response $response, $args)
     {
         $result = '';
-        $BCDiceURL = $this->config['bcdiceURL'];
-        $SSL       = $this->config['enableSSL'] ? 's' : '';
+        $BCDiceURL = $this->config->bcdiceURL;
+        $SSL       = $this->config->enableSSL ? 's' : '';
         file_get_contents("http{$SSL}://{$BCDiceURL}?list=1");
         if (isset($http_response_header)) {
             $result = strpos($http_response_header[0], '200') !== FALSE ? "ダイスボットの設定は正常です\n" : "ダイスボットにアクセスできません\n";
@@ -56,7 +56,7 @@ class OnsetController extends Controller
             $result = "ダイスボットにアクセスできません\n";
         }
 
-        $dir = $this->config['roomSavepath'];
+        $dir = $this->config->roomSavepath;
         $dirStatus = is_writable($dir) && is_readable($dir);
         $roomListStatus = is_writable($dir) && is_readable($dir);
         $result =  $dirStatus && $roomListStatus ? "部屋データの設定は正常です\n" : "部屋データにアクセスできません\n";
