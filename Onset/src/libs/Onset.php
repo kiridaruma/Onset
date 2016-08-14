@@ -43,7 +43,7 @@ class Onset
         return $ret !== FALSE;
     }
 
-    public function diceroll($text, $diceSystem	)
+    public function diceRoll($text, $diceSystem	)
     {
         $url = $this->config['bcdiceURL'];
 
@@ -53,18 +53,30 @@ class Onset
         $s = "";
         if($this->config["enableSSL"]) $s = 's';
         $url = "http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}";
-        $ret = '';
+        $result = '';
         try {
             $client = new Client();
-            $ret = $client->get($url)->getBody();
-            if(trim($ret) == '1' || trim($ret) == 'error'){
-                $ret = "";
+            if ($this->config['localhost'] === true) {
+                $resolve = [sprintf(
+                    "%s:%d:%s",
+                    $this->config['resolve']['hostname'],
+                    $this->config['resolve']['port'],
+                    $this->config['resolve']['host_ip']
+                )];
+                $url = "http{$s}://{$this->config['resolve']['hostname']}/bcdice/roll.rb?text={$encordedText}&sys={$encordedSys}";
+                $result = $client->get($url, ['curl' => [CURLOPT_RESOLVE =>  $resolve]])
+                        ->getBody();
+            } else {
+                $result = $client->get($url)->getBody();
+            }
+            if(trim($result) == '1' || trim($result) == 'error'){
+                $result = "";
             }
         } catch (\Exception $e){
             $this->logger->critical('diceroll', ['message' => $e->getMessage()]);
-            $ret = '';
+            $result = '';
         }
-        return str_replace('onset: ', '', $ret);
+        return str_replace('onset: ', '', $result);
     }
 
     /**
@@ -79,7 +91,28 @@ class Onset
         $url    = "http{$s}://{$url}?list=1";
         try {
             $client = new Client();
-            $result = explode("\n", $client->get($url)->getBody());
+            if ($this->config['localhost'] === true) {
+                $resolve = [sprintf(
+                    "%s:%d:%s",
+                    $this->config['resolve']['hostname'],
+                    $this->config['resolve']['port'],
+                    $this->config['resolve']['host_ip']
+                )];
+                $url    = "http{$s}://{$this->config['resolve']['hostname']}/bcdice/roll.rb?list=1";
+                $result = explode(
+                    "\n",
+                    $client->get($url, ['curl' => [CURLOPT_RESOLVE =>  $resolve]])
+                        ->getBody()
+                );
+            } else {
+                $result = explode("\n", $client->get($url)->getBody());
+            }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $this->logger->critical(
+                'Guzzle_error',
+                ['message' => $e->getMessage(), 'config'=> $this->config['resolve']]
+            );
+            $result = [];
         } catch (\Exception $e){
             $this->logger->critical('error_in_getDiceSystemList', ['message' => $e->getMessage()]);
             $result = [];
