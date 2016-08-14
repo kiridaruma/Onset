@@ -1,5 +1,5 @@
 window.addEventListener('load', function(){
-    $.get('src/delLeftRoom.php');
+    $.get('/room/autoremove');
 }, false);
 
 function toggle(){
@@ -21,7 +21,7 @@ function enterRoom(){
     $('#enterNotice').text('処理中...');
 
     $.ajax({
-        url:"src/login.php",
+        url:"/room/enter",
         type:"POST",
         data:{
             "playerName": playerName,
@@ -38,7 +38,7 @@ function enterRoom(){
                 $('#enterNotice').text(msg);
                 return;
             }
-            location.href = 'Onset.php';
+            location.href = '/onset';
         }
     });
 }
@@ -55,7 +55,7 @@ function createRoom(){
     $('#createNotice').text('処理中...');
 
     $.ajax({
-        url:"src/createRoom.php",
+        url:"/room/create",
         type:"POST",
         data:{
             "roomName" : roomName,
@@ -89,7 +89,7 @@ function removeRoom(){
     $('#removeNotice').text('処理中...');
 
     $.ajax({
-        url:"src/removeRoom.php",
+        url:"/room/remove",
         type:"POST",
         data:{
             "roomName":roomName,

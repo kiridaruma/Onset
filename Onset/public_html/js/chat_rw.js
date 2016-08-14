@@ -2,8 +2,8 @@ var finaltime = 1;
 
 function get_log(){
     $.ajax({
-        url: "src/read.php",
-        type: "POST",
+        url:    "/room/read",
+        type:   "POST",
         cache: false,
         data: {
             "time": finaltime
@@ -11,10 +11,10 @@ function get_log(){
         beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
-        success: function(data){
-            if(data != "none"){
-                $(".chats").html(data);
-                finaltime = $.now();
+        success: function(result){
+            if(result.status === true){
+                $(".chats").html(result.data);
+                // finaltime = $.now();
             }
             setTimeout(function(){get_log();} , 1000);
         }
@@ -36,7 +36,7 @@ function send_chat(){
     $("#onsetNotice").text('送信中...');
 
     $.ajax({
-        url: "src/write.php",
+        url: "/room/write",
         type: "POST",
         data: {
             "playerName" : playerName,
@@ -71,7 +71,7 @@ $(function($){
 
 function checkLoginUser(){
     $.ajax({
-        url: 'src/checkLoginUser.php',
+        url: '/room/users',
         type: 'POST',
         beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
@@ -79,7 +79,7 @@ function checkLoginUser(){
         success: function(data){
             alert(data);
             $.ajax({
-                url: 'src/checkLoginUser.php',
+                url: '/room/users',
                 type: 'POST',
                 data: {'lock': 'unlock'},
                 beforeSend: function(xhr) {

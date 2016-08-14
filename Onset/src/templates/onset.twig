@@ -1,0 +1,33 @@
+{% extends 'base/base.twig' %}
+
+{% block head_extends %}
+    <link rel="stylesheet" href="/css/style.css">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <script type="text/javascript" src="/js/chat_rw.js"></script>
+{% endblock %}
+
+{% block body %}
+    <header>
+        <a href="room/logput" class="top-item">ログ出力</a>
+        <a href="room/logout" class="top-item">ログアウト</a>
+        <a class="top-item" onclick="checkLoginUser()">ログイン一覧</a>
+    </header>
+    <div class="contents">
+    <div class="form">
+        <input type="text" id="nick" value={{onset_playername}}>({{onset_playerid}})
+        <select id="sys">
+        <option value="None" selected>指定なし</option>
+        {% for item in diceSystemList %}
+            <option value="{{item}}">{{item}}</option>
+        {% endfor %}
+        </select><br />
+        <textarea id="text" rows="3" cols="40"></textarea><br />
+        <button type="button" id="button" value="送信" onclick="send_chat()">送信</button>
+    </div>
+
+    <div id="onsetNotice" class="notice"></div>
+        <script>$(document).ready(function(){get_log();});</script>
+    <div class="chats"></div>
+    </div>
+{% endblock %}
