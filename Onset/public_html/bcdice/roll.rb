@@ -1,11 +1,12 @@
 #!/usr/bin/ruby -Ku
 #--*-coding:utf-8-*--
 
-$LOAD_PATH << File.dirname(__FILE__)
+$LOAD_PATH.push(__dir__)
+$LOAD_PATH.push(__dir__ + "/bcdice/src/")
 
 require 'cgi'
-require 'bcdiceCore.rb'
-require 'configBcDice.rb'
+require 'bcdice/src/bcdiceCore.rb'
+require 'bcdice/src/configBcDice.rb'
 
 class OnsetBCDiceMaker < BCDiceMaker
   

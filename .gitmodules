@@ -1,0 +1,3 @@
+[submodule "Onset/public_html/bcdice/bcdice"]
+	path = Onset/public_html/bcdice/bcdice
+	url = https://github.com/torgtaitai/BCDice.git

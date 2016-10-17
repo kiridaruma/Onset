@@ -1,0 +1,36 @@
+body{
+    background-color: #000030;
+    color: #ddd;
+}
+
+.header{
+    padding: 1em;
+    border-bottom: solid 1px #ccc;
+}
+
+.form-group{
+    padding: 1em;
+}
+
+.form-control{
+    margin: 0.5em auto 0.5em;
+    width: auto;
+    resize: none;
+}
+
+.edit{
+    display: none;
+}
+
+.send{
+    background-color: #7c7;
+}
+
+.del{
+    background-color: #f99;
+}
+
+.notice{
+    font-weight: bold;
+    text-decoration: underline;
+}

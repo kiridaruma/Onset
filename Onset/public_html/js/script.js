@@ -4,7 +4,7 @@ window.addEventListener('load', function(){
 
 function toggle(){
     $(".edit").slideToggle('fast');
-    $(".join").slideToggle('fast');
+    $(".login").slideToggle('fast');
 }
 
 function enterRoom(){
