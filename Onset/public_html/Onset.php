@@ -34,29 +34,22 @@ $sysList = explode("\n", file_get_contents("http{$s}://{$url}?list=1"));
         <a href="src/logput.php">ログ出力</a>
         <a href="src/logout.php">ログアウト</a>
         <a onclick="checkLoginUser()">ログイン一覧</a>
-        (<?= $_SESSION['onset_id'] ?>)
     </div>
 
     <div class="form-group">
+        ID:(<?= $_SESSION['onset_id'] ?>)
+        <input type="text" class="form-control" id="nick" value=<?= $_SESSION['onset_nick'] ?>>
 
-        <div class="form-inline">
-            <input type="text" class="form-control" id="nick" value=<?= $_SESSION['onset_nick'] ?>>
-        </div>
+        <textarea id="text" class="form-control" rows="3" cols="30"></textarea>
 
-        <div class="form-inline">
-            <textarea id="text" class="form-control" rows="3" cols="30"></textarea>
-        </div>
+        <select id="sys" class="form-control">
+        <option value="None" selected>指定なし</option>
+            <?php foreach($sysList as $value): ?>
+                <option value="<?=$value?>"><?=$value?></option>
+            <?php endforeach; ?>
+        </select>
 
-        <div class="form-inline">
-            <select id="sys" class="form-control">
-            <option value="None" selected>指定なし</option>
-                <?php foreach($sysList as $value): ?>
-                    <option value="<?=$value?>"><?=$value?></option>
-                <?php endforeach; ?>
-            </select>
-
-            <button type="button" class="form-control send" id="button" value="送信" onclick="send_chat()">送信</button>
-        </div>
+        <button type="button" class="form-control send" id="button" value="送信" onclick="send_chat()">送信</button>
 
    </div>
 

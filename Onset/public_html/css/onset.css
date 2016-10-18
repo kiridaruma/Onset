@@ -4,7 +4,8 @@ body{
 }
 
 .header{
-    padding: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
     border-bottom: solid 1px #ccc;
 }
 
@@ -13,7 +14,8 @@ body{
 }
 
 .form-control{
-    margin: 0.5em auto 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
     width: auto;
     resize: none;
 }

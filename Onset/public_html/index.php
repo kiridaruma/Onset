@@ -33,13 +33,13 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/onset.css">
 </head>
-<body class="container text-center">
-    <div class="header">
+<body>
+    <div class="header container">
         <h1>Onset!</h1>
         <article><?=$welcomeMessage?></article>
     </div>
 
-    <div class="login">
+    <div class="login container">
         <a id="toggle" onclick="toggle()">部屋の作成/削除</a>
         <form id="enter">
             <div id="input" class="form-group">
@@ -62,7 +62,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
         </form>
     </div>
 
-    <div class="edit">
+    <div class="edit container">
         
         <a onclick="toggle()" id="toggle">閉じる</a>
 
@@ -83,7 +83,8 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
             <input type="hidden" class="form-control" name="rand" value="<?=$rand?>">
             <input type="button" class="form-control del" value="削除" onclick="removeRoom()">
             <span id="removeNotice" class="notice"></span>
-        <div>
+            
+            <div class="form-group">
                 <p>部屋一覧</p>
                 <?php foreach($roomlist as $key => $value) : ?>
                     <div class="form-check">
