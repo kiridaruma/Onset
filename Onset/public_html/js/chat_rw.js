@@ -14,7 +14,7 @@ function get_log(){
         },
         success: function(data){
             if(data != "none"){
-                $(".chats").html(data);
+                $("#chatLog").html(data);
                 finaltime = $.now();
             }
             setTimeout(function(){get_log();} , 1000);

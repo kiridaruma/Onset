@@ -40,7 +40,7 @@ $sysList = explode("\n", file_get_contents("http{$s}://{$url}?list=1"));
         ID:(<?= $_SESSION['onset_id'] ?>)
         <input type="text" class="form-control" id="nick" value=<?= $_SESSION['onset_nick'] ?>>
 
-        <textarea id="text" class="form-control" rows="3" cols="30"></textarea>
+        <textarea id="text" class="form-control" rows="4" cols="35"></textarea>
 
         <select id="sys" class="form-control">
         <option value="None" selected>指定なし</option>
@@ -55,6 +55,6 @@ $sysList = explode("\n", file_get_contents("http{$s}://{$url}?list=1"));
 
     <div id="notice"></div>
         <script>$(document).ready(function(){get_log();});</script>
-    <div></div>
+    <div id="chatLog"></div>
 </body>
 </html>
