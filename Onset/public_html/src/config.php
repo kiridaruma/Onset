@@ -8,49 +8,42 @@
  * Onsetの管理パスワードです
  * 簡単なものに設定しないでください
  */
-$config['pass'] = "";
+const Pass = "";
 
 /*
  * 部屋データを置くディレクトリへのパスです
  * カスタマイズする場合は良しなに...
  */
-$config['roomSavepath'] = __DIR__."/../../room/";
+const RoomSavepath = __DIR__."/../../room/";
 
 /*
  * bcdiceへのURL
- * ダイスボットへのパスを書いてください
- * デフォルトではindex.phpと同じ階層にあります
+ * デフォルトでは空文字("")でお願いします
+ * カスタマイズしてる方や、デフォルト設定で動かない場合はbcdiceへのURLを入れてください
  */
-$config['bcdiceURL'] = "localhost/Onset/bcdice/roll.rb";
-
-/*
- * SSLを有効にするか
- * URLの先頭についてる、httpsってやつです
- * わからない人はいじらないほうがいいと思います
- */
-$config['enableSSL'] = false;
+const BcdiceURL = "";
 
 /*
  * 最大部屋数
  * 1部屋当たりはそこまで容量食いません
  * サーバーのスペックに合わせて適当に設定してください
  */
-$config["roomLimit"] = 100;
+const RoomLimit = 100;
 
 /*
  * 部屋名の長さ制限
  */
-$config['maxRoomName'] = 30;
+const MaxRoomName = 30;
 
 /*
  * チャットの最大文字数と、ニックネームの最大文字数
  */
-$config["maxText"] = 300;
-$config["maxNick"] = 20;
+const MaxText = 300;
+const MaxNick = 20;
 
 /*
  *部屋が自動削除されるまでの時間
  *秒数で指定してください
  *デフォルトでは10日で設定しています(60秒×60分×24時間×10日)
  */
-$config["roomDelTime"] = 60 * 60 * 24 * 10;
+const RoomDelTime = 60 * 60 * 24 * 10;

@@ -1,55 +1,64 @@
 <?php
-require_once(dirname(__FILE__).'/config.php');
 
+require_once(__DIR__.'/config.php');
 
 class Onset
 {
-    public static function isValidAccess($randKey)
+
+    public static function varidate(&$input)
     {
-        if($randKey != $_SESSION['onset_rand']) return false;
-        return true;
+        $val = $input;
+        unset($input);
+        if($val == null) return false;
+        return $val;
     }
 
     public static function getRoomlist()
     {
-        global $config;
-        $dir = $config['roomSavepath'];
+        $dir = RoomSavepath;
         $text = file_get_contents($dir.'roomlist');
-        return unserialize(rtrim($text));
+        return json_decode(rtrim($text));
     }
 
-    public static function setRoomlist($roomlist)
+    public static function saveRoomlist($roomlist)
     {
-        global $config;
-        $dir = $config['roomSavepath'];
-        $ret = file_put_contents($dir.'roomlist', serialize($roomlist), LOCK_EX);
-        return $ret !== FALSE;
+        $dir = RoomSavepath;
+        $ret = file_put_contents($dir.'roomlist', json_encode($roomlist), LOCK_EX);
+        return $ret;
     }
 
-    public static function jsonStatus($message, $status = 1)
+    public static function jsonMessage($message, $data = [], $code = 1)
     {
         $json = [
-            "status"  => $status,
-            "message" => $message
+            "code"  => $code,
+            "message" => $message,
+            "data" => $data
         ];
-
         return json_encode($json);
     }
 
     public static function diceroll($text, $sys)
     {
-        global $config;
-        $url = $config['bcdiceURL'];
+        $url = self::getBcdiceUrl();
 
         $encordedText = urlencode($text);
         $encordedSys  = urlencode($sys);
 
-        $s = "";
-        if($config["enableSSL"]) $s = 's';
-        $ret = file_get_contents("http{$s}://{$url}?text={$encordedText}&sys={$encordedSys}");
+        $ret = file_get_contents("text={$encordedText}&sys={$encordedSys}");
         if(trim($ret) == '1' || trim($ret) == 'error'){
             $ret = "";
         }
         return str_replace('onset: ', '', $ret);
     }
+
+    private static function getBcdiceUrl()
+    {
+        if(BcdiceURL == "") return BcdiceUrl;
+        $fullPath = preg_replace("/src$/", "", __DIR__) . "bcdice/roll.rb";
+        $docRoot = str_replace($_SERVER['SCRIPT_NAME'], "", $_SERVER['SCRIPT_FILENAME']);
+        $urlPath = str_replace($docRoot, "", $fullPath);
+        $procotlName = $_SERVER['HTTPS'] == null ? 'http://' : 'https://';
+        return $procotlName . $_SERVER['SERVER_NAME'] . $urlPath;
+    }
+
 }
