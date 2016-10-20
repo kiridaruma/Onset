@@ -7,9 +7,10 @@ $nick = Onset::varidate($_POST['nick']);
 $text = Onset::varidate($_POST['text']);
 $sys  = Onset::varidate($_POST['sys']);
 $room = Onset::varidate($_SESSION['onset_room']);
+$id   = Onset::varidate($_SESSION['onset_id']);
 
 try {
-    if ($text === false || $nick === false || $room === false || $sys === false)
+    if ($text === false || $nick === false || $room === false || $sys === false || $id === false)
         throw new Exception('不正なアクセス:invalid_access');
 
     $_dir = RoomSavepath.$room;
@@ -23,7 +24,8 @@ try {
         'time' => time(),
         'nick' => $nick,
         'text' => $text,
-        'dice' => $diceRes
+        'dice' => $diceRes,
+        'id' => $id
     ];
 
     $chatLog = json_decode(file_get_contents($_dir.'/log.json'));
