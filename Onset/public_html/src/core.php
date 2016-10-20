@@ -27,13 +27,14 @@ class Onset
         return $ret;
     }
 
-    public static function jsonMessage($message, $data = [], $code = 1)
+    public static function jsonMessage($message, $code = 1, $data = [])
     {
         $json = [
             "code"  => $code,
             "message" => $message,
             "data" => $data
         ];
+        header('Content-Type: application/json');
         return json_encode($json);
     }
 
@@ -53,12 +54,33 @@ class Onset
 
     private static function getBcdiceUrl()
     {
-        if(BcdiceURL == "") return BcdiceUrl;
+        if(BcdiceURL != "") return BcdiceURL;
         $fullPath = preg_replace("/src$/", "", __DIR__) . "bcdice/roll.rb";
         $docRoot = str_replace($_SERVER['SCRIPT_NAME'], "", $_SERVER['SCRIPT_FILENAME']);
         $urlPath = str_replace($docRoot, "", $fullPath);
         $procotlName = $_SERVER['HTTPS'] == null ? 'http://' : 'https://';
         return $procotlName . $_SERVER['SERVER_NAME'] . $urlPath;
+    }
+
+    public static function searchLog($chatLog, $time){
+        if($time === 0) return $chatLog;
+        $point = count($chatLog);
+        $flag = false;
+        for(;$chatLog[$point]->time > $time; $point -= 1) $flag = true;
+        if($flag) return array_slice($chatLog, $point);
+        else return [];
+    }
+
+    //正直線形探索で十分と思うけど、念のため二分探索の関数もおいておきます
+    private static function binarySearch($chatLog, $time){
+        $point = floor(count($chatLog) / 2);
+        $width = $point;
+        while($width > 1){
+            if($chatLog[$point]->time < $time) $point += floor($width / 2);
+            if($chatLog[$point]->time > $time) $point -= floor($width / 2);
+            $width = floor($width / 2);
+        }
+        return array_slice($chatLog, $point+1);
     }
 
 }

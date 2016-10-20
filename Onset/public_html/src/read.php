@@ -1,33 +1,29 @@
 <?php
-require_once('core.php');
-require_once('config.php');
+require_once(__DIR__.'/core.php');
 
 session_start();
 
-$time = isset($_POST['time'])          && $_POST['time']          !== '' ? $_POST['time']          : false;
-$room = isset($_SESSION['onset_room']) && $_SESSION['onset_room'] !== '' ? $_SESSION['onset_room'] : false;
+$time = Onset::varidate($_POST['time']);
+$room = Onset::varidate($_SESSION['onset_room']);
 
 if ($time === false || $room === false) {
-    echo Onset::jsonStatus("不正なアクセス", -1);
+    echo Onset::jsonMessage("不正なアクセス", -1);
     die();
 }
 
-$_dir = $config['roomSavepath'].$room;
+$dir = RoomSavepath.$room;
 
-if ($time < filemtime($_dir."/xxlogxx.txt") * 1000) {
-    $fp = fopen($_dir."/xxlogxx.txt", 'r');
-
-    do {
-        $line = fgets($fp);
-        if($line !== false) echo $line;
-    } while($line !== false);
-
-    fclose($fp);
-} else {
-    echo "none";
+if(!file_exists($dir)){
+    echo Onset::jsonMessage("部屋が存在しません", -1);
+    die();
 }
 
-$tmp = $_dir."/connect/".$_SESSION['onset_id'];
+$chatLog = json_decode(file_get_contents($dir."/log.json"));
+$cuttedLog = Onset::searchLog($chatLog, $time);
+
+echo Onset::jsonMessage("ok", 1, json_encode($cuttedLog));
+
+$tmp = $dir."/connect/".$_SESSION['onset_id'];
 file_put_contents($tmp, time()."\n".$_SESSION['onset_nick'], LOCK_EX);
 
 clearstatcache();
