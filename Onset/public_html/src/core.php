@@ -45,28 +45,29 @@ class Onset
         $encordedText = urlencode($text);
         $encordedSys  = urlencode($sys);
 
-        $ret = file_get_contents("text={$encordedText}&sys={$encordedSys}");
+        $ret = file_get_contents($url."?text={$encordedText}&sys={$encordedSys}");
         if(trim($ret) == '1' || trim($ret) == 'error'){
             $ret = "";
         }
         return str_replace('onset: ', '', $ret);
     }
 
-    private static function getBcdiceUrl()
+    public static function getBcdiceUrl()
     {
         if(BcdiceURL != "") return BcdiceURL;
-        $fullPath = preg_replace("/src$/", "", __DIR__) . "bcdice/roll.rb";
+        $_dir = str_replace("\\", "/", __DIR__);
+        $fullPath = preg_replace("/src$/", "", $_dir) . "bcdice/roll.rb";
         $docRoot = str_replace($_SERVER['SCRIPT_NAME'], "", $_SERVER['SCRIPT_FILENAME']);
         $urlPath = str_replace($docRoot, "", $fullPath);
-        $procotlName = $_SERVER['HTTPS'] == null ? 'http://' : 'https://';
+        $procotlName = !isset($_SERVER['HTTPS']) ? 'http://' : 'https://';
         return $procotlName . $_SERVER['SERVER_NAME'] . $urlPath;
     }
 
     public static function searchLog($chatLog, $time){
         if($time === 0) return $chatLog;
-        $point = count($chatLog);
+        $point = count($chatLog) - 1;
         $flag = false;
-        for(;$chatLog[$point]->time > $time; $point -= 1) $flag = true;
+        for(;isset($chatLog[$point]) && $chatLog[$point]->time > $time; $point -= 1) $flag = true;
         if($flag) return array_slice($chatLog, $point);
         else return [];
     }

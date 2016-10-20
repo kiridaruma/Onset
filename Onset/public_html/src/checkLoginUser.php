@@ -1,17 +1,18 @@
 <?php
-require_once('config.php');
+
+require_once(__DIR__.'/core.php');
 
 session_start();
 
-$room = isset($_SESSION['onset_room']) 	&& $_SESSION['onset_room']	!= NULL ? $_SESSION['onset_room'] : FALSE;
-$id = isset($_SESSION['onset_id']) && $_SESSION['onset_id'] != NULL ? $_SESSION['onset_id'] : FALSE;
+$room = Onset::varidate($_SESSION['onset_room']);
+$id = Onset::varidate($_SESSION['onset_id']);
 
 if(!$room || !$id){
     echo "不正なアクセス";
     die();
 }
 
-$dir = $config['roomSavepath'].$room."/connect/";
+$dir = RoomSavepath.$room."/connect/";
 $arr = scandir($dir);
 
 if($_POST['lock'] === 'unlock') {

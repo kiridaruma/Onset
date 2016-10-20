@@ -15,8 +15,8 @@ try {
 
     $_dir = RoomSavepath.$room;
 
-    if ($config['maxNick'] <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
-    if ($config['maxText'] <= mb_strlen($text)) throw new Exception('テキストが長すぎます ('. mb_strlen($text) .')');
+    if (MaxNick <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
+    if (MaxText <= mb_strlen($text)) throw new Exception('テキストが長すぎます ('. mb_strlen($text) .')');
 
     $diceRes = Onset::diceroll($text, $sys);
 
@@ -38,4 +38,4 @@ try {
     die();
 }
 
-echo Onset::jsonStatus('ok');
+echo Onset::jsonMessage('ok');

@@ -6,10 +6,9 @@ if(!isset($_SESSION['onset_room'])){
     die();
 }
 
-require_once('src/config.php');
-$url = $config['bcdiceURL'];
-$s = $config['enableSSL'] ? 's' : '';
-$sysList = explode("\n", file_get_contents("http{$s}://{$url}?list=1"));
+require_once(__DIR__.'/src/core.php');
+$url = Onset::getBcdiceUrl();
+$sysList = explode("\n", file_get_contents($url."?list=1"));
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +24,8 @@ $sysList = explode("\n", file_get_contents("http{$s}://{$url}?list=1"));
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/onset.css">
 
-        <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script src="js/chat_rw.js"></script>
 </head>
 <body class="container">

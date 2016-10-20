@@ -1,6 +1,6 @@
 <?php
-require_once('config.php');
-require_once('core.php');
+
+require_once(__DIR__.'/core.php');
 
 session_start();
 
@@ -8,7 +8,7 @@ if(!isset($_SESSION['onset_room'])){
     echo "不正なアクセスです";
     die();
 }
-$dir = $config['roomSavepath'];
+$dir = RoomSavepath;
 $logdir = $dir.$_SESSION['onset_room']."/xxlogxx.txt";
 $text = htmlspecialchars_decode(strip_tags(file_get_contents($logdir)));
 

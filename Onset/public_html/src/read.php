@@ -21,7 +21,7 @@ if(!file_exists($dir)){
 $chatLog = json_decode(file_get_contents($dir."/log.json"));
 $cuttedLog = Onset::searchLog($chatLog, $time);
 
-echo Onset::jsonMessage("ok", 1, json_encode($cuttedLog));
+echo Onset::jsonMessage("ok", 1, $cuttedLog);
 
 $tmp = $dir."/connect/".$_SESSION['onset_id'];
 file_put_contents($tmp, time()."\n".$_SESSION['onset_nick'], LOCK_EX);
