@@ -10,7 +10,9 @@ class Onset
         $val = $input;
         unset($input);
         if($val == null) return false;
-        return trim($val);
+        $val = trim($val);
+        if($val == "") return false;
+        return $val;
     }
 
     public static function getRoomlist()
