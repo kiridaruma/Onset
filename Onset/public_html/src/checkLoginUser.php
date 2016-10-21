@@ -17,11 +17,11 @@ $dir = RoomSavepath.$room."/connect/";
 $arr = scandir($dir);
 
 if($lock === 'unlock') {
-    file_put_contents($dir.$id, time()."\n".$_SESSION['onset_nick']);
+    file_put_contents($dir.$id, time()."\n".$_SESSION['onset_nick'], LOCK_EX);
     die();
 }
 
-file_put_contents($dir.$id, time()."\n".$_SESSION['onset_nick']."\nlocked");
+file_put_contents($dir.$id, time()."\n".$_SESSION['onset_nick']."\nlocked", LOCK_EX);
 
 $ret = "";
 $num = 0;
