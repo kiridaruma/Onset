@@ -13,18 +13,18 @@ function get_log(){
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
         success: function(ret){
-            if(ret.code != 1){
+            if(ret.status != 1){
                 alert("エラーが発生しました\nF5更新をお願いします");
                 return;
             }
             ret.data.forEach(function(val, idx, arr){
-                var name = $("<span></span>",{text:val.nick + ' ('+val.id+')', class:'chatName'});
-                var text = $("<div></div>", {text:val.text, class:'chatText'});
-                var dice = $("<div></div>", {text:val.dice, class:'chatDice'});
-                var chat = $("<div></div>", {class:'chatObj'}).append(name).append(text).append(dice);
+                var name = $("<span></span>",{text:val.nick + ' ('+val.id+')', class:'chat-nick'});
+                var text = $("<div></div>", {text:val.text, class:'chat-text'});
+                var dice = $("<div></div>", {text:val.dice, class:'chat-dice'});
+                var chat = $("<div></div>", {class:'chat-obj'}).append(name).append(text).append(dice);
                 $("#chatLog").prepend(chat);
-                finaltime = ret.data[ret.data.length - 1].time;
             });
+            if(ret.data.length != 0) finaltime = ret.data[ret.data.length - 1].time;
             setTimeout(function(){get_log();} , 1000);
         }
     });

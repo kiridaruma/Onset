@@ -27,10 +27,10 @@ class Onset
         return $ret;
     }
 
-    public static function jsonMessage($message, $code = 1, $data = [])
+    public static function jsonMessage($message, $status = 1, $data = [])
     {
         $json = [
-            "code"  => $code,
+            "status"  => $status,
             "message" => $message,
             "data" => $data
         ];
@@ -64,7 +64,7 @@ class Onset
     }
 
     public static function searchLog($chatLog, $time){
-        if($time === 0) return $chatLog;
+        if($time == 0) return $chatLog;
         $point = count($chatLog) - 1;
         $flag = false;
         for(;isset($chatLog[$point]) && $chatLog[$point]->time > $time; $point -= 1) $flag = true;
