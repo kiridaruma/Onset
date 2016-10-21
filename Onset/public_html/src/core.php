@@ -86,4 +86,18 @@ class Onset
         return array_slice($chatLog, $point+1);
     }
 
+    //$roomPathは、語尾が'/'で終わっているパス名を引数に与えてください
+    public static function removeRoomData($roomPath){
+        $dirArr = scandir($roomPath);
+        foreach($dirArr as $child){
+            if($child == '.' || $child == '..') continue;
+            if(is_dir($roomPath.$child)){
+                self::removeRoomData($roomPath.$child."/");
+                continue;
+            }
+            if(!unlink($roomPath.$child)) throw new Exception("ファイル".$roomPath.$child."の削除に失敗しました");
+        }
+        if(!rmdir($roomPath)) throw new Exception("フォルダ".$roomPath."の削除に失敗しました");
+    }
+
 }

@@ -1,41 +1,25 @@
 <?php
 require_once(__DIR__.'/core.php');
 
-$dir = RoomSavepath;
-$limitLeftTime = RoomDelTime;
 $roomlist = Onset::getRoomlist();
 $i = 0;
 
 foreach ($roomlist as $room => $data) {
-    $roompath = $data->path;
-    $leftTime = filemtime($dir.$roompath);
 
-    $_dir     = $dir.$roompath;
+    $dir     = RoomSavepath.$data->path."/";
+    $leftTime = filemtime($dir);
 
-    if (time() - $leftTime > $limitLeftTime) {
+    if (time() - $leftTime > RoomDelTime) {
         try {
-            foreach (scandir($_dir.'/connect/') as $k) {
-                if ($k == "." || $k == "..") continue;
-                if (!unlink($_dir.'/connect/'.$k)) throw new Exception();
-            }
-
-            if(!rmdir($_dir.'/connect/')) throw new Exception();
-
-            foreach (scandir($_dir) as $k) {
-                if ($k == "." || $k == "..") continue;
-                if (!unlink($_dir.$k)) throw new Exception();
-            }
-
-            if (!rmdir($dir.$roompath)) throw new Exception();
-
+            Onset::removeRoomData($dir);
             unset($roomlist->{$room});
-            if(!Onset::saveRoomlist($roomlist)) throw new Exception();
+            if(!Onset::saveRoomlist($roomlist)) throw new Exception("部屋インデックスデータの保存に失敗しました");
         } catch (Exception $e) {
-            echo Onset::jsonMessage('部屋自動削除の際にエラーが起こりました', -1);
+            echo Onset::jsonMessage($e->getMessage(), -1);
             die();
         }
-        $i++;
+        $i += 1;
     }
 }
 
-echo Onset::jsonMessage('ok');
+echo $i > 0 ? Onset::jsonMessage($i.'部屋削除しました') : Onset::jsonMessage('ok');
