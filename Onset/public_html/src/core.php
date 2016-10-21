@@ -10,7 +10,7 @@ class Onset
         $val = $input;
         unset($input);
         if($val == null) return false;
-        return $val;
+        return trim($val);
     }
 
     public static function getRoomlist()
@@ -49,7 +49,7 @@ class Onset
         if(trim($ret) == '1' || trim($ret) == 'error'){
             $ret = "";
         }
-        return str_replace('onset: ', '', $ret);
+        return trim(str_replace('onset: ', '', $ret));
     }
 
     public static function getBcdiceUrl()
