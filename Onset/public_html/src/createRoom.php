@@ -9,7 +9,7 @@ $pass = Onset::varidate($_POST['pass']);
 
 try {
 
-    if($_POST['rand'] === $_SESSION['onset_rand']) throw new Exception('不正なアクセス。');
+    if($_POST['rand'] != $_SESSION['onset_rand']) throw new Exception('不正なアクセス。');
 
     if($room === false || $pass === false) throw new Exception('部屋名かパスワードが空です。');
 

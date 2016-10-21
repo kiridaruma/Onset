@@ -6,7 +6,7 @@ session_start();
 
 try {
 
-    if (!Onset::isValidAccess($_POST['rand'])) throw new Exception('不正なアクセス。');
+    if ($_POST['rand'] != $_SESSION['onset_rand']) throw new Exception('不正なアクセス。');
 
     $room = Onset::varidate($_POST['room']);
     $pass = Onset::varidate($_POST['pass']);

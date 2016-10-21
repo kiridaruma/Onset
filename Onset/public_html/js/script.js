@@ -46,7 +46,7 @@ function createRoom(){
     var create = $("#create");
     var pass = create.find("#pass").val();
     var room = create.find("#room").val();
-    
+    var rand = create.find("#create_rand").val();
     if(rand === '' || pass === '' || room === ''){
         $('#createNotice').text('空欄があります');
         return;
@@ -59,7 +59,8 @@ function createRoom(){
         data:{
             "rand":rand,
             "pass":pass,
-            "room":room
+            "room":room,
+            "rand":rand
         },
         dataType:"json",
         beforeSend: function(xhr) {
@@ -77,10 +78,10 @@ function createRoom(){
 }
 
 function removeRoom(){
-    var enter = $("#remove");
-    var pass = enter.find("#pass").val();
-    var room = enter.find("input[name='room']:checked").val();
-    
+    var remove = $("#remove");
+    var pass = remove.find("#pass").val();
+    var room = remove.find("input[name='room']:checked").val();
+    var rand = remove.find("#remove_rand").val();
     if(rand === '' || pass === '' || room === undefined){
         $('#removeNotice').text('空欄があります');
         return;
@@ -93,7 +94,8 @@ function removeRoom(){
         data:{
             "rand":rand,
             "pass":pass,
-            "room":room
+            "room":room,
+            "rand":rand
         },
         dataType:"json",
         beforeSend: function(xhr) {

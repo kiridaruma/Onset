@@ -71,7 +71,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
         <form id="create" class="form-group">
             <input type="text" class="form-control" id="room" placeholder="部屋名">
             <input type="password" class="form-control" id="pass" placeholder="パスワード">
-            <input type="hidden" class="form-control" name="rand" value="<?=$rand?>">
+            <input type="hidden" class="form-control" id="create_rand" value="<?=$rand?>">
             <input type="button" class="form-control send" value="作成" onclick="createRoom()">
             <span id="createNotice" class="notice"></span>
         </form>
@@ -80,7 +80,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 
         <form id="remove" class="form-group">
             <input type="password" class="form-control" id="pass" placeholder="パスワード">
-            <input type="hidden" class="form-control" name="rand" value="<?=$rand?>">
+            <input type="hidden" class="form-control" id="remove_rand" value="<?=$rand?>">
             <input type="button" class="form-control del" value="削除" onclick="removeRoom()">
             <span id="removeNotice" class="notice"></span>
             
