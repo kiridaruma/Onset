@@ -20,6 +20,7 @@ function get_log(){
             ret.data.forEach(function(val, idx, arr){
                 var name = $("<span></span>",{text:val.nick + ' ('+val.id+')', class:'chat-nick'});
                 var text = $("<div></div>", {text:val.text, class:'chat-text'});
+                text.html( text.html().replace("\n", "<br />") );
                 var dice = $("<div></div>", {text:val.dice, class:'chat-dice'});
                 var chat = $("<div></div>", {class:'chat-obj'}).append(name).append(text).append(dice);
                 $("#chatLog").prepend(chat);
