@@ -1,4 +1,4 @@
-#!/usr/bin/ruby -Ku
+#!/usr/bin/env ruby -Ku
 #--*-coding:utf-8-*--
 
 $LOAD_PATH.push(__dir__)
