@@ -53,7 +53,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
                 <p>部屋一覧</p>
                 <?php foreach($roomlist as $key => $value) : ?>
                     <div class="form-check">
-                    <label class="form-check-label">
+                    <label class="form-check-label room">
                         <input type="radio" class="form-check-input" name="room" value="<?=$key?>"><?=$key?>
                     </label>
                     </div>
@@ -88,7 +88,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
                 <p>部屋一覧</p>
                 <?php foreach($roomlist as $key => $value) : ?>
                     <div class="form-check">
-                    <label class="form-check-label">
+                    <label class="form-check-label room">
                         <input type="radio" class="form-check-input" name="room" value="<?=$key?>"><?=$key?>
                     </label>
                     </div>

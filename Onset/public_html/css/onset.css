@@ -40,6 +40,11 @@ body{
     text-decoration: underline;
 }
 
+.room{
+    color: #aaddaa;
+    text-decoration: underline;
+}
+
 .chat-obj{
     margin-bottom: 0.1em;
     padding-bottom: 0.1em;
