@@ -17,9 +17,11 @@ class Onset
 
     public static function getRoomlist()
     {
-        $dir = RoomSavepath;
-        $text = file_get_contents($dir.'roomlist');
-        return json_decode(rtrim($text));
+        $name = RoomSavepath . 'roomlist';
+        if (!file_exists($name)) {
+            file_put_contents($name, '{}');
+        }
+        return json_decode(file_get_contents($name));
     }
 
     public static function saveRoomlist($roomlist)
