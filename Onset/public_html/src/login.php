@@ -10,7 +10,7 @@ try {
     if(MaxNick <= mb_strlen($nick)) throw new Exception('名前が長すぎます ('. mb_strlen($nick) .')');
 
     $roomlist = Onset::getRoomlist();
-
+    $room = htmlspecialchars($room, ENT_QUOTES);
     if(!isset($roomlist->{$room})) throw new Exception('存在しない部屋です');
 
     $roompath = $roomlist->{$room}->path;
