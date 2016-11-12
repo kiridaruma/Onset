@@ -13,6 +13,7 @@ try {
 
     if ($room === false || $pass === false) throw new Exception('ルーム名かパスワードがセットされていません');
 
+    $room = htmlspecialchars($room, ENT_QUOTES);
     $roomlist = Onset::getRoomlist();
 
     if (!isset($roomlist->{$room})) throw new Exception('部屋が存在しません');
