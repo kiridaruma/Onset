@@ -24,7 +24,7 @@ class Onset
         return json_decode(file_get_contents($name));
     }
 
-    public static function saveRoomlist($roomlist)
+    public static function saveRoomlist(stdClass $roomlist)
     {
         $dir = RoomSavepath;
         $ret = file_put_contents($dir.'roomlist', json_encode($roomlist), LOCK_EX);
@@ -67,7 +67,7 @@ class Onset
         return $procotlName . $_SERVER['SERVER_NAME'] . $urlPath;
     }
 
-    public static function searchLog($chatLog, $time){
+    public static function searchLog(array $chatLog, $time){
         if($time == 0) return $chatLog;
         $point = count($chatLog) - 1;
         $flag = false;
@@ -77,7 +77,7 @@ class Onset
     }
 
     //正直線形探索で十分と思うけど、念のため二分探索の関数もおいておきます
-    private static function binarySearch($chatLog, $time){
+    private static function binarySearch(array $chatLog, $time){
         $point = floor(count($chatLog) / 2);
         $width = $point;
         while($width > 1){
