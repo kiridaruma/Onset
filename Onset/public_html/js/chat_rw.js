@@ -1,4 +1,4 @@
-var finaltime = 0;
+var finaltime = 0.0;
 
 function get_log(){
     
@@ -65,7 +65,6 @@ function send_chat(){
             }
             $("#onsetNotice").text('');
             $("#text").val('');
-            finaltime = 1;
         }
     });
 }

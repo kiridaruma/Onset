@@ -21,7 +21,7 @@ try {
     $diceRes = Onset::diceroll($text, $sys);
 
     $jsonData = (object)[
-        'time' => time(),
+        'time' => microtime(true),
         'nick' => $nick,
         'text' => $text,
         'dice' => $diceRes,
