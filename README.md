@@ -22,7 +22,7 @@ Ruby >= 1.9
 [こかげサーバ](https://cokage.works/onset/)や、[どどんとふ公式鯖サーバ](http://www2.taruki.com/Onset/)もあります  
 上記三つのサーバは「開発者おすすめサーバ」です  
 また、自分のサーバにOnset!を設置することもできます  
-[ここからダウンロードできます](http://dl.kiridaruma.net/Onset/2.1.0/Onset2.1.0.zip)  
+[ここからダウンロードできます](https://github.com/kiridaruma/Onset/releases/download/v2.1.0/Onset2.1.0.zip)  
 ~~詳しくはこちら~~ (現在作成中)  
   
 Onset!を改造したいという方は、[wiki](https://github.com/kiridaruma/Onset/wiki)を読むといいかもしれません  
