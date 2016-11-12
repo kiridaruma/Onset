@@ -9,13 +9,13 @@ version-2.1.1_いよなみ(iyonami)
 __簡単に__、__素早く__、__軽く__ が売りで、複雑な機能などはありません。  
 ただ、チャットができてダイスが振れるだけの軽量チャットです  
   
-## 要求環境  
-PHP >= 5.5  
-Ruby >= 1.9  
-  
 [どどんとふ](https://github.com/torgtaitai/DodontoF)と同じダイスボットを使用しています  
 ([ボーンズ&カーズ](https://github.com/torgtaitai/bcdice)というダイスボットを内部で使用しています)  
 また、Honokaというcssライブラリを使っているので、綺麗な日本語フォントとデザインでTRPGをプレイできます  
+  
+## 要求環境  
+PHP >= 5.5  
+Ruby >= 1.9  
   
 ## 試してみたい？  
 [kiridarumaサーバ](https://onset.kiridaruma.net)へどうぞ  
