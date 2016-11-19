@@ -49,6 +49,7 @@ $sysList = explode("\n", file_get_contents($url."?list=1"));
         </select>
 
         <button type="button" class="form-control send" id="button" value="送信" onclick="send_chat()">送信</button>
+        <div id="onsetNotice" class="notice"></div>
 
    </div>
 
