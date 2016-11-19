@@ -24,9 +24,9 @@ $sysList = explode("\n", file_get_contents($url."?list=1"));
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/onset.css">
 
-        <script src="js/jquery.js"></script>
+        <script src="js/jquery-3.1.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/chat_rw.js"></script>
+        <script src="js/onset.js"></script>
 </head>
 <body class="container">
     <div class="menu">
