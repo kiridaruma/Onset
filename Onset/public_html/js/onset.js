@@ -4,8 +4,7 @@
  * src/フォルダ以下のsrcPointのパスにアクセスする
  * dataObjは送信するデータのオブジェクト
  * jQueryのajax関数の返り値(jQuery.Deferred)を返します
- * src/以下のAPIにアクセスする場合は、基本的に関数を経由して行ってください
- * (APIの返り値がjsonでない場合は、$.get等を使用してください)
+ * src/以下のAPIにアクセスする場合は、call()を経由して行ってください
  */
 function call(srcPoint = '', dataObj = {}){
     return $.ajax({
@@ -23,7 +22,7 @@ function call(srcPoint = '', dataObj = {}){
 function delLeftRoom(){
     call('delLeftRoom')
     .done(function(ret){
-        console.log(ret);
+        console.log(ret.message);
     });
 }
 
@@ -159,8 +158,9 @@ $(function($){
 });
 
 function checkLoginUser(){
-    $.get('src/checkLoginUser.php').done(function(data){
-        alert(data);
+    call('checkLoginUser')
+    .done(function(data){
+        alert(data.message);
         call('checkLoginUser', {'lock': 'unlock'});
     });
 }
