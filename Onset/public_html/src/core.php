@@ -102,4 +102,16 @@ class Onset
         if(!rmdir($roomPath)) throw new Exception("フォルダ".$roomPath."の削除に失敗しました");
     }
 
+    public static function viewRoomlist(array $roomlist){
+        $str = '';
+        foreach($roomlist as $idx => $roomName){
+            $str .= '<div class="form-check">'
+            .'<label class="form-check-label room">'
+            .'<input type="radio" class="form-check-input" name="room" value="'.$roomName.'">'.$roomName
+            .'</label>'
+            .'</div>';
+        }
+        return $str;
+    }
+
 }

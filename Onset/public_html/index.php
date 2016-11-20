@@ -6,8 +6,10 @@ $dir = RoomSavepath;
 $roomlist = [];
 foreach(Onset::getRoomlist() as $room => $data){
     if(time() - filemtime($dir.$data->path) > RoomDelTime) continue;
-    $roomlist[$room] = $data;
+    $roomlist[] = $room;
 }
+
+$roomlistView = Onset::viewRoomlist($roomlist);
 
 session_start();
 $_SESSION['onset_rand'] = $rand = mt_rand();
@@ -51,13 +53,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 
             <div class="form-group">
                 <p>部屋一覧</p>
-                <?php foreach($roomlist as $key => $value) : ?>
-                    <div class="form-check">
-                    <label class="form-check-label room">
-                        <input type="radio" class="form-check-input" name="room" value="<?=$key?>"><?=$key?>
-                    </label>
-                    </div>
-                <?php endforeach; ?>
+                <?= $roomlistView ?>
             </div>
         </form>
     </div>
@@ -86,13 +82,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
             
             <div class="form-group">
                 <p>部屋一覧</p>
-                <?php foreach($roomlist as $key => $value) : ?>
-                    <div class="form-check">
-                    <label class="form-check-label room">
-                        <input type="radio" class="form-check-input" name="room" value="<?=$key?>"><?=$key?>
-                    </label>
-                    </div>
-                <?php endforeach; ?>
+                <?= $roomlistView ?>
             </div>
         </form>
     </div>
