@@ -110,9 +110,10 @@ function get_log(finaltime = 0.0){
             text.html( text.html().replace("\n", "<br />") );
             var dice = $("<div></div>", {text:val.dice, class:'chat-dice'});
             var chat = $("<div></div>", {class:'chat-obj'}).append(name).append(text).append(dice);
-            $("#chatLog").prepend(chat);
+            chat.hide().prependTo("#chatLog").fadeIn(500);
         });
         if(ret.data.length != 0) finaltime = ret.data[ret.data.length - 1].time;
+        $("#onsetNotice").text('');
     }).fail(function(){
         //通信エラー処理
     }).always(function(){
@@ -141,7 +142,6 @@ function send_chat(){
             $("#onsetNotice").text(msg);
             return;
         }
-        $("#onsetNotice").text('');
         $("#text").val('');
     }).fail(function(){
         $("#onsetNotice").text('通信エラー、再送信をお願いします');
