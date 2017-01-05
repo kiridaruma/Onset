@@ -72,7 +72,7 @@ class Onset
         $point = count($chatLog) - 1;
         $flag = false;
         for(;isset($chatLog[$point]) && $chatLog[$point]->time > $time; $point -= 1) $flag = true;
-        if($flag) return array_slice($chatLog, $point);
+        if($flag) return array_slice($chatLog, $point+1);
         else return [];
     }
 
