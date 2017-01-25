@@ -44,4 +44,4 @@ foreach($arr as $value) {
     $num++;
 }
 
-echo $num."人がログイン中\n".$ret;
+echo Onset::jsonMessage($num."人がログイン中\n".$ret);

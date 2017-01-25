@@ -6,8 +6,10 @@ $dir = RoomSavepath;
 $roomlist = [];
 foreach(Onset::getRoomlist() as $room => $data){
     if(time() - filemtime($dir.$data->path) > RoomDelTime) continue;
-    $roomlist[$room] = $data;
+    $roomlist[] = $room;
 }
+
+$roomlistView = Onset::viewRoomlist($roomlist);
 
 session_start();
 $_SESSION['onset_rand'] = $rand = mt_rand();
@@ -24,9 +26,8 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
-    
-    <script src="js/jquery.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/onset.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>rand = <?= $rand ?>;</script>
 
@@ -34,6 +35,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
     <link rel="stylesheet" href="css/onset.css">
 </head>
 <body>
+    <script>$(document).ready(function(){delLeftRoom();});</script>
     <div class="header container">
         <h1>Onset!</h1>
         <article><?=$welcomeMessage?></article>
@@ -51,13 +53,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 
             <div class="form-group">
                 <p>部屋一覧</p>
-                <?php foreach($roomlist as $key => $value) : ?>
-                    <div class="form-check">
-                    <label class="form-check-label room">
-                        <input type="radio" class="form-check-input" name="room" value="<?=$key?>"><?=$key?>
-                    </label>
-                    </div>
-                <?php endforeach; ?>
+                <?= $roomlistView ?>
             </div>
         </form>
     </div>
@@ -86,13 +82,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
             
             <div class="form-group">
                 <p>部屋一覧</p>
-                <?php foreach($roomlist as $key => $value) : ?>
-                    <div class="form-check">
-                    <label class="form-check-label room">
-                        <input type="radio" class="form-check-input" name="room" value="<?=$key?>"><?=$key?>
-                    </label>
-                    </div>
-                <?php endforeach; ?>
+                <?= $roomlistView ?>
             </div>
         </form>
     </div>

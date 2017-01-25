@@ -45,6 +45,7 @@ try {
 
     $roomlist->{$room} = new stdClass();
     $roomlist->{$room}->path = $uuid;
+    $roomlist->{$room}->createdAt = microtime(true);
 
     if(!Onset::saveRoomlist($roomlist)) throw new Exception('部屋一覧の処理に失敗しました。');
 
