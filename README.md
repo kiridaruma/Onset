@@ -2,7 +2,7 @@
 
 Onset is simple online TRPG chat
 
-version-2.1.1_いよなみ(iyonami)  
+version-2.1.2_いよなみ(iyonami)  
 
 ## Onset!とは?  
 手軽にTRPGができるチャット型TRPGオンラインセッションツールです  
@@ -27,10 +27,7 @@ Ruby >= 1.9
   
 Onset!を改造したいという方は、[wiki](https://github.com/kiridaruma/Onset/wiki)を読むといいかもしれません  
   
-## 2.1.1の改善点  
-バグ修正を行いました  
-+ html特殊文字が入った部屋名の部屋に対してremoveRoomとloginができなかった不具合
-+ チャットログ更新の際に同じ発言が二つ表示されたり、一部ログが消えたりする不具合
-core.php内の関数に対して、タイプヒンティングを導入しました  
-
-  
+## 2.1.2の改善点
++ honokaとbcdiceのアップデート
++ チャット送信時に一つ前のチャットログが重複するバグを修正
++ 微小なコードの修正
