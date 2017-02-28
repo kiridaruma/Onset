@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby -Ku
 #--*-coding:utf-8-*--
 
-$LOAD_PATH.push(__dir__)
-$LOAD_PATH.push(__dir__ + "/bcdice/src/")
+$LOAD_PATH.push("./")
+$LOAD_PATH.push("./bcdice/src/")
 
 require 'cgi'
 require 'bcdice/src/bcdiceCore.rb'
