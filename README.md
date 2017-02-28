@@ -2,7 +2,7 @@
 
 Onset is simple online TRPG chat
 
-version-2.1.2_いよなみ(iyonami)  
+version-2.1.3_いよなみ(iyonami)  
 
 ## Onset!とは?  
 手軽にTRPGができるチャット型TRPGオンラインセッションツールです  
@@ -15,7 +15,7 @@ __簡単に__、__素早く__、__軽く__ が売りで、複雑な機能など�
   
 ## 要求環境  
 PHP >= 5.5  
-Ruby >= 1.9  
+Ruby >= 1.8  
   
 ## 試してみたい？  
 [kiridarumaサーバ](https://onset.kiridaruma.net)へどうぞ  
@@ -27,8 +27,5 @@ Ruby >= 1.9
   
 Onset!を改造したいという方は、[wiki](https://github.com/kiridaruma/Onset/wiki)を読むといいかもしれません  
   
-## 2.1.2の改善点
-+ honokaとbcdiceのアップデート
-+ チャット更新時にフェードインで表示するようにしました
-+ チャット送信時に一つ前のチャットログが重複するバグを修正
-+ 微小なコードの修正
+## 2.1.3の改善点
+Ruby1.8系でBCDiceが動かないバグがあったので、対応しました
