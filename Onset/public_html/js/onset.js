@@ -32,22 +32,23 @@ function toggle(){
 }
 
 function enterRoom(){
-    var enter = $("#enter");
-    var nick = enter.find("#nick").val();
-    var pass = enter.find("#pass").val();
-    var room = enter.find("input[name='room']:checked").val();
+    var $enter = $("#enter");
+    var nick = $enter.find("#nick").val();
+    var pass = $enter.find("#pass").val();
+    var room = $enter.find("input[name='room']:checked").val();
+    var $enterNotice = $('#enterNotice');
     
     if(nick === '' || pass === '' || room === undefined){
-        $('#enterNotice').text('空欄があります');
+        $enterNotice.text('空欄があります');
         return;
     }
-    $('#enterNotice').text('処理中...');
+    $enterNotice.text('処理中...');
     
     call('login', {"nick":nick, "pass":pass, "room":room})
     .done(function(data){
             if(data.status != 1){
                 var msg = data.message;
-                $('#enterNotice').text(msg);
+                $enterNotice.text(msg);
                 return;
             }
             location.href = 'Onset.php';
@@ -55,21 +56,23 @@ function enterRoom(){
 }
 
 function createRoom(){
-    var create = $("#create");
-    var pass = create.find("#pass").val();
-    var room = create.find("#room").val();
-    var rand = create.find("#create_rand").val();
+    var $create = $("#create");
+    var pass = $create.find("#pass").val();
+    var room = $create.find("#room").val();
+    var rand = $create.find("#create_rand").val();
+    var $createNotice = $('#createNotice');
+
     if(rand === '' || pass === '' || room === ''){
-        $('#createNotice').text('空欄があります');
+        $createNotice.text('空欄があります');
         return;
     }
-    $('#createNotice').text('処理中...');
+    $createNotice.text('処理中...');
     
     call('createRoom', {"rand":rand, "pass":pass, "room":room, "rand":rand})
     .done(function(data){
         if(data.status != 1){
             var msg = data.message;
-            $('#createNotice').text(msg);
+            $createNotice.text(msg);
             return;
         }
         location.reload(true);
@@ -77,21 +80,23 @@ function createRoom(){
 }
 
 function removeRoom(){
-    var remove = $("#remove");
-    var pass = remove.find("#pass").val();
-    var room = remove.find("input[name='room']:checked").val();
-    var rand = remove.find("#remove_rand").val();
+    var $remove = $("#remove");
+    var pass = $remove.find("#pass").val();
+    var room = $remove.find("input[name='room']:checked").val();
+    var rand = $remove.find("#remove_rand").val();
+    var $removeNotice = $('#removeNotice');
+
     if(rand === '' || pass === '' || room === undefined){
-        $('#removeNotice').text('空欄があります');
+        $removeNotice.text('空欄があります');
         return;
     }
-    $('#removeNotice').text('処理中...');
+    $removeNotice.text('処理中...');
     
     call('removeRoom', {"rand":rand, "pass":pass, "room":room, "rand":rand})
     .done(function(data){
         if(data.status != 1){
             var msg = data.message;
-            $('#removeNotice').text(msg);
+            $removeNotice.text(msg);
             return;
         }
         location.reload(true);
@@ -128,23 +133,24 @@ function send_chat(){
     var nick = $("#nick").val().trim();
     var text = $("#text").val().trim();
     var sys = $("#sys").val().trim();
+    var $onsetNotice = $("#onsetNotice");
 
     if(nick === "" || text === ""){
         $(".notice").html("<b>名前と本文を入力してください</b>");
         return 0;
     }
-    $("#onsetNotice").text('送信中...');
+    $onsetNotice.text('送信中...');
 
     call("write", {"nick": nick, "text": text, "sys": sys})
     .done(function(data){
         if(data.status == -1){
             var msg = data.message;
-            $("#onsetNotice").text(msg);
+            $onsetNotice.text(msg);
             return;
         }
         $("#text").val('');
     }).fail(function(){
-        $("#onsetNotice").text('通信エラー、再送信をお願いします');
+        $onsetNotice.text('通信エラー、再送信をお願いします');
     });
 }
 
