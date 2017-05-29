@@ -49,8 +49,22 @@ body{
     margin-bottom: 0.1em;
     padding-bottom: 0.1em;
     border-bottom: solid 1px #ccc;
+    animation: fadeIn 0.5s ease 0s 1 normal;
 }
 
 .chat-dice{
     font-style: italic;
+}
+
+@keyframes fadeIn {
+    from {
+        height: 0;
+        overflow: hidden;
+        opacity: 0.01;
+    }
+    to {
+        height: initial;
+        overflow: visible;
+        opacity: 1;
+    }
 }
