@@ -78,27 +78,6 @@ class Onset
 
     public static function searchLog(array $chatLog, $time)
     {
-        if ($time == 0) {
-            return $chatLog;
-        }
-
-        $point = count($chatLog) - 1;
-        $flag = false;
-        for (;isset($chatLog[$point]) && $chatLog[$point]->time > $time; $point -= 1) {
-            $flag = true;
-        }
-
-        if ($flag) {
-            return array_slice($chatLog, $point + 1);
-        } else {
-            return [];
-        }
-
-    }
-
-    //正直線形探索で十分と思うけど、念のため二分探索の関数もおいておきます
-    private static function binarySearch(array $chatLog, $time)
-    {
         $point = floor(count($chatLog) / 2);
         $width = $point;
         while ($width > 1) {
