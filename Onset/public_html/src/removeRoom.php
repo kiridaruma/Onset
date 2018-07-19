@@ -25,6 +25,12 @@ try {
     }
 
     $roompath = $roomlist->{$room}->path;
+    $dir = RoomSavepath;
+    $_dir = $dir . $roompath;
+    $hash = file_get_contents($_dir . '/pass.hash');
+    if (!password_verify($pass, $hash) && Pass != $pass) {
+        throw new Exception('パスワードが間違っています');
+    }
     Onset::removeRoomData(RoomSavepath . $roompath . "/");
 
     unset($roomlist->{$room});
