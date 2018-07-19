@@ -1,11 +1,14 @@
 <?php
 
-require_once(__DIR__.'/src/core.php');
+require_once __DIR__ . '/src/core.php';
 
 $dir = RoomSavepath;
 $roomlist = [];
-foreach(Onset::getRoomlist() as $room => $data){
-    if(time() - filemtime($dir.$data->path) > RoomDelTime) continue;
+foreach (Onset::getRoomlist() as $room => $data) {
+    if (time() - filemtime($dir . $data->path) > RoomDelTime) {
+        continue;
+    }
+
     $roomlist[] = $room;
 }
 
@@ -29,7 +32,7 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/onset.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script>rand = <?= $rand ?>;</script>
+    <script>rand = <?=$rand?>;</script>
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/onset.css">
@@ -53,13 +56,13 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
 
             <div class="form-group">
                 <p>部屋一覧</p>
-                <?= $roomlistView ?>
+                <?=$roomlistView?>
             </div>
         </form>
     </div>
 
     <div class="edit container">
-        
+
         <a onclick="toggle()" id="toggle">閉じる</a>
 
         <h2>作成</h2>
@@ -79,10 +82,10 @@ $welcomeMessage = file_get_contents('welcomeMessage.html');
             <input type="hidden" class="form-control" id="remove_rand" value="<?=$rand?>">
             <input type="button" class="form-control del" value="削除" onclick="removeRoom()">
             <span id="removeNotice" class="notice"></span>
-            
+
             <div class="form-group">
                 <p>部屋一覧</p>
-                <?= $roomlistView ?>
+                <?=$roomlistView?>
             </div>
         </form>
     </div>

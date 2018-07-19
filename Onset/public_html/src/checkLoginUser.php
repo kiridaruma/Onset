@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__.'/core.php');
+require_once __DIR__ . '/core.php';
 
 session_start();
 
@@ -8,40 +8,42 @@ $room = Onset::varidate($_SESSION['onset_room']);
 $id = Onset::varidate($_SESSION['onset_id']);
 $lock = Onset::varidate($_POST['lock']);
 
-if(!$room || !$id){
+if (!$room || !$id) {
     echo "不正なアクセス";
     die();
 }
 
-$dir = RoomSavepath.$room."/connect/";
+$dir = RoomSavepath . $room . "/connect/";
 $arr = scandir($dir);
 
-if($lock === 'unlock') {
-    file_put_contents($dir.$id, time()."\n".$_SESSION['onset_nick'], LOCK_EX);
+if ($lock === 'unlock') {
+    file_put_contents($dir . $id, time() . "\n" . $_SESSION['onset_nick'], LOCK_EX);
     die();
 }
 
-file_put_contents($dir.$id, time()."\n".$_SESSION['onset_nick']."\nlocked", LOCK_EX);
+file_put_contents($dir . $id, time() . "\n" . $_SESSION['onset_nick'] . "\nlocked", LOCK_EX);
 
 $ret = "";
 $num = 0;
 
-foreach($arr as $value) {
-    if($value == "." || $value == "..") continue;
+foreach ($arr as $value) {
+    if ($value == "." || $value == "..") {
+        continue;
+    }
 
-    $arr = explode("\n", file_get_contents($dir.$value));
+    $arr = explode("\n", file_get_contents($dir . $value));
     $time = $arr[0];
     $nick = $arr[1];
     $isLock = count($arr) > 2 ? $arr : '';
 
-    if($time + 5 < time() && $isLock !== 'locked') {
-        unlink($dir.$value);
+    if ($time + 5 < time() && $isLock !== 'locked') {
+        unlink($dir . $value);
         continue;
     }
 
-    $ret .= $nick.'#'.$value."\n";
+    $ret .= $nick . '#' . $value . "\n";
 
     $num++;
 }
 
-echo Onset::jsonMessage($num."人がログイン中\n".$ret);
+echo Onset::jsonMessage($num . "人がログイン中\n" . $ret);

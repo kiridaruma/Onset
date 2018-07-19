@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['onset_room'])){
+if (!isset($_SESSION['onset_room'])) {
     header("Location: index.php");
     die();
 }
 
-require_once(__DIR__.'/src/core.php');
+require_once __DIR__ . '/src/core.php';
 $url = Onset::getBcdiceUrl();
-$sysList = explode("\n", file_get_contents($url."?list=1"));
+$sysList = explode("\n", file_get_contents($url . "?list=1"));
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ $sysList = explode("\n", file_get_contents($url."?list=1"));
 <head>
         <meta charset="UTF-8">
         <title>Onset!</title>
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Cache-Control" content="no-cache">
@@ -36,16 +36,16 @@ $sysList = explode("\n", file_get_contents($url."?list=1"));
     </div>
 
     <div class="form-group">
-        ID:(<?= $_SESSION['onset_id'] ?>)
-        <input type="text" class="form-control" id="nick" value=<?= $_SESSION['onset_nick'] ?>>
+        ID:(<?=$_SESSION['onset_id']?>)
+        <input type="text" class="form-control" id="nick" value=<?=$_SESSION['onset_nick']?>>
 
         <textarea id="text" class="form-control" rows="4" cols="35"></textarea>
 
         <select id="sys" class="form-control">
         <option value="None" selected>指定なし</option>
-            <?php foreach($sysList as $value): ?>
+            <?php foreach ($sysList as $value): ?>
                 <option value="<?=$value?>"><?=$value?></option>
-            <?php endforeach; ?>
+            <?php endforeach;?>
         </select>
 
         <button type="button" class="form-control send" id="button" value="送信" onclick="send_chat()">送信</button>

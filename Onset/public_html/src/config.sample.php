@@ -14,7 +14,7 @@ const Pass = "";
  * 部屋データを置くディレクトリへのパスです
  * カスタマイズする場合は良しなに...
  */
-const RoomSavepath = __DIR__."/../../room/";
+const RoomSavepath = __DIR__ . "/../../room/";
 
 /*
  * bcdiceへのURL
