@@ -28,4 +28,27 @@ class File
     {
         $this->fobj->flock(LOCK_UN);
     }
+
+    public static function remove($path)
+    {
+        $path = realpath($path);
+        if (!file_exists($path)) {
+            return;
+        }
+
+        switch (true) {
+            case is_dir($path):
+                foreach (scandir($path) as $child) {
+                    if ($child === '.' || $child === '..') {
+                        continue;
+                    }
+                    static::remove($path . '/' . $child);
+                }
+                break;
+
+            case is_file($path):
+            default:
+                unlink($path);
+        }
+    }
 }
