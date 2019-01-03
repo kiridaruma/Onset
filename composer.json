@@ -1,0 +1,11 @@
+{
+    "require": {
+        "phpunit/phpunit": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Onset\\": "./src/lib",
+            "Tests\\": "test"
+        }
+    }
+}
