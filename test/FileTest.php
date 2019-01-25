@@ -7,28 +7,32 @@ use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
+    use FileTestUtil;
+
+    public function tearDown()
+    {
+        $this->refresh();
+    }
+
     public function testRead()
     {
-        $filepath = tempnam(sys_get_temp_dir(), 'file');
         $str = "hogefuga\nfoobar";
-        file_put_contents($filepath, $str);
+        $filepath = $this->createTempFile($str);
         $file = new File();
         $this->assertEquals($str, $file->readFile($filepath));
     }
 
     public function testReadJson()
     {
-        $filepath = tempnam(sys_get_temp_dir(), 'file');
-        $str = "765";
-        file_put_contents($filepath, $str);
+        $filepath = $this->createTempFile('765');
         $file = new File();
         $this->assertSame(765, $file->readJsonFile($filepath));
     }
 
     public function testWrite()
     {
-        $filepath = tempnam(sys_get_temp_dir(), 'file');
         $str = "hogefuga\nfoobar";
+        $filepath = $this->createTempFile($str);
         $file = new File();
         $file->writeFile($filepath, $str);
         $this->assertEquals($str, file_get_contents($filepath));
@@ -36,10 +40,9 @@ class FileTest extends TestCase
 
     public function testWriteJson()
     {
-        $filepath = tempnam(sys_get_temp_dir(), 'file');
-        $str = "hogefuga\nfoobar";
+        $filepath = $this->createTempFile('hogefugafoobar');
         $file = new File();
-        $file->writeJsonFile($filepath, [1,2,3]);
+        $file->writeJsonFile($filepath, [1, 2, 3]);
         $this->assertEquals("[1,2,3]", file_get_contents($filepath));
     }
 }
