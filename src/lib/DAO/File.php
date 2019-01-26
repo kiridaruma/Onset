@@ -33,6 +33,7 @@ class File
     {
         $fp = $this->getFilePointer($path);
         flock($fp, LOCK_EX);
+        ftruncate($fp, 0);
         $byte = fwrite($fp, $text);
         flock($fp, LOCK_SH);
         return $byte;
