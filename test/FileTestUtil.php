@@ -26,29 +26,21 @@ trait FileTestUtil
 
     /**
      * テストで使用するフォルダ内でのパスから、絶対パスを返す
-     * 存在しなければUnexpectedValueException
-     *
-     * @throws \UnexpectedValueException
      */
     private function resolvePath(string $path): string
     {
-        $absPath = realpath($this->tempDir() . $path);
-        if (!$absPath) {
-            throw new \UnexpectedValueException('unexists path ' . $path);
-        }
-        return $absPath;
+        return $this->tempDir() . $path;
     }
 
     /**
      * テストで使用する一時的なファイルを作成する
      * 帰り値はファイルへのパス
      */
-    protected function createTempFile(string $data = '', string $path = '/'): string
+    protected function createTempFile(string $path, string $data = ''): string
     {
-        $basePath = $this->resolvePath($path);
-        $filePath = tempnam($basePath, '');
+        $filePath = $this->resolvePath($path);
         file_put_contents($filePath, $data);
-        return $filePath;
+        return realpath($filePath);
     }
 
     /**
