@@ -17,7 +17,6 @@ abstract class RoomRepository
         $room->chatlog = $data['chatlog'];
         $room->topic = $data['topic'];
         $room->memos = $data['memos'];
-        $room->users = $data['users'];
         return $room;
     }
 }

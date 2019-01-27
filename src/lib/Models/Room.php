@@ -37,7 +37,6 @@ class Room implements \JsonSerializable
             'chatlog' => $this->chatlog,
             'topic' => $this->topic,
             'memos' => $this->memos,
-            'users' => $this->users,
         ];
     }
 }
