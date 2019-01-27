@@ -45,4 +45,14 @@ class FileTest extends TestCase
         $file->writeJsonFile($filepath, [1, 2, 3]);
         $this->assertEquals("[1,2,3]", file_get_contents($filepath));
     }
+
+    public function testWriteAndRead()
+    {
+        $filepath = $this->tempDir() . '/hoge';
+        $file = new File();
+        $str = "hogefugapiyo\nfoobarbaz";
+        $file->writeFile($filepath, $str);
+        $res = $file->readFile($filepath);
+        $this->assertEquals($str, $res);
+    }
 }

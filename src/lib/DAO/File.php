@@ -24,6 +24,7 @@ class File
     {
         $fp = $this->getFilePointer($path);
         flock($fp, LOCK_SH);
+        clearstatcache();
         $text = fread($fp, max(filesize($path), 1));
         rewind($fp);
         return $text;
@@ -36,6 +37,7 @@ class File
         ftruncate($fp, 0);
         $byte = fwrite($fp, $text);
         flock($fp, LOCK_SH);
+        rewind($fp);
         return $byte;
     }
 
